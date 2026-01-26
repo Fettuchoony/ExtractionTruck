@@ -1,0 +1,96 @@
+[gd_scene load_steps=14 format=3 uid="uid://bvj8jv8xjy7ps"]
+
+[ext_resource type="Script" uid="uid://cq48dxeabn5gs" path="res://Scripts/character_movement.gd" id="1_uu6xs"]
+[ext_resource type="Script" uid="uid://dvrsrr1i7byml" path="res://Scripts/Player/camera_3d.gd" id="2_r0du0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uu6xs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r0du0"]
+albedo_color = Color(0.6772466, 0.00018799871, 0.6265677, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_cm0pq"]
+material = SubResource("StandardMaterial3D_r0du0")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uu6xs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uu6xs"]
+size = Vector3(15, 0.1, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uu6xs"]
+albedo_color = Color(0.19764623, 0.31966537, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cm0pq"]
+material = SubResource("StandardMaterial3D_uu6xs")
+size = Vector2(15, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r0du0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cm0pq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fos0i"]
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MainPlayer" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2649469, 0)
+disable_mode = 2
+script = ExtResource("1_uu6xs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainPlayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4871535, 0)
+shape = SubResource("CapsuleShape3D_uu6xs")
+debug_color = Color(3.706068e-06, 0.62085986, 0.5616422, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MainPlayer/CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_uu6xs")
+
+[node name="CameraPivot" type="Node3D" parent="MainPlayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="MainPlayer/CameraPivot"]
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="MainPlayer/CameraPivot/SpringArm3D"]
+script = ExtResource("2_r0du0")
+
+[node name="PlayerRay" type="RayCast3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D"]
+target_position = Vector3(0, 0, -50)
+collide_with_areas = true
+
+[node name="DebugBall" type="MeshInstance3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlayerRay"]
+mesh = SubResource("SphereMesh_cm0pq")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_uu6xs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_uu6xs")
+debug_color = Color(0, 0.21072769, 0.07027917, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+mesh = SubResource("PlaneMesh_cm0pq")
+skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.9177185, 0.2922432, -0.2690474, -0.005625937, 0.6676767, 0.7444301, 0.3971914, 0.6846911, -0.61109525, 0, 6.8276563, 0)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3310404, 1.4486041, 5.1100936)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_r0du0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_cm0pq")
+surface_material_override/0 = SubResource("StandardMaterial3D_fos0i")
