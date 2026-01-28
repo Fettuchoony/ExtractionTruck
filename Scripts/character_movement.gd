@@ -33,7 +33,7 @@ func movement_processing(delta: float) -> void:
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
-	# Pausing Functionality
+	# Pausing Functionality / Free mouse
 	if Input.is_action_just_pressed("Escape"):
 		if _mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			_mouse_mode = Input.MOUSE_MODE_VISIBLE
