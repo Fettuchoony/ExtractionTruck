@@ -115,6 +115,8 @@ spring_length = 5.0
 
 [node name="Camera3D" type="Camera3D" parent="MainPlayer/CameraPivot/SpringArm3D" unique_id=873020112]
 script = ExtResource("2_r0du0")
+mouse_sensitivity = null
+tilt_limit = null
 
 [node name="PlayerRay" type="RayCast3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D" unique_id=469574903]
 target_position = Vector3(0, 0, -50)
@@ -237,9 +239,6 @@ collision_mask = 256
 [node name="CollisionShape3D" type="CollisionShape3D" parent="VehicleBody3D/EnterVehicleTrigger" unique_id=997429509]
 shape = SubResource("BoxShape3D_j4qnp")
 
-[node name="VehicleCam" type="Camera3D" parent="VehicleBody3D" unique_id=923329150]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.5723209, 0.24373055, 0)
-
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=490822742]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.298862, 0.76310325, -7.0141983)
 
@@ -252,7 +251,5 @@ mesh = SubResource("BoxMesh_c6i3y")
 
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]
 [connection signal="transfer_cam_to_vehicle" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_vehicle"]
-[connection signal="vehicle_entered" from="MainPlayer" to="VehicleBody3D" method="_on_main_player_vehicle_entered"]
-[connection signal="vehicle_exited" from="MainPlayer" to="VehicleBody3D" method="_on_main_player_vehicle_exited"]
 [connection signal="area_entered" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_entered"]
 [connection signal="area_exited" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_exited"]

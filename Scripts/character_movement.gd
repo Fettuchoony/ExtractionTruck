@@ -7,23 +7,32 @@ const ACCELERATION = 4
 const DECELERATION = 4
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+const INTERACT_COOLDOWN_TIME = 1
 
 signal transfer_cam_to_vehicle(target:VehicleBody3D)
+signal transfer_cam_to_player()
+signal vehicle_entered()
+signal vehicle_exited()
 
 @onready var _camera = $CameraPivot/SpringArm3D/Camera3D
 @onready var _target = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
 @onready var _debug_ball = $CameraPivot/SpringArm3D/Camera3D/PlayerRay/DebugBall
 @onready var _can_enter_vehicle:bool = false
+@onready var _in_vehicle:bool = false
 @onready var _mouse_mode:int = 2
 # Vehicle entrance should be the only collision option on layer 9
 @onready var _vehicle_info = null
+@onready var _enter_vehicle_cooldown:float = 0
 @export var debug:bool = false
 
 
 
 func _physics_process(delta: float) -> void:
+	_enter_vehicle_cooldown += delta
 	enter_vehicle()
-	movement_processing(delta)
+	exit_vehicle()
+	if !_in_vehicle:
+		movement_processing(delta)
 	debug_aim()
 
 # Displays UI for entering vehicle and handles user input and controller handover to vehicle script
@@ -31,9 +40,20 @@ func enter_vehicle() -> void:
 	# TODO: UI implementation "Press F to enter vehicle"
 	
 	# Handles user input for transfering controls over to vehicle mode
-	if _can_enter_vehicle and Input.is_action_just_pressed("Interact"):
+	if _can_enter_vehicle and Input.is_action_just_pressed("Interact") and !_in_vehicle and _enter_vehicle_cooldown > INTERACT_COOLDOWN_TIME:
 		print_debug("Player controller side camera transfer initiated")
+		_enter_vehicle_cooldown = 0
+		_in_vehicle = true
+		vehicle_entered.emit()
 		transfer_cam_to_vehicle.emit(_vehicle_info)
+		
+func exit_vehicle() -> void:
+	if _in_vehicle and Input.is_action_just_pressed("Interact") and _enter_vehicle_cooldown > INTERACT_COOLDOWN_TIME:
+		_enter_vehicle_cooldown = 0
+		_in_vehicle = false
+		vehicle_exited.emit()
+		transfer_cam_to_player.emit(self)
+		
 
 # Handles user input and player direction / cardinal movement/jumping
 func movement_processing(delta: float) -> void:
