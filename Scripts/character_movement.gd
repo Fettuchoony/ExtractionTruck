@@ -8,20 +8,32 @@ const DECELERATION = 4
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+signal transfer_cam_to_vehicle(target:VehicleBody3D)
+
 @onready var _camera = $CameraPivot/SpringArm3D/Camera3D
 @onready var _target = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
 @onready var _debug_ball = $CameraPivot/SpringArm3D/Camera3D/PlayerRay/DebugBall
+@onready var _can_enter_vehicle:bool = false
 @onready var _mouse_mode:int = 2
-
+# Vehicle entrance should be the only collision option on layer 9
+@onready var _vehicle_info = null
 @export var debug:bool = false
 
 
 
 func _physics_process(delta: float) -> void:
+	enter_vehicle()
 	movement_processing(delta)
 	debug_aim()
-	
 
+# Displays UI for entering vehicle and handles user input and controller handover to vehicle script
+func enter_vehicle() -> void:
+	# TODO: UI implementation "Press F to enter vehicle"
+	
+	# Handles user input for transfering controls over to vehicle mode
+	if _can_enter_vehicle and Input.is_action_just_pressed("Interact"):
+		print_debug("Player controller side camera transfer initiated")
+		transfer_cam_to_vehicle.emit(_vehicle_info)
 
 # Handles user input and player direction / cardinal movement/jumping
 func movement_processing(delta: float) -> void:
@@ -78,8 +90,6 @@ func movement_processing(delta: float) -> void:
 		#velocity.x = move_toward(velocity.x, 0, SPEED)
 		#velocity.z = move_toward(velocity.z, 0, SPEED)
 		#
-
-
 	move_and_slide()
 	
 func debug_aim() -> Node3D:
@@ -91,3 +101,18 @@ func debug_aim() -> Node3D:
 		_debug_ball.global_position = target_point
 		print_debug(_target.get_collider())
 	return
+
+
+func _on_character_area_detect_area_entered(area: Area3D) -> void:
+	var vehicle = area.get_parent()
+	if vehicle != null and vehicle is VehicleBody3D:
+		print("vehicle detected | id:" + vehicle.to_string())
+		_vehicle_info = vehicle
+		_can_enter_vehicle = true
+	else:
+		print_debug("Error: Cannot grab vehicle info despite colliding with entrance")
+
+
+func _on_character_area_detect_area_exited(area: Area3D) -> void:
+	_vehicle_info = null
+	_can_enter_vehicle = false

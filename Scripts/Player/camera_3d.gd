@@ -4,6 +4,7 @@ extends Camera3D
 @onready var _camera_pivot := $"../.." as Node3D
 @onready var _player := $"../../.." as CharacterBody3D
 
+# TODO: make sensitivity adjustable
 @export_range(0.0, 1.0) var mouse_sensitivity = 0.01
 @export var tilt_limit = deg_to_rad(75)
 
@@ -26,3 +27,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 	#pass
+
+
+func _on_main_player_transfer_cam_to_vehicle(target: VehicleBody3D) -> void:
+	if target == null:
+		print_debug("Lost reference to vehicle when passing to camera")
+	else: 
+		print_debug("Camera Transfered to vehicle")
+		reparent(target)
