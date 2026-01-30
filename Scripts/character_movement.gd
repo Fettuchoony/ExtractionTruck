@@ -29,6 +29,7 @@ signal vehicle_exited()
 
 func _physics_process(delta: float) -> void:
 	_enter_vehicle_cooldown += delta
+	handle_pausing()
 	enter_vehicle()
 	exit_vehicle()
 	if !_in_vehicle:
@@ -64,16 +65,6 @@ func movement_processing(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	
-	# Pausing Functionality / Free mouse
-	if Input.is_action_just_pressed("Escape"):
-		if _mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			_mouse_mode = Input.MOUSE_MODE_VISIBLE
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
-			_mouse_mode = Input.MOUSE_MODE_CAPTURED
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		
 
 	# Get the input direction and handle the movement/deceleration.aaada
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -111,6 +102,16 @@ func movement_processing(delta: float) -> void:
 		#velocity.z = move_toward(velocity.z, 0, SPEED)
 		#
 	move_and_slide()
+	
+func handle_pausing() -> void:
+	# Pausing Functionality / Free mouse
+	if Input.is_action_just_pressed("Escape"):
+		if _mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			_mouse_mode = Input.MOUSE_MODE_VISIBLE
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			_mouse_mode = Input.MOUSE_MODE_CAPTURED
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func debug_aim() -> Node3D:
 	if !debug:

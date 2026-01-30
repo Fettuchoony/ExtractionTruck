@@ -240,10 +240,6 @@ shape = SubResource("BoxShape3D_j4qnp")
 [node name="VehicleCam" type="Camera3D" parent="VehicleBody3D" unique_id=923329150]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.5723209, 0.24373055, 0)
 
-[node name="EngineSound" type="AudioStreamPlayer3D" parent="VehicleBody3D" unique_id=923305719]
-
-[node name="ImpactSound" type="AudioStreamPlayer3D" parent="VehicleBody3D" unique_id=1454569954]
-
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=490822742]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.298862, 0.76310325, -7.0141983)
 
@@ -253,6 +249,8 @@ shape = SubResource("BoxShape3D_5vvyt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D" unique_id=1073012716]
 mesh = SubResource("BoxMesh_c6i3y")
+
+[node name="EngineSound" type="AudioStreamPlayer3D" parent="." unique_id=923305719]
 
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]
 [connection signal="transfer_cam_to_vehicle" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_vehicle"]
