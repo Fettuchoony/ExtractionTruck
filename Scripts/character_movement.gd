@@ -13,6 +13,7 @@ signal transfer_cam_to_vehicle(target:VehicleBody3D)
 signal transfer_cam_to_player()
 signal vehicle_entered()
 signal vehicle_exited()
+signal pause_menu()
 
 @onready var _camera = $CameraPivot/SpringArm3D/Camera3D
 @onready var _target = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
@@ -109,10 +110,12 @@ func handle_pausing() -> void:
 		if _mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			_mouse_mode = Input.MOUSE_MODE_VISIBLE
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			pause_menu.emit()
 		else:
 			_mouse_mode = Input.MOUSE_MODE_CAPTURED
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
+			pause_menu.emit()
+			
 func debug_aim() -> Node3D:
 	if !debug:
 		_debug_ball.visible = false
@@ -137,3 +140,7 @@ func _on_character_area_detect_area_entered(area: Area3D) -> void:
 func _on_character_area_detect_area_exited(area: Area3D) -> void:
 	_vehicle_info = null
 	_can_enter_vehicle = false
+
+
+func _on_menus_gui_input(event: InputEvent) -> void:
+	print_debug(event)

@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://bok63sp5licm0" path="res://Textures/Extracted/Grass.png" id="6_lgr22"]
 [ext_resource type="Script" uid="uid://n3bfaopbo7lo" path="res://addons/zylann.hterrain/hterrain_detail_layer.gd" id="7_trn2v"]
 [ext_resource type="Script" uid="uid://di4xyko1a38kw" path="res://VehicleControl.gd" id="8_trn2v"]
+[ext_resource type="Script" uid="uid://dxme07nhdrpmn" path="res://menu_func.gd" id="10_20pc6"]
+[ext_resource type="Texture2D" uid="uid://cbpsvqr5ha27b" path="res://Textures/Extracted/PlaceholderItem.png" id="10_wkp8b"]
+[ext_resource type="Texture2D" uid="uid://cmi1rhgm324by" path="res://Textures/Extracted/Sword.png" id="11_5vvyt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
 
@@ -35,7 +38,7 @@ script = ExtResource("5_lgr22")
 mode = 0
 textures = [[ExtResource("6_lgr22")], [null]]
 
-[sub_resource type="Image" id="Image_03owx"]
+[sub_resource type="Image" id="Image_5vvyt"]
 data = {
 "data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
 "format": "RGBA8",
@@ -44,7 +47,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="Image" id="Image_wkp8b"]
+[sub_resource type="Image" id="Image_c6i3y"]
 data = {
 "data": PackedByteArray(0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255),
 "format": "RGBA8",
@@ -53,7 +56,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="Image" id="Image_20pc6"]
+[sub_resource type="Image" id="Image_c2ibq"]
 data = {
 "data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
 "format": "RGBA8",
@@ -62,7 +65,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="Image" id="Image_5vvyt"]
+[sub_resource type="Image" id="Image_j4qnp"]
 data = {
 "data": PackedByteArray(0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255),
 "format": "RGBA8",
@@ -72,7 +75,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture3D" id="ImageTexture3D_c6i3y"]
-_images = Array[Image]([SubResource("Image_03owx"), SubResource("Image_wkp8b"), SubResource("Image_20pc6"), SubResource("Image_5vvyt")])
+_images = Array[Image]([SubResource("Image_5vvyt"), SubResource("Image_c6i3y"), SubResource("Image_c2ibq"), SubResource("Image_j4qnp")])
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_20pc6"]
 
@@ -254,9 +257,131 @@ shape = SubResource("BoxShape3D_5vvyt")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D" unique_id=1073012716]
 mesh = SubResource("BoxMesh_c6i3y")
 
+[node name="Menus" type="Control" parent="." unique_id=1694970739]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_20pc6")
+
+[node name="TabContainer" type="TabContainer" parent="Menus" unique_id=263424285]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.055555556
+anchor_top = 0.10185185
+anchor_right = 0.9444444
+anchor_bottom = 0.8904321
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" type="Control" parent="Menus/TabContainer" unique_id=1130945522]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ItemSlot" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=1458810058]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+offset_left = 48.0
+offset_top = 23.0
+offset_right = 80.0
+offset_bottom = 55.0
+scale = Vector2(3, 3)
+texture = ExtResource("11_5vvyt")
+
+[node name="ItemSlot2" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=1444168448]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 164.70001
+offset_top = 23.300003
+offset_right = 196.70001
+offset_bottom = 55.300003
+scale = Vector2(3, 3)
+texture = ExtResource("10_wkp8b")
+
+[node name="ItemSlot3" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=488104020]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 279.7
+offset_top = 23.300003
+offset_right = 311.7
+offset_bottom = 55.300003
+scale = Vector2(3, 3)
+texture = ExtResource("10_wkp8b")
+
+[node name="ItemSlot4" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=853220011]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 395.7
+offset_top = 23.300003
+offset_right = 427.7
+offset_bottom = 55.300003
+scale = Vector2(3, 3)
+texture = ExtResource("10_wkp8b")
+
+[node name="ItemSlot5" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=1952392468]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 518.7001
+offset_top = 23.300003
+offset_right = 550.7001
+offset_bottom = 55.300003
+scale = Vector2(3, 3)
+texture = ExtResource("10_wkp8b")
+
+[node name="ItemSlot6" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=1626252788]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 638.7
+offset_top = 23.300003
+offset_right = 670.7
+offset_bottom = 55.300003
+scale = Vector2(3, 3)
+texture = ExtResource("10_wkp8b")
+
+[node name="ItemSlot7" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=905860219]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 762.7001
+offset_top = 23.300003
+offset_right = 794.7001
+offset_bottom = 55.300003
+scale = Vector2(3, 3)
+texture = ExtResource("10_wkp8b")
+
+[node name="ItemSlot8" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=1401995655]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 0
+offset_left = 888.7001
+offset_top = 23.300003
+offset_right = 920.7001
+offset_bottom = 55.300003
+scale = Vector2(3, 3)
+texture = ExtResource("10_wkp8b")
+
+[node name="Collectibles" type="Control" parent="Menus/TabContainer" unique_id=384906215]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]
 [connection signal="transfer_cam_to_vehicle" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_vehicle"]
 [connection signal="vehicle_entered" from="MainPlayer" to="VehicleBody3D" method="_on_main_player_vehicle_entered"]
 [connection signal="vehicle_exited" from="MainPlayer" to="VehicleBody3D" method="_on_main_player_vehicle_exited"]
 [connection signal="area_entered" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_entered"]
 [connection signal="area_exited" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_exited"]
+[connection signal="gui_input" from="Menus" to="MainPlayer" method="_on_menus_gui_input"]
