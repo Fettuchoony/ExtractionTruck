@@ -10,6 +10,7 @@ const BRAKE_STRENGTH = 2.0
 var previous_speed := linear_velocity.length()
 var _steer_target := 0.0
 
+@onready var _driver_pos := $DrivingPos as Node3D
 @onready var _vehicle_occupied: bool = false
 @onready var desired_engine_pitch: float = $EngineSound.pitch_scale
 
@@ -76,9 +77,12 @@ func vehicle_controls(delta: float) -> void:
 	previous_speed = linear_velocity.length()
 
 # Called from player controller
-func _on_main_player_vehicle_entered() -> void:
+func _on_main_player_vehicle_entered(player: CharacterBody3D) -> void:
+	# move player to driver pos
+	player.position = _driver_pos.position
 	_vehicle_occupied = true
 
 # Called from player controller
 func _on_main_player_vehicle_exited() -> void:
+	# move player to exit pos
 	_vehicle_occupied = false

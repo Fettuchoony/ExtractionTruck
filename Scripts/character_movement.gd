@@ -11,7 +11,7 @@ const INTERACT_COOLDOWN_TIME = 1
 
 signal transfer_cam_to_vehicle(target:VehicleBody3D)
 signal transfer_cam_to_player()
-signal vehicle_entered()
+signal vehicle_entered(player:CharacterBody3D)
 signal vehicle_exited()
 signal pause_menu()
 
@@ -24,6 +24,8 @@ signal pause_menu()
 # Vehicle entrance should be the only collision option on layer 9
 @onready var _vehicle_info = null
 @onready var _enter_vehicle_cooldown:float = 0
+# TODO: Create item list/map of all names, items ID by exact string (lowercase)
+@onready var _items_equipped : Dictionary[String, bool]
 @export var debug:bool = false
 
 
@@ -46,7 +48,7 @@ func enter_vehicle() -> void:
 		print_debug("Player controller side camera transfer initiated")
 		_enter_vehicle_cooldown = 0
 		_in_vehicle = true
-		vehicle_entered.emit()
+		vehicle_entered.emit(self)
 		transfer_cam_to_vehicle.emit(_vehicle_info)
 		
 func exit_vehicle() -> void:
