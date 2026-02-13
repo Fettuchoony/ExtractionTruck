@@ -26,6 +26,7 @@ signal pause_menu()
 @onready var _enter_vehicle_cooldown:float = 0
 # TODO: Create item list/map of all names, items ID by exact string (lowercase)
 @onready var _items_equipped : Dictionary[String, bool]
+@onready var _GUI_arr : Array[Node]
 @export var debug:bool = false
 
 
@@ -35,6 +36,7 @@ func _physics_process(delta: float) -> void:
 	handle_pausing()
 	enter_vehicle()
 	exit_vehicle()
+	_GUI_arr = $GUI.get_children()
 	if !_in_vehicle:
 		movement_processing(delta)
 	debug_aim()
@@ -146,3 +148,14 @@ func _on_character_area_detect_area_exited(area: Area3D) -> void:
 
 func _on_menus_gui_input(event: InputEvent) -> void:
 	print_debug(event)
+
+# GUI Index 0: Q
+# GUI Index 1: E
+# GUI Index 2: R
+func _bind_item(target: TextureRect, slot_num : int) -> void:
+	# Make sure our references are not lost
+	if _GUI_arr != null and target != null:
+		# Texture inventory slot
+		_GUI_arr[slot_num].texture = target.texture
+		# Set texture filter to nearest to avoid blur
+		_GUI_arr[slot_num].set_texture_filter(1)

@@ -157,7 +157,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="QSlot" type="TextureRect" parent="MainPlayer/GUI" unique_id=1657319692]
+[node name="QSlot" type="ColorRect" parent="MainPlayer/GUI" unique_id=800355221]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -167,6 +167,8 @@ offset_top = -48.0
 offset_right = 48.0
 offset_bottom = -8.0
 grow_vertical = 0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.3137255)
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/QSlot" unique_id=1605018291]
 texture_filter = 1
@@ -176,22 +178,16 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -16.0
+offset_left = -8.000002
+offset_top = -8.000002
+offset_right = 32.0
+offset_bottom = 32.0
 grow_horizontal = 0
 grow_vertical = 0
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("16_2gh4u")
 
-[node name="ColorRect" type="ColorRect" parent="MainPlayer/GUI/QSlot" unique_id=1321423168]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.3372549)
-
-[node name="ESlot" type="TextureRect" parent="MainPlayer/GUI" unique_id=1082739084]
+[node name="ESlot" type="ColorRect" parent="MainPlayer/GUI" unique_id=180293367]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -201,6 +197,8 @@ offset_top = -48.0
 offset_right = 96.0
 offset_bottom = -8.0
 grow_vertical = 0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.3137255)
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/ESlot" unique_id=690572219]
 texture_filter = 1
@@ -210,22 +208,16 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -16.0
+offset_left = -8.000002
+offset_top = -8.000002
+offset_right = 32.0
+offset_bottom = 32.0
 grow_horizontal = 0
 grow_vertical = 0
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("17_devvj")
 
-[node name="ColorRect" type="ColorRect" parent="MainPlayer/GUI/ESlot" unique_id=1749650808]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.3372549)
-
-[node name="RSlot" type="TextureRect" parent="MainPlayer/GUI" unique_id=1242197130]
+[node name="RSlot" type="ColorRect" parent="MainPlayer/GUI" unique_id=245848553]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -235,6 +227,8 @@ offset_top = -48.0
 offset_right = 144.0
 offset_bottom = -8.0
 grow_vertical = 0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.3137255)
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/RSlot" unique_id=1201790891]
 texture_filter = 1
@@ -244,20 +238,14 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -16.0
+offset_left = -8.000002
+offset_top = -8.000002
+offset_right = 32.0
+offset_bottom = 32.0
 grow_horizontal = 0
 grow_vertical = 0
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("18_3b0ty")
-
-[node name="ColorRect" type="ColorRect" parent="MainPlayer/GUI/RSlot" unique_id=1984926241]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.3372549)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1612695682]
 transform = Transform3D(-0.9177185, 0.2922432, -0.2690474, -0.005625937, 0.6676767, 0.7444301, 0.3971914, 0.6846911, -0.61109525, 0, 6.8276563, 0)
@@ -984,7 +972,9 @@ metadata/_tab_index = 1
 [connection signal="vehicle_exited" from="MainPlayer" to="VehicleBody3D" method="_on_main_player_vehicle_exited"]
 [connection signal="area_entered" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_entered"]
 [connection signal="area_exited" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_exited"]
-[connection signal="bind_item" from="Menus" to="MainPlayer" method="_bind_item"]
+[connection signal="bind_item_to_e" from="Menus" to="MainPlayer" method="_bind_item_to_e"]
+[connection signal="bind_item_to_q" from="Menus" to="MainPlayer" method="_bind_item_to_q"]
+[connection signal="bind_item_to_r" from="Menus" to="MainPlayer" method="_bind_item_to_r"]
 [connection signal="gui_input" from="Menus" to="MainPlayer" method="_on_menus_gui_input"]
 [connection signal="gui_input" from="Menus/TabContainer/Inventory/sword" to="Menus" method="_on_item_slot_gui_input" flags=18]
 [connection signal="mouse_entered" from="Menus/TabContainer/Inventory/sword" to="Menus" method="_on_item_slot_mouse_entered" flags=18]

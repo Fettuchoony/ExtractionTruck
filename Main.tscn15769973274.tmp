@@ -16,10 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://pvv472w5vjbl" path="res://Textures/Extracted/HoveringOutline.png" id="13_c2ibq"]
 [ext_resource type="Script" uid="uid://c6tfghya1nc5j" path="res://item_slot.gd" id="13_j4qnp"]
 [ext_resource type="Texture2D" uid="uid://bc7pp8j75j6gc" path="res://Textures/Extracted/EquippedSlot.png" id="15_fpfj3"]
-[ext_resource type="Texture2D" uid="uid://cbmdtpgagkpso" path="res://Textures/Extracted/QKey.png" id="16_2gh4u"]
 [ext_resource type="Texture2D" uid="uid://ck57045tytmr8" path="res://Textures/Extracted/Grapple.png" id="16_sc1dx"]
-[ext_resource type="Texture2D" uid="uid://br210xvuacqbp" path="res://Textures/Extracted/EKey.png" id="17_devvj"]
-[ext_resource type="Texture2D" uid="uid://bm8w6rbk6us6h" path="res://Textures/Extracted/RKey.png" id="18_3b0ty"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
 
@@ -46,7 +43,7 @@ script = ExtResource("5_lgr22")
 mode = 0
 textures = [[ExtResource("6_lgr22")], [null]]
 
-[sub_resource type="Image" id="Image_2gh4u"]
+[sub_resource type="Image" id="Image_sc1dx"]
 data = {
 "data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
 "format": "RGBA8",
@@ -55,7 +52,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="Image" id="Image_devvj"]
+[sub_resource type="Image" id="Image_kjvhd"]
 data = {
 "data": PackedByteArray(0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255),
 "format": "RGBA8",
@@ -64,7 +61,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="Image" id="Image_3b0ty"]
+[sub_resource type="Image" id="Image_5tuhn"]
 data = {
 "data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
 "format": "RGBA8",
@@ -73,7 +70,7 @@ data = {
 "width": 4
 }
 
-[sub_resource type="Image" id="Image_bg4s2"]
+[sub_resource type="Image" id="Image_2gh4u"]
 data = {
 "data": PackedByteArray(0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255),
 "format": "RGBA8",
@@ -83,7 +80,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture3D" id="ImageTexture3D_c6i3y"]
-_images = Array[Image]([SubResource("Image_2gh4u"), SubResource("Image_devvj"), SubResource("Image_3b0ty"), SubResource("Image_bg4s2")])
+_images = Array[Image]([SubResource("Image_sc1dx"), SubResource("Image_kjvhd"), SubResource("Image_5tuhn"), SubResource("Image_2gh4u")])
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_20pc6"]
 
@@ -101,11 +98,6 @@ size = Vector3(3, 3.88, 5.715)
 [sub_resource type="BoxShape3D" id="BoxShape3D_5vvyt"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_c6i3y"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_sqvbp"]
-font_size = 11
-outline_size = 6
-outline_color = Color(0, 0, 0, 1)
 
 [node name="Node3D" type="Node3D" unique_id=1688291202]
 script = ExtResource("1_03owx")
@@ -150,114 +142,9 @@ debug_color = Color(3.706068e-06, 0.62085986, 0.5616422, 0.41960785)
 
 [node name="GUI" type="Control" parent="MainPlayer" unique_id=38005122]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="QSlot" type="TextureRect" parent="MainPlayer/GUI" unique_id=1657319692]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -48.0
-offset_right = 48.0
-offset_bottom = -8.0
-grow_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/QSlot" unique_id=1605018291]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("16_2gh4u")
-
-[node name="ColorRect" type="ColorRect" parent="MainPlayer/GUI/QSlot" unique_id=1321423168]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.3372549)
-
-[node name="ESlot" type="TextureRect" parent="MainPlayer/GUI" unique_id=1082739084]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 56.0
-offset_top = -48.0
-offset_right = 96.0
-offset_bottom = -8.0
-grow_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/ESlot" unique_id=690572219]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("17_devvj")
-
-[node name="ColorRect" type="ColorRect" parent="MainPlayer/GUI/ESlot" unique_id=1749650808]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.3372549)
-
-[node name="RSlot" type="TextureRect" parent="MainPlayer/GUI" unique_id=1242197130]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 104.0
-offset_top = -48.0
-offset_right = 144.0
-offset_bottom = -8.0
-grow_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/RSlot" unique_id=1201790891]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("18_3b0ty")
-
-[node name="ColorRect" type="ColorRect" parent="MainPlayer/GUI/RSlot" unique_id=1984926241]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.3372549)
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1612695682]
 transform = Transform3D(-0.9177185, 0.2922432, -0.2690474, -0.005625937, 0.6676767, 0.7444301, 0.3971914, 0.6846911, -0.61109525, 0, 6.8276563, 0)
@@ -410,10 +297,11 @@ anchor_right = 0.9444444
 anchor_bottom = 0.8904321
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Inventory" type="Control" parent="Menus/TabContainer" unique_id=1130945522]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -444,50 +332,6 @@ offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("15_fpfj3")
 
-[node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/sword" unique_id=84223475]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-
-[node name="Q" type="TextureRect" parent="Menus/TabContainer/Inventory/sword/ControlPrompt" unique_id=1052967366]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.016
-anchor_bottom = 0.033
-offset_top = -1.0
-offset_right = -0.38400078
-offset_bottom = -0.84000015
-texture = ExtResource("16_2gh4u")
-
-[node name="E" type="TextureRect" parent="Menus/TabContainer/Inventory/sword/ControlPrompt" unique_id=1154576704]
-layout_mode = 0
-offset_left = 16.0
-offset_top = -1.0
-offset_right = 32.0
-offset_bottom = 15.0
-texture = ExtResource("17_devvj")
-
-[node name="R" type="TextureRect" parent="Menus/TabContainer/Inventory/sword/ControlPrompt" unique_id=146432399]
-layout_mode = 0
-offset_left = 32.0
-offset_top = -1.0
-offset_right = 48.0
-offset_bottom = 15.0
-texture = ExtResource("18_3b0ty")
-
-[node name="Label" type="Label" parent="Menus/TabContainer/Inventory/sword/ControlPrompt" unique_id=1617459356]
-layout_mode = 0
-offset_left = 2.0
-offset_top = -14.0
-offset_right = 42.0
-offset_bottom = 9.0
-text = "Assign:"
-label_settings = SubResource("LabelSettings_sqvbp")
-
 [node name="grapple" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=1444168448]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
@@ -514,50 +358,6 @@ offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("15_fpfj3")
 
-[node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/grapple" unique_id=1064811680]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-
-[node name="Q" type="TextureRect" parent="Menus/TabContainer/Inventory/grapple/ControlPrompt" unique_id=1117947757]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.016
-anchor_bottom = 0.033
-offset_top = -1.0
-offset_right = -0.38400078
-offset_bottom = -0.84000015
-texture = ExtResource("16_2gh4u")
-
-[node name="E" type="TextureRect" parent="Menus/TabContainer/Inventory/grapple/ControlPrompt" unique_id=253266083]
-layout_mode = 0
-offset_left = 16.0
-offset_top = -1.0
-offset_right = 32.0
-offset_bottom = 15.0
-texture = ExtResource("17_devvj")
-
-[node name="R" type="TextureRect" parent="Menus/TabContainer/Inventory/grapple/ControlPrompt" unique_id=1068681229]
-layout_mode = 0
-offset_left = 32.0
-offset_top = -1.0
-offset_right = 48.0
-offset_bottom = 15.0
-texture = ExtResource("18_3b0ty")
-
-[node name="Label" type="Label" parent="Menus/TabContainer/Inventory/grapple/ControlPrompt" unique_id=229974063]
-layout_mode = 0
-offset_left = 2.0
-offset_top = -14.0
-offset_right = 42.0
-offset_bottom = 9.0
-text = "Assign:"
-label_settings = SubResource("LabelSettings_sqvbp")
-
 [node name="ItemSlot3" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=488104020]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
@@ -582,50 +382,6 @@ layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("13_c2ibq")
-
-[node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/ItemSlot3" unique_id=25528137]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-
-[node name="Q" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot3/ControlPrompt" unique_id=367913665]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.016
-anchor_bottom = 0.033
-offset_top = -1.0
-offset_right = -0.38400078
-offset_bottom = -0.84000015
-texture = ExtResource("16_2gh4u")
-
-[node name="E" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot3/ControlPrompt" unique_id=1496606926]
-layout_mode = 0
-offset_left = 16.0
-offset_top = -1.0
-offset_right = 32.0
-offset_bottom = 15.0
-texture = ExtResource("17_devvj")
-
-[node name="R" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot3/ControlPrompt" unique_id=1283283766]
-layout_mode = 0
-offset_left = 32.0
-offset_top = -1.0
-offset_right = 48.0
-offset_bottom = 15.0
-texture = ExtResource("18_3b0ty")
-
-[node name="Label" type="Label" parent="Menus/TabContainer/Inventory/ItemSlot3/ControlPrompt" unique_id=1600991131]
-layout_mode = 0
-offset_left = 2.0
-offset_top = -14.0
-offset_right = 42.0
-offset_bottom = 9.0
-text = "Assign:"
-label_settings = SubResource("LabelSettings_sqvbp")
 
 [node name="ItemSlot4" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=853220011]
 texture_filter = 1
@@ -652,50 +408,6 @@ offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("13_c2ibq")
 
-[node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/ItemSlot4" unique_id=1477527329]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-
-[node name="Q" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot4/ControlPrompt" unique_id=1731113060]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.016
-anchor_bottom = 0.033
-offset_top = -1.0
-offset_right = -0.38400078
-offset_bottom = -0.84000015
-texture = ExtResource("16_2gh4u")
-
-[node name="E" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot4/ControlPrompt" unique_id=1260676943]
-layout_mode = 0
-offset_left = 16.0
-offset_top = -1.0
-offset_right = 32.0
-offset_bottom = 15.0
-texture = ExtResource("17_devvj")
-
-[node name="R" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot4/ControlPrompt" unique_id=762938576]
-layout_mode = 0
-offset_left = 32.0
-offset_top = -1.0
-offset_right = 48.0
-offset_bottom = 15.0
-texture = ExtResource("18_3b0ty")
-
-[node name="Label" type="Label" parent="Menus/TabContainer/Inventory/ItemSlot4/ControlPrompt" unique_id=2011568620]
-layout_mode = 0
-offset_left = 2.0
-offset_top = -14.0
-offset_right = 42.0
-offset_bottom = 9.0
-text = "Assign:"
-label_settings = SubResource("LabelSettings_sqvbp")
-
 [node name="ItemSlot5" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=1952392468]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
@@ -720,50 +432,6 @@ layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("13_c2ibq")
-
-[node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/ItemSlot5" unique_id=1524711611]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-
-[node name="Q" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot5/ControlPrompt" unique_id=866779887]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.016
-anchor_bottom = 0.033
-offset_top = -1.0
-offset_right = -0.38400078
-offset_bottom = -0.84000015
-texture = ExtResource("16_2gh4u")
-
-[node name="E" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot5/ControlPrompt" unique_id=301427749]
-layout_mode = 0
-offset_left = 16.0
-offset_top = -1.0
-offset_right = 32.0
-offset_bottom = 15.0
-texture = ExtResource("17_devvj")
-
-[node name="R" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot5/ControlPrompt" unique_id=79729190]
-layout_mode = 0
-offset_left = 32.0
-offset_top = -1.0
-offset_right = 48.0
-offset_bottom = 15.0
-texture = ExtResource("18_3b0ty")
-
-[node name="Label" type="Label" parent="Menus/TabContainer/Inventory/ItemSlot5/ControlPrompt" unique_id=1729285282]
-layout_mode = 0
-offset_left = 2.0
-offset_top = -14.0
-offset_right = 42.0
-offset_bottom = 9.0
-text = "Assign:"
-label_settings = SubResource("LabelSettings_sqvbp")
 
 [node name="ItemSlot6" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=1626252788]
 texture_filter = 1
@@ -790,50 +458,6 @@ offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("13_c2ibq")
 
-[node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/ItemSlot6" unique_id=1589191295]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-
-[node name="Q" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot6/ControlPrompt" unique_id=1722114068]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.016
-anchor_bottom = 0.033
-offset_top = -1.0
-offset_right = -0.38400078
-offset_bottom = -0.84000015
-texture = ExtResource("16_2gh4u")
-
-[node name="E" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot6/ControlPrompt" unique_id=931404027]
-layout_mode = 0
-offset_left = 16.0
-offset_top = -1.0
-offset_right = 32.0
-offset_bottom = 15.0
-texture = ExtResource("17_devvj")
-
-[node name="R" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot6/ControlPrompt" unique_id=1685332149]
-layout_mode = 0
-offset_left = 32.0
-offset_top = -1.0
-offset_right = 48.0
-offset_bottom = 15.0
-texture = ExtResource("18_3b0ty")
-
-[node name="Label" type="Label" parent="Menus/TabContainer/Inventory/ItemSlot6/ControlPrompt" unique_id=179547538]
-layout_mode = 0
-offset_left = 2.0
-offset_top = -14.0
-offset_right = 42.0
-offset_bottom = 9.0
-text = "Assign:"
-label_settings = SubResource("LabelSettings_sqvbp")
-
 [node name="ItemSlot7" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=905860219]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
@@ -858,50 +482,6 @@ layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("13_c2ibq")
-
-[node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/ItemSlot7" unique_id=1505679295]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-
-[node name="Q" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot7/ControlPrompt" unique_id=147487078]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.016
-anchor_bottom = 0.033
-offset_top = -1.0
-offset_right = -0.38400078
-offset_bottom = -0.84000015
-texture = ExtResource("16_2gh4u")
-
-[node name="E" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot7/ControlPrompt" unique_id=86098052]
-layout_mode = 0
-offset_left = 16.0
-offset_top = -1.0
-offset_right = 32.0
-offset_bottom = 15.0
-texture = ExtResource("17_devvj")
-
-[node name="R" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot7/ControlPrompt" unique_id=111230575]
-layout_mode = 0
-offset_left = 32.0
-offset_top = -1.0
-offset_right = 48.0
-offset_bottom = 15.0
-texture = ExtResource("18_3b0ty")
-
-[node name="Label" type="Label" parent="Menus/TabContainer/Inventory/ItemSlot7/ControlPrompt" unique_id=1047801191]
-layout_mode = 0
-offset_left = 2.0
-offset_top = -14.0
-offset_right = 42.0
-offset_bottom = 9.0
-text = "Assign:"
-label_settings = SubResource("LabelSettings_sqvbp")
 
 [node name="ItemSlot8" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=1401995655]
 texture_filter = 1
@@ -928,52 +508,7 @@ offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("13_c2ibq")
 
-[node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/ItemSlot8" unique_id=178952898]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-
-[node name="Q" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot8/ControlPrompt" unique_id=713454218]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.016
-anchor_bottom = 0.033
-offset_top = -1.0
-offset_right = -0.38400078
-offset_bottom = -0.84000015
-texture = ExtResource("16_2gh4u")
-
-[node name="E" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot8/ControlPrompt" unique_id=1153499611]
-layout_mode = 0
-offset_left = 16.0
-offset_top = -1.0
-offset_right = 32.0
-offset_bottom = 15.0
-texture = ExtResource("17_devvj")
-
-[node name="R" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot8/ControlPrompt" unique_id=1211586807]
-layout_mode = 0
-offset_left = 32.0
-offset_top = -1.0
-offset_right = 48.0
-offset_bottom = 15.0
-texture = ExtResource("18_3b0ty")
-
-[node name="Label" type="Label" parent="Menus/TabContainer/Inventory/ItemSlot8/ControlPrompt" unique_id=816097916]
-layout_mode = 0
-offset_left = 2.0
-offset_top = -14.0
-offset_right = 42.0
-offset_bottom = 9.0
-text = "Assign:"
-label_settings = SubResource("LabelSettings_sqvbp")
-
 [node name="Collectibles" type="Control" parent="Menus/TabContainer" unique_id=384906215]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -984,7 +519,9 @@ metadata/_tab_index = 1
 [connection signal="vehicle_exited" from="MainPlayer" to="VehicleBody3D" method="_on_main_player_vehicle_exited"]
 [connection signal="area_entered" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_entered"]
 [connection signal="area_exited" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_exited"]
-[connection signal="bind_item" from="Menus" to="MainPlayer" method="_bind_item"]
+[connection signal="bind_item_to_e" from="Menus" to="MainPlayer" method="_bind_item_to_e"]
+[connection signal="bind_item_to_q" from="Menus" to="MainPlayer" method="_bind_item_to_q"]
+[connection signal="bind_item_to_r" from="Menus" to="MainPlayer" method="_bind_item_to_r"]
 [connection signal="gui_input" from="Menus" to="MainPlayer" method="_on_menus_gui_input"]
 [connection signal="gui_input" from="Menus/TabContainer/Inventory/sword" to="Menus" method="_on_item_slot_gui_input" flags=18]
 [connection signal="mouse_entered" from="Menus/TabContainer/Inventory/sword" to="Menus" method="_on_item_slot_mouse_entered" flags=18]
