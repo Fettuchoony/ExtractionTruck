@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://ck57045tytmr8" path="res://Textures/Extracted/Grapple.png" id="16_sc1dx"]
 [ext_resource type="Texture2D" uid="uid://br210xvuacqbp" path="res://Textures/Extracted/EKey.png" id="17_devvj"]
 [ext_resource type="Texture2D" uid="uid://bm8w6rbk6us6h" path="res://Textures/Extracted/RKey.png" id="18_3b0ty"]
+[ext_resource type="Texture2D" uid="uid://c5lr88gvig1n2" path="res://Textures/Extracted/bomb.png" id="20_devvj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
 
@@ -46,18 +47,9 @@ script = ExtResource("5_lgr22")
 mode = 0
 textures = [[ExtResource("6_lgr22")], [null]]
 
-[sub_resource type="Image" id="Image_2gh4u"]
-data = {
-"data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
-"format": "RGBA8",
-"height": 4,
-"mipmaps": false,
-"width": 4
-}
-
 [sub_resource type="Image" id="Image_devvj"]
 data = {
-"data": PackedByteArray(0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255),
+"data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
 "format": "RGBA8",
 "height": 4,
 "mipmaps": false,
@@ -66,7 +58,7 @@ data = {
 
 [sub_resource type="Image" id="Image_3b0ty"]
 data = {
-"data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
+"data": PackedByteArray(0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255),
 "format": "RGBA8",
 "height": 4,
 "mipmaps": false,
@@ -74,6 +66,15 @@ data = {
 }
 
 [sub_resource type="Image" id="Image_bg4s2"]
+data = {
+"data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
+"format": "RGBA8",
+"height": 4,
+"mipmaps": false,
+"width": 4
+}
+
+[sub_resource type="Image" id="Image_hhcpw"]
 data = {
 "data": PackedByteArray(0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255),
 "format": "RGBA8",
@@ -83,7 +84,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture3D" id="ImageTexture3D_c6i3y"]
-_images = Array[Image]([SubResource("Image_2gh4u"), SubResource("Image_devvj"), SubResource("Image_3b0ty"), SubResource("Image_bg4s2")])
+_images = Array[Image]([SubResource("Image_devvj"), SubResource("Image_3b0ty"), SubResource("Image_bg4s2"), SubResource("Image_hhcpw")])
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_20pc6"]
 
@@ -558,7 +559,7 @@ offset_bottom = 9.0
 text = "Assign:"
 label_settings = SubResource("LabelSettings_sqvbp")
 
-[node name="ItemSlot3" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=488104020]
+[node name="bomb" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=488104020]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
@@ -567,23 +568,24 @@ offset_top = 23.300003
 offset_right = 311.7
 offset_bottom = 55.300003
 scale = Vector2(3, 3)
-texture = ExtResource("10_wkp8b")
+texture = ExtResource("20_devvj")
+script = ExtResource("13_j4qnp")
 
-[node name="Hover" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot3" unique_id=618614273]
+[node name="Hover" type="TextureRect" parent="Menus/TabContainer/Inventory/bomb" unique_id=618614273]
 visible = false
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("13_c2ibq")
 
-[node name="Equipped" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot3" unique_id=508577972]
+[node name="Equipped" type="TextureRect" parent="Menus/TabContainer/Inventory/bomb" unique_id=508577972]
 visible = false
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
-texture = ExtResource("13_c2ibq")
+texture = ExtResource("15_fpfj3")
 
-[node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/ItemSlot3" unique_id=25528137]
+[node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/bomb" unique_id=25528137]
 visible = false
 layout_mode = 1
 anchors_preset = 4
@@ -592,7 +594,7 @@ anchor_bottom = 0.5
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 
-[node name="Q" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot3/ControlPrompt" unique_id=367913665]
+[node name="Q" type="TextureRect" parent="Menus/TabContainer/Inventory/bomb/ControlPrompt" unique_id=367913665]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.016
@@ -602,7 +604,7 @@ offset_right = -0.38400078
 offset_bottom = -0.84000015
 texture = ExtResource("16_2gh4u")
 
-[node name="E" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot3/ControlPrompt" unique_id=1496606926]
+[node name="E" type="TextureRect" parent="Menus/TabContainer/Inventory/bomb/ControlPrompt" unique_id=1496606926]
 layout_mode = 0
 offset_left = 16.0
 offset_top = -1.0
@@ -610,7 +612,7 @@ offset_right = 32.0
 offset_bottom = 15.0
 texture = ExtResource("17_devvj")
 
-[node name="R" type="TextureRect" parent="Menus/TabContainer/Inventory/ItemSlot3/ControlPrompt" unique_id=1283283766]
+[node name="R" type="TextureRect" parent="Menus/TabContainer/Inventory/bomb/ControlPrompt" unique_id=1283283766]
 layout_mode = 0
 offset_left = 32.0
 offset_top = -1.0
@@ -618,7 +620,7 @@ offset_right = 48.0
 offset_bottom = 15.0
 texture = ExtResource("18_3b0ty")
 
-[node name="Label" type="Label" parent="Menus/TabContainer/Inventory/ItemSlot3/ControlPrompt" unique_id=1600991131]
+[node name="Label" type="Label" parent="Menus/TabContainer/Inventory/bomb/ControlPrompt" unique_id=1600991131]
 layout_mode = 0
 offset_left = 2.0
 offset_top = -14.0
@@ -984,6 +986,7 @@ metadata/_tab_index = 1
 [connection signal="vehicle_exited" from="MainPlayer" to="VehicleBody3D" method="_on_main_player_vehicle_exited"]
 [connection signal="area_entered" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_entered"]
 [connection signal="area_exited" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_exited"]
+[connection signal="_unbind_item" from="Menus" to="MainPlayer" method="_unbind_item"]
 [connection signal="bind_item" from="Menus" to="MainPlayer" method="_bind_item"]
 [connection signal="gui_input" from="Menus" to="MainPlayer" method="_on_menus_gui_input"]
 [connection signal="gui_input" from="Menus/TabContainer/Inventory/sword" to="Menus" method="_on_item_slot_gui_input" flags=18]
@@ -992,3 +995,6 @@ metadata/_tab_index = 1
 [connection signal="gui_input" from="Menus/TabContainer/Inventory/grapple" to="Menus" method="_on_item_slot_gui_input" flags=18]
 [connection signal="mouse_entered" from="Menus/TabContainer/Inventory/grapple" to="Menus" method="_on_item_slot_mouse_entered" flags=18]
 [connection signal="mouse_exited" from="Menus/TabContainer/Inventory/grapple" to="Menus" method="_on_item_slot_mouse_exited" flags=18]
+[connection signal="gui_input" from="Menus/TabContainer/Inventory/bomb" to="Menus" method="_on_item_slot_gui_input" flags=18]
+[connection signal="mouse_entered" from="Menus/TabContainer/Inventory/bomb" to="Menus" method="_on_item_slot_mouse_entered" flags=18]
+[connection signal="mouse_exited" from="Menus/TabContainer/Inventory/bomb" to="Menus" method="_on_item_slot_mouse_exited" flags=18]

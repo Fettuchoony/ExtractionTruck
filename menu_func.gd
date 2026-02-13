@@ -10,6 +10,9 @@ static var RSLOT : int = 2
 # Slot index indicated above statically
 signal bind_item(target : TextureRect, slot_index : int)
 
+# Unequip signal to player controller
+signal _unbind_item(target: TextureRect)
+
 @onready var _item_slots : Control = $TabContainer/Inventory
 @onready var _item_slot_array : Array[TextureRect]
 @onready var awaiting_assignment : bool = false
@@ -55,14 +58,18 @@ func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
 	if event.is_action_pressed("Click"):
 		# Clear previous inputs
 		awaiting_assignment = false
+		# Refresh curr item
 		if (current_focus_item != null):
 			current_focus_item.control_prompt.visible = false
+		# Reassign curr item
 		current_focus_item = source
 		# Unequip
 		if source.equipped:
 			# TODO : Emit signal to player control
 			equip.visible = false
 			source.equipped = false
+			_unbind_item.emit(current_focus_item)
+			source.equipped_on_slot_num = null
 		# Skip Equip prompt if it is a passive item
 		elif source.is_passive:
 			# TODO: Emit signal to player control
@@ -70,6 +77,8 @@ func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
 			source.equipped = true
 		# Equip prompt brought up if item needs assignment
 		else:
+			equip.visible = true
+			source.equipped = true
 			awaiting_assignment = true
 			source.control_prompt.visible = true
 			print_debug("Awaiting input at " + current_focus_item.to_string() + " ...")

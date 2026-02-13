@@ -25,7 +25,9 @@ signal pause_menu()
 @onready var _vehicle_info = null
 @onready var _enter_vehicle_cooldown:float = 0
 # TODO: Create item list/map of all names, items ID by exact string (lowercase)
+# This is a list of all items and if they are equipped
 @onready var _items_equipped : Dictionary[String, bool]
+@onready var _QER_items : Array[Node3D]
 @onready var _GUI_arr : Array[Node]
 @export var debug:bool = false
 
@@ -146,16 +148,28 @@ func _on_character_area_detect_area_exited(area: Area3D) -> void:
 	_can_enter_vehicle = false
 
 
-func _on_menus_gui_input(event: InputEvent) -> void:
-	print_debug(event)
+#func _on_menus_gui_input(event: InputEvent) -> void:
+	#print_debug(event)
 
+# Recieves equip/unequip info from menu and applies to hotbar/character
 # GUI Index 0: Q
 # GUI Index 1: E
 # GUI Index 2: R
 func _bind_item(target: TextureRect, slot_num : int) -> void:
+	# Load textures onto hotbar
 	# Make sure our references are not lost
 	if _GUI_arr != null and target != null:
+		# Pass slot info to object script
+		target.equipped_on_slot_num = slot_num
 		# Texture inventory slot
 		_GUI_arr[slot_num].texture = target.texture
+		# Set item status to active, checked on refresh
+		_items_equipped[_GUI_arr[slot_num].name] = true
 		# Set texture filter to nearest to avoid blur
-		_GUI_arr[slot_num].set_texture_filter(1)
+		_GUI_arr[slot_num].set_texture_filter(1) 
+	# Refresh Inventory
+
+# TODO: actually unequip the item instead of just graphically removing
+# Clears the item from the hotbar	
+func _unbind_item(target: TextureRect) -> void:
+	_GUI_arr[target.equipped_on_slot_num].set_texture(null)

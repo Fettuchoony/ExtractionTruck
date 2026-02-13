@@ -1,6 +1,8 @@
 extends TextureRect
 
 @onready var equipped : bool
+# Set by menu controller and nullified by player controller
+@onready var equipped_on_slot_num : int
 @onready var control_prompt : Control = $ControlPrompt
 @export var is_passive : bool
 
