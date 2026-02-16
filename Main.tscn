@@ -34,6 +34,8 @@ material = SubResource("StandardMaterial3D_r0du0")
 radius = 0.1
 height = 0.2
 
+[sub_resource type="SphereMesh" id="SphereMesh_devvj"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_r0du0"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_cm0pq"]
@@ -163,11 +165,13 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -48.0
-offset_right = 48.0
-offset_bottom = -8.0
+offset_left = 21.0
+offset_top = -143.0
+offset_right = 61.0
+offset_bottom = -103.0
 grow_vertical = 0
+scale = Vector2(3, 3)
+expand_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/QSlot" unique_id=1605018291]
 texture_filter = 1
@@ -197,11 +201,13 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 56.0
-offset_top = -48.0
-offset_right = 96.0
-offset_bottom = -8.0
+offset_left = 175.0
+offset_top = -143.0
+offset_right = 215.0
+offset_bottom = -103.0
 grow_vertical = 0
+scale = Vector2(3, 3)
+expand_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/ESlot" unique_id=690572219]
 texture_filter = 1
@@ -231,11 +237,13 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 104.0
-offset_top = -48.0
-offset_right = 144.0
-offset_bottom = -8.0
+offset_left = 325.0
+offset_top = -143.0
+offset_right = 365.0
+offset_bottom = -103.0
 grow_vertical = 0
+scale = Vector2(3, 3)
+expand_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/RSlot" unique_id=1201790891]
 texture_filter = 1
@@ -259,6 +267,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.3372549)
+
+[node name="ItemSpawnSpot" type="Node3D" parent="MainPlayer" unique_id=42834980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.044337273, 1.39676, -2.2047906)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MainPlayer/ItemSpawnSpot" unique_id=1400124158]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7036028, 0, -1.444025)
+visible = false
+mesh = SubResource("SphereMesh_devvj")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1612695682]
 transform = Transform3D(-0.9177185, 0.2922432, -0.2690474, -0.005625937, 0.6676767, 0.7444301, 0.3971914, 0.6846911, -0.61109525, 0, 6.8276563, 0)
@@ -982,6 +998,7 @@ metadata/_tab_index = 1
 [connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]
 [connection signal="transfer_cam_to_vehicle" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_vehicle"]
+[connection signal="trigger_item" from="MainPlayer" to="Menus/TabContainer/Inventory/bomb" method="use_item"]
 [connection signal="vehicle_entered" from="MainPlayer" to="VehicleBody3D" method="_on_main_player_vehicle_entered"]
 [connection signal="vehicle_exited" from="MainPlayer" to="VehicleBody3D" method="_on_main_player_vehicle_exited"]
 [connection signal="area_entered" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_entered"]

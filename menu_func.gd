@@ -18,6 +18,7 @@ signal _unbind_item(target: TextureRect)
 @onready var awaiting_assignment : bool = false
 @onready var current_focus_item : TextureRect
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Create array of all children (items)
@@ -68,8 +69,8 @@ func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
 			# TODO : Emit signal to player control
 			equip.visible = false
 			source.equipped = false
+			source.equipped_on_slot_num = -1
 			_unbind_item.emit(current_focus_item)
-			source.equipped_on_slot_num = null
 		# Skip Equip prompt if it is a passive item
 		elif source.is_passive:
 			# TODO: Emit signal to player control

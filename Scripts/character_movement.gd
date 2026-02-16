@@ -8,16 +8,21 @@ const DECELERATION = 4
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const INTERACT_COOLDOWN_TIME = 1
+const QSLOT : int = 0
+const ESLOT : int = 1
+const RSLOT : int = 2
 
 signal transfer_cam_to_vehicle(target:VehicleBody3D)
 signal transfer_cam_to_player()
 signal vehicle_entered(player:CharacterBody3D)
 signal vehicle_exited()
 signal pause_menu()
+signal trigger_item(item_name: String, spawn_location: Node3D)
 
 @onready var _camera = $CameraPivot/SpringArm3D/Camera3D
 @onready var _target = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
 @onready var _debug_ball = $CameraPivot/SpringArm3D/Camera3D/PlayerRay/DebugBall
+@onready var _item_spawn_location = $ItemSpawnSpot
 @onready var _can_enter_vehicle:bool = false
 @onready var _in_vehicle:bool = false
 @onready var _mouse_mode:int = 2
@@ -27,11 +32,20 @@ signal pause_menu()
 # TODO: Create item list/map of all names, items ID by exact string (lowercase)
 # This is a list of all items and if they are equipped
 @onready var _items_equipped : Dictionary[String, bool]
-@onready var _QER_items : Array[Node3D]
+@onready var _QER_items : Array[String]
 @onready var _GUI_arr : Array[Node]
+@onready var _paused : bool
+@onready var _item_timer: float = 0
+@export var item_cooldown_time : float = 0.2
 @export var debug:bool = false
 
-
+func _ready() -> void:
+	_QER_items = ["", "", ""]
+	return
+	
+func _process(delta: float) -> void:
+	_item_timer += delta
+	use_item()
 
 func _physics_process(delta: float) -> void:
 	_enter_vehicle_cooldown += delta
@@ -113,6 +127,7 @@ func movement_processing(delta: float) -> void:
 func handle_pausing() -> void:
 	# Pausing Functionality / Free mouse
 	if Input.is_action_just_pressed("Escape"):
+		_paused = !_paused
 		if _mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			_mouse_mode = Input.MOUSE_MODE_VISIBLE
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -159,12 +174,13 @@ func _bind_item(target: TextureRect, slot_num : int) -> void:
 	# Load textures onto hotbar
 	# Make sure our references are not lost
 	if _GUI_arr != null and target != null:
+		_QER_items[slot_num] = target.name
 		# Pass slot info to object script
 		target.equipped_on_slot_num = slot_num
 		# Texture inventory slot
 		_GUI_arr[slot_num].texture = target.texture
 		# Set item status to active, checked on refresh
-		_items_equipped[_GUI_arr[slot_num].name] = true
+		_items_equipped[target.name] = true
 		# Set texture filter to nearest to avoid blur
 		_GUI_arr[slot_num].set_texture_filter(1) 
 	# Refresh Inventory
@@ -172,4 +188,18 @@ func _bind_item(target: TextureRect, slot_num : int) -> void:
 # TODO: actually unequip the item instead of just graphically removing
 # Clears the item from the hotbar	
 func _unbind_item(target: TextureRect) -> void:
+	# TODO unbind in QER too
 	_GUI_arr[target.equipped_on_slot_num].set_texture(null)
+	
+func use_item() -> void:
+	if Input.is_action_just_pressed("QItem") and not _paused and _item_timer > item_cooldown_time:
+		trigger_item.emit(_QER_items[QSLOT], _item_spawn_location)
+		_item_timer = 0
+	if Input.is_action_just_pressed("EItem") and not _paused and _item_timer > item_cooldown_time:
+		print_debug(_QER_items)
+		trigger_item.emit(_QER_items[ESLOT], _item_spawn_location)
+		_item_timer = 0
+	if Input.is_action_just_pressed("RItem") and not _paused and _item_timer > item_cooldown_time:
+		trigger_item.emit(_QER_items[RSLOT], _item_spawn_location)
+		_item_timer = 0
+	return

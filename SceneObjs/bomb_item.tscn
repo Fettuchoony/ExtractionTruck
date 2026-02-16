@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b7bcv1ex1ghsn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_g8ql3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kh6qh"]
+albedo_color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_bhm4c"]
+material = SubResource("StandardMaterial3D_kh6qh")
+
+[node name="BombItem" type="Node3D" unique_id=1337811674]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1408158233]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=268230344]
+shape = SubResource("SphereShape3D_g8ql3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D" unique_id=1147232708]
+mesh = SubResource("SphereMesh_bhm4c")
+skeleton = NodePath("../../..")
