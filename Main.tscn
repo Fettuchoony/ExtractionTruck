@@ -124,18 +124,6 @@ sky = SubResource("Sky_hri7i")
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xrxkg"]
-particle_flag_rotate_y = true
-angle_min = -179.99998
-angle_max = 180.00002
-direction = Vector3(0, 1, 0)
-spread = 89.091
-flatness = 1.0
-initial_velocity_max = 18.6
-collision_mode = 2
-
-[sub_resource type="QuadMesh" id="QuadMesh_xrxkg"]
-
 [node name="Node3D" type="Node3D" unique_id=1688291202]
 script = ExtResource("1_03owx")
 
@@ -1035,11 +1023,6 @@ metadata/_tab_index = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=280029085]
 environment = SubResource("Environment_w3rk5")
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=723946182]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.108056, 6.9208937, -2.1230698)
-process_material = SubResource("ParticleProcessMaterial_xrxkg")
-draw_pass_1 = SubResource("QuadMesh_xrxkg")
 
 [connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]

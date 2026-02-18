@@ -4,15 +4,18 @@ extends Node3D
 static var EXPLOSION_LIFE : float = 0.2
 static var EXPLOSION_GROWTH : Vector3 = Vector3(.2, .2, .2)
 static var SMOKE_LIFE : float = 3
-static var SMOKE_GROWTH : Vector3 = Vector3(-.01, -.01, -.01)
+static var SMOKE_GROWTH : Vector3 = Vector3(-.015, -.015, -.015)
 
 @onready var explosion_volume : FogVolume = $ExplosionVolume
 @onready var smoke_volume : FogVolume = $SmokeVolume
 @onready var flash : OmniLight3D = $Flash
+@onready var particles : GPUParticles3D = $GPUParticles3D
 @onready var time : float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	particles.set_one_shot(true)
+	particles.restart(true)
 	smoke_volume.visible = false
 
 
