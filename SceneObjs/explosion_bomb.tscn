@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dyslachjx8trv"]
+
+[ext_resource type="Script" uid="uid://dllmh5up24wyx" path="res://SceneObjs/explosion_bomb.gd" id="1_b1867"]
+[ext_resource type="Material" uid="uid://cygbdkmmfwgaw" path="res://Textures/ExplosionFogMat.tres" id="2_aiphu"]
+[ext_resource type="Material" uid="uid://ck4mlgbvt6nao" path="res://Textures/ExplosionSmokeFogMat.tres" id="3_h3hbg"]
+
+[node name="ExplosionBomb" type="Node3D" unique_id=1581253008]
+script = ExtResource("1_b1867")
+
+[node name="ExplosionVolume" type="FogVolume" parent="." unique_id=2085098846]
+size = Vector3(1, 1, 1)
+shape = 0
+material = ExtResource("2_aiphu")
+
+[node name="SmokeVolume" type="FogVolume" parent="." unique_id=2092430051]
+size = Vector3(1, 1, 1)
+shape = 0
+material = ExtResource("3_h3hbg")
+
+[node name="Flash" type="OmniLight3D" parent="." unique_id=2034272141]
+light_color = Color(1, 0.7598042, 0.7707815, 1)
+light_energy = 16.0
+light_volumetric_fog_energy = 16.0

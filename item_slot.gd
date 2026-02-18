@@ -7,8 +7,6 @@ extends TextureRect
 @onready var bomb_scene = preload("res://SceneObjs/bomb_item.tscn")
 @export var is_passive : bool
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Connect signals for binds to the MenuController and PlayerController

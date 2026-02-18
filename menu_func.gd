@@ -69,7 +69,7 @@ func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
 			# TODO : Emit signal to player control
 			equip.visible = false
 			source.equipped = false
-			source.equipped_on_slot_num = -1
+			#source.equipped_on_slot_num = -1
 			_unbind_item.emit(current_focus_item)
 		# Skip Equip prompt if it is a passive item
 		elif source.is_passive:

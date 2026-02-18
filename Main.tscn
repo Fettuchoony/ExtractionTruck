@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://br210xvuacqbp" path="res://Textures/Extracted/EKey.png" id="17_devvj"]
 [ext_resource type="Texture2D" uid="uid://bm8w6rbk6us6h" path="res://Textures/Extracted/RKey.png" id="18_3b0ty"]
 [ext_resource type="Texture2D" uid="uid://c5lr88gvig1n2" path="res://Textures/Extracted/bomb.png" id="20_devvj"]
+[ext_resource type="Texture2D" uid="uid://5vqebth03c5p" path="res://Textures/Extracted/BlankItem.png" id="22_3b0ty"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
 
@@ -49,18 +50,9 @@ script = ExtResource("5_lgr22")
 mode = 0
 textures = [[ExtResource("6_lgr22")], [null]]
 
-[sub_resource type="Image" id="Image_devvj"]
-data = {
-"data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
-"format": "RGBA8",
-"height": 4,
-"mipmaps": false,
-"width": 4
-}
-
 [sub_resource type="Image" id="Image_3b0ty"]
 data = {
-"data": PackedByteArray(0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255),
+"data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
 "format": "RGBA8",
 "height": 4,
 "mipmaps": false,
@@ -69,7 +61,7 @@ data = {
 
 [sub_resource type="Image" id="Image_bg4s2"]
 data = {
-"data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
+"data": PackedByteArray(0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255),
 "format": "RGBA8",
 "height": 4,
 "mipmaps": false,
@@ -77,6 +69,15 @@ data = {
 }
 
 [sub_resource type="Image" id="Image_hhcpw"]
+data = {
+"data": PackedByteArray(255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255),
+"format": "RGBA8",
+"height": 4,
+"mipmaps": false,
+"width": 4
+}
+
+[sub_resource type="Image" id="Image_mxvw5"]
 data = {
 "data": PackedByteArray(0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 255, 0, 255, 255, 0, 0, 0, 255, 255, 0, 255, 255, 0, 0, 0, 255),
 "format": "RGBA8",
@@ -86,7 +87,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture3D" id="ImageTexture3D_c6i3y"]
-_images = Array[Image]([SubResource("Image_devvj"), SubResource("Image_3b0ty"), SubResource("Image_bg4s2"), SubResource("Image_hhcpw")])
+_images = Array[Image]([SubResource("Image_3b0ty"), SubResource("Image_bg4s2"), SubResource("Image_hhcpw"), SubResource("Image_mxvw5")])
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_20pc6"]
 
@@ -110,13 +111,40 @@ font_size = 11
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sqvbp"]
+sky_top_color = Color(0.17506927, 0.50570166, 0.99999994, 1)
+sky_horizon_color = Color(0.70654005, 0.6583666, 0.43005383, 1)
+
+[sub_resource type="Sky" id="Sky_hri7i"]
+sky_material = SubResource("ProceduralSkyMaterial_sqvbp")
+
+[sub_resource type="Environment" id="Environment_w3rk5"]
+background_mode = 2
+sky = SubResource("Sky_hri7i")
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xrxkg"]
+particle_flag_rotate_y = true
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 1, 0)
+spread = 89.091
+flatness = 1.0
+initial_velocity_max = 18.6
+collision_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_xrxkg"]
+
 [node name="Node3D" type="Node3D" unique_id=1688291202]
 script = ExtResource("1_03owx")
 
 [node name="MainPlayer" type="CharacterBody3D" parent="." unique_id=1501440258]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2649469, 0)
 disable_mode = 2
+collision_layer = 513
 script = ExtResource("1_uu6xs")
+item_cooldown_time = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MainPlayer" unique_id=13420787]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4871535, 0)
@@ -276,16 +304,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7036028, 0, -1.444025)
 visible = false
 mesh = SubResource("SphereMesh_devvj")
 
+[node name="BlankItem" type="TextureRect" parent="MainPlayer" unique_id=477814736]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("22_3b0ty")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1612695682]
 transform = Transform3D(-0.9177185, 0.2922432, -0.2690474, -0.005625937, 0.6676767, 0.7444301, 0.3971914, 0.6846911, -0.61109525, 0, 6.8276563, 0)
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=969532240]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3310404, 1.4486041, 5.1100936)
+collision_layer = 1024
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1755301749]
 shape = SubResource("BoxShape3D_r0du0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D" unique_id=741718779]
+layers = 1024
 mesh = SubResource("BoxMesh_cm0pq")
 surface_material_override/0 = SubResource("StandardMaterial3D_fos0i")
 
@@ -645,6 +681,8 @@ offset_bottom = 9.0
 text = "Assign:"
 label_settings = SubResource("LabelSettings_sqvbp")
 
+[node name="Node3D" type="Node3D" parent="Menus/TabContainer/Inventory/bomb" unique_id=5349196]
+
 [node name="ItemSlot4" type="TextureRect" parent="Menus/TabContainer/Inventory" unique_id=853220011]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
@@ -994,6 +1032,14 @@ label_settings = SubResource("LabelSettings_sqvbp")
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=280029085]
+environment = SubResource("Environment_w3rk5")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=723946182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.108056, 6.9208937, -2.1230698)
+process_material = SubResource("ParticleProcessMaterial_xrxkg")
+draw_pass_1 = SubResource("QuadMesh_xrxkg")
 
 [connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]

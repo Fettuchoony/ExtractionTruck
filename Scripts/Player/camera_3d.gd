@@ -19,7 +19,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		# Camera orbit around player
 		_player.rotation.y += -event.relative.x * mouse_sensitivity
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Suck player mouse in
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

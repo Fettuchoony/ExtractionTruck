@@ -23,6 +23,7 @@ signal trigger_item(item_name: String, spawn_location: Node3D)
 @onready var _target = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
 @onready var _debug_ball = $CameraPivot/SpringArm3D/Camera3D/PlayerRay/DebugBall
 @onready var _item_spawn_location = $ItemSpawnSpot
+@onready var _blank_item : TextureRect = $BlankItem
 @onready var _can_enter_vehicle:bool = false
 @onready var _in_vehicle:bool = false
 @onready var _mouse_mode:int = 2
@@ -188,15 +189,20 @@ func _bind_item(target: TextureRect, slot_num : int) -> void:
 # TODO: actually unequip the item instead of just graphically removing
 # Clears the item from the hotbar	
 func _unbind_item(target: TextureRect) -> void:
-	# TODO unbind in QER too
-	_GUI_arr[target.equipped_on_slot_num].set_texture(null)
+	# Clear GUI of sprite
+	_GUI_arr[target.equipped_on_slot_num].texture = _blank_item
+	# Clear from internal checker
+	_QER_items[target.equipped_on_slot_num] = ""
+	# Clear from equip list
+	_items_equipped[target.name] = false
+	# Clear item's tracking of its slot number
+	target.equipped_on_slot_num = -1
 	
 func use_item() -> void:
 	if Input.is_action_just_pressed("QItem") and not _paused and _item_timer > item_cooldown_time:
 		trigger_item.emit(_QER_items[QSLOT], _item_spawn_location)
 		_item_timer = 0
 	if Input.is_action_just_pressed("EItem") and not _paused and _item_timer > item_cooldown_time:
-		print_debug(_QER_items)
 		trigger_item.emit(_QER_items[ESLOT], _item_spawn_location)
 		_item_timer = 0
 	if Input.is_action_just_pressed("RItem") and not _paused and _item_timer > item_cooldown_time:
