@@ -18,10 +18,10 @@ signal vehicle_entered(player:CharacterBody3D)
 signal vehicle_exited()
 signal pause_menu()
 signal trigger_item(item_name: String, spawn_location: Node3D)
-signal update_health_GUI(delta: int)
+signal update_health_GUI(deltaH: int, deltaMax: int)
 
-@onready var _max_health : int = 6
-@onready var _health : int = 6
+@onready var _max_health : int = 10
+@onready var _health : int = 10
 @onready var _camera = $CameraPivot/SpringArm3D/Camera3D
 @onready var _target = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
 @onready var _debug_ball = $CameraPivot/SpringArm3D/Camera3D/PlayerRay/DebugBall
@@ -224,8 +224,13 @@ func change_health(delta: int) -> void:
 	if _health <= 0:
 		game_over()
 	# Send info to the health GUI
-	update_health_GUI.emit(_health)
+	update_health_GUI.emit(_health, _max_health)
 	
-		
+# Health will always be filled with more max health
+func change_max_health(delta: int) -> void:
+	_max_health += delta
+	_health = _max_health
+	update_health_GUI.emit(_health, _max_health)
+	
 func game_over() -> void:
 	pass

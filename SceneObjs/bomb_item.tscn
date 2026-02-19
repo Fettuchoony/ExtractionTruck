@@ -115,8 +115,6 @@ animations = [{
 
 [node name="BombItem" type="Node3D" unique_id=1337811674]
 script = ExtResource("1_kh6qh")
-lifetime = 2.0
-knockback_strength = 10.0
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1408158233]
 physics_material_override = SubResource("PhysicsMaterial_g2p0v")
