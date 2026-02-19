@@ -3,22 +3,30 @@ extends RigidBody3D
 # This is to make the explosion a child of the global scene and be able to delete the bomb
 
 @onready var main : Node3D = $".."
+# In degrees
+@onready var camera_tilt = $"../MainPlayer/CameraPivot/SpringArm3D/Camera3D"._camera_pivot.rotation.x
+@onready var player : CharacterBody3D = $"../MainPlayer"
 @onready var age: float = 0
 @onready var wall_delete_hitbox : Area3D = $WallDeleteBox
 @onready var damage_hitbox : Area3D = $DamageBox
 @onready var explosion_fog  = preload("res://SceneObjs/explosion_bomb.tscn")
 @export var lifetime : float = 3
 @export var knockback_strength : float = 1
+@export var throw_strength : float = 1
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	add_constant_force(Vector3(0, 10, 10))
+	print(camera_tilt)
+	# 1.2 is the camera angle max rotation in x
+	throw_strength *= camera_tilt + 1.2
+	var dir : Vector3 = player.global_position.direction_to(global_position)
+	dir = dir.normalized()
+	apply_impulse(throw_strength * dir)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	print(global_position)
 	age += delta
 	# Blow up
 	if age > lifetime:
@@ -34,13 +42,13 @@ func explode() -> void:
 	for col in dmg_collisions:
 		# Damage
 		# TODO: emit damage signal to entity
-		
+		player.change_health(-1)
 		
 		# Knockback
 		# Scale knockback relevant to how close the bomb is
-		var distance : float = col.position.distance_to(position)
+		var distance : float = col.global_position.distance_to(global_position)
 		var knockback_scalar : float = knockback_strength / (distance + 0.01)
-		var knockback_dir : Vector3 = position.direction_to(col.position)
+		var knockback_dir : Vector3 = global_position.direction_to(col.global_position)
 		if knockback_dir.y > 0.1:
 			knockback_dir.y = 0.1
 		# Give it some upward velocity

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://di51gdpqlgonj"]
+
+[ext_resource type="Script" uid="uid://b5qdfcucpmcjc" path="res://SceneObjs/grapple_item.gd" id="1_gayxh"]
+[ext_resource type="Texture2D" uid="uid://5jypeg2bu7as" path="res://Textures/Extracted/GrappleActive.png" id="2_20rt3"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gayxh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1grl1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_20rt3"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gayxh"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_20rt3"]
+
+[node name="GrappleItem" type="Node3D" unique_id=946829651]
+script = ExtResource("1_gayxh")
+arch_factor = 0.135
+lifetime_factor = 4.0
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1223135052]
+collision_mask = 2048
+physics_material_override = SubResource("PhysicsMaterial_gayxh")
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1477022641]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("SphereShape3D_1grl1")
+
+[node name="Sprite3D" type="Sprite3D" parent="RigidBody3D" unique_id=432678115]
+billboard = 1
+texture_filter = 0
+texture = ExtResource("2_20rt3")
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D" unique_id=534195191]
+collision_mask = 2048
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D" unique_id=1415061267]
+shape = SubResource("SphereShape3D_20rt3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=929339936]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=586029967]
+shape = SubResource("SphereShape3D_gayxh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D" unique_id=792184261]
+mesh = SubResource("SphereMesh_20rt3")
+
+[connection signal="body_entered" from="RigidBody3D/Area3D" to="." method="_on_area_3d_body_entered"]

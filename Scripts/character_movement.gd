@@ -18,11 +18,14 @@ signal vehicle_entered(player:CharacterBody3D)
 signal vehicle_exited()
 signal pause_menu()
 signal trigger_item(item_name: String, spawn_location: Node3D)
+signal update_health_GUI(delta: int)
 
+@onready var _max_health : int = 6
+@onready var _health : int = 6
 @onready var _camera = $CameraPivot/SpringArm3D/Camera3D
 @onready var _target = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
 @onready var _debug_ball = $CameraPivot/SpringArm3D/Camera3D/PlayerRay/DebugBall
-@onready var _item_spawn_location = $ItemSpawnSpot
+@onready var _item_spawn_location = $ItemPivot/ItemSpawnSpot
 @onready var _blank_item : TextureRect = $BlankItem
 @onready var _can_enter_vehicle:bool = false
 @onready var _in_vehicle:bool = false
@@ -42,6 +45,8 @@ signal trigger_item(item_name: String, spawn_location: Node3D)
 
 func _ready() -> void:
 	_QER_items = ["", "", ""]
+	# force health to refresh
+	change_health(0)
 	return
 	
 func _process(delta: float) -> void:
@@ -209,3 +214,18 @@ func use_item() -> void:
 		trigger_item.emit(_QER_items[RSLOT], _item_spawn_location)
 		_item_timer = 0
 	return
+	
+# TODO: add more params for signals from enemies for debuffs and stuff
+func change_health(delta: int) -> void:
+	_health += delta
+	# Cap health
+	_health = min(_health, _max_health)
+	# ded
+	if _health <= 0:
+		game_over()
+	# Send info to the health GUI
+	update_health_GUI.emit(_health)
+	
+		
+func game_over() -> void:
+	pass

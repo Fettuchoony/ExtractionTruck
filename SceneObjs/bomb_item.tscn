@@ -26,6 +26,8 @@
 [ext_resource type="Texture2D" uid="uid://bd787wsb7j4ya" path="res://Textures/Extracted/BombAnim/BombActive23.png" id="24_1apnb"]
 [ext_resource type="Texture2D" uid="uid://bq5j1ifonkp51" path="res://Textures/Extracted/BombAnim/BombActive24.png" id="25_pxqp3"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g2p0v"]
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_g8ql3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kh6qh"]
@@ -117,6 +119,7 @@ lifetime = 2.0
 knockback_strength = 10.0
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1408158233]
+physics_material_override = SubResource("PhysicsMaterial_g2p0v")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=268230344]
 shape = SubResource("SphereShape3D_g8ql3")
@@ -127,13 +130,13 @@ collision_mask = 1024
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/WallDeleteBox" unique_id=989035873]
 shape = SubResource("SphereShape3D_kh6qh")
 
-[node name="DamageBox" type="Area3D" parent="." unique_id=895944392]
+[node name="DamageBox" type="Area3D" parent="RigidBody3D" unique_id=895944392]
 collision_mask = 512
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageBox" unique_id=1345401429]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/DamageBox" unique_id=1345401429]
 shape = SubResource("SphereShape3D_kh6qh")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1860141187]
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="RigidBody3D" unique_id=1860141187]
 pixel_size = 0.0416675
 billboard = 2
 texture_filter = 0
