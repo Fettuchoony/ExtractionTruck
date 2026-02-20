@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://bp3x8ebd1g2bm"]
+
+[ext_resource type="Script" uid="uid://d3xx8xafw62yg" path="res://test_enemy.gd" id="1_516de"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hxkjv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_un7ee"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_34rnb"]
+viewport_path = NodePath("Sprite3D/EnemyViewport")
+
+[node name="TestEnemy" type="RigidBody3D" unique_id=871990744]
+collision_layer = 5
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_516de")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1773027660]
+shape = SubResource("CapsuleShape3D_hxkjv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1237603177]
+mesh = SubResource("CapsuleMesh_un7ee")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1397954097]
+debug_enabled = true
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1995255648]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 10.525, 0)
+visible = false
+billboard = 2
+texture_filter = 0
+texture = SubResource("ViewportTexture_34rnb")
+
+[node name="EnemyViewport" type="SubViewport" parent="Sprite3D" unique_id=370263019]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+
+[node name="Health Bar" type="Control" parent="Sprite3D/EnemyViewport" unique_id=1574843900]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Sprite3D/EnemyViewport/Health Bar" unique_id=294638160]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2

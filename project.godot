@@ -109,6 +109,7 @@ RClick={
 [layer_names]
 
 3d_physics/layer_2="PlayerLayer"
+3d_physics/layer_3="EnemyLayer"
 3d_physics/layer_9="VehicleEnter"
 3d_physics/layer_10="BombDamage"
 3d_physics/layer_11="WallBomb"

@@ -40,6 +40,7 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _GUI_arr : Array[Node]
 @onready var _paused : bool
 @onready var _item_timer: float = 0
+@onready var _aim_ray : RayCast3D = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
 @onready var _ground_ray : RayCast3D = $GroundDetect
 @onready var _ground_pos : Vector3 = Vector3(0, 0, 0)
 
@@ -55,6 +56,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_item_timer += delta
 	use_item()
+	trigger_enemy_info()
 
 func _physics_process(delta: float) -> void:
 	_enter_vehicle_cooldown += delta
@@ -240,6 +242,11 @@ func change_max_health(delta: int) -> void:
 func apply_knockback(source_pos : Vector3, strength : float) -> void:
 	var dir : Vector3 = source_pos.direction_to(global_position)
 	velocity = strength * dir
+	
+func trigger_enemy_info() -> void:
+	var collision = _aim_ray.get_collider()
+	if collision != null:
+		collision.enable_info()
 	
 func _update_ground_pos():
 	_ground_pos = _ground_ray.get_collision_point()

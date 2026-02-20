@@ -10,10 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://b2b533e7fydfk" path="res://Textures/Extracted/Crosshair.png" id="7_hhcpw"]
 [ext_resource type="Script" uid="uid://dix651ieftiuw" path="res://item_pivot.gd" id="8_bg4s2"]
 [ext_resource type="Script" uid="uid://dimv3hf7bsc53" path="res://health_GUI_update.gd" id="8_hri7i"]
-[ext_resource type="Texture2D" uid="uid://dtbplsdj5457y" path="res://Textures/Extracted/FullHeart.png" id="8_mxvw5"]
 [ext_resource type="Script" uid="uid://di4xyko1a38kw" path="res://VehicleControl.gd" id="8_trn2v"]
-[ext_resource type="Texture2D" uid="uid://c615juwycvyxk" path="res://Textures/Extracted/EmptyHeart.png" id="9_w3rk5"]
-[ext_resource type="Texture2D" uid="uid://davef1q2acnys" path="res://Textures/Extracted/HalfHeart.png" id="10_5mvff"]
+[ext_resource type="PackedScene" uid="uid://ewc5qej3n60j" path="res://SceneObjs/heart_module.tscn" id="9_sqvbp"]
 [ext_resource type="Script" uid="uid://dxme07nhdrpmn" path="res://menu_func.gd" id="10_20pc6"]
 [ext_resource type="Script" uid="uid://cw2gt8gptulw5" path="res://vehicle_script.gd" id="10_c6i3y"]
 [ext_resource type="Texture2D" uid="uid://cbpsvqr5ha27b" path="res://Textures/Extracted/PlaceholderItem.png" id="10_wkp8b"]
@@ -28,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://c5lr88gvig1n2" path="res://Textures/Extracted/bomb.png" id="20_devvj"]
 [ext_resource type="Texture2D" uid="uid://5vqebth03c5p" path="res://Textures/Extracted/BlankItem.png" id="22_3b0ty"]
 [ext_resource type="Script" uid="uid://d4gjljo0cxwsc" path="res://navigation_region_3d.gd" id="24_w3rk5"]
-[ext_resource type="Script" uid="uid://d3xx8xafw62yg" path="res://test_enemy.gd" id="29_w3rk5"]
+[ext_resource type="PackedScene" uid="uid://bp3x8ebd1g2bm" path="res://SceneObjs/TestEnemy.tscn" id="27_sqvbp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
 
@@ -96,10 +94,6 @@ textures = [[ExtResource("6_lgr22")], [null]]
 
 [sub_resource type="BoxMesh" id="BoxMesh_c6i3y"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w3rk5"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_5mvff"]
-
 [node name="Node3D" type="Node3D" unique_id=1688291202]
 script = ExtResource("1_03owx")
 
@@ -130,6 +124,7 @@ tilt_limit = 1.2
 
 [node name="PlayerRay" type="RayCast3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D" unique_id=469574903]
 target_position = Vector3(0, 0, -200)
+collision_mask = 4
 collide_with_areas = true
 
 [node name="DebugBall" type="MeshInstance3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlayerRay" unique_id=1974561682]
@@ -302,213 +297,35 @@ layout_mode = 1
 offset_right = 56.0
 offset_bottom = 16.0
 
-[node name="H1" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1839683054]
-texture_filter = 1
+[node name="H1" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=2028691687 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("9_w3rk5")
 
-[node name="Half" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H1" unique_id=672051504]
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_5mvff")
-
-[node name="Full" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H1/Half" unique_id=353266660]
-z_index = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_mxvw5")
-
-[node name="H2" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1020225366]
-texture_filter = 1
+[node name="H2" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1406597796 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("9_w3rk5")
 
-[node name="Half" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H2" unique_id=1203967052]
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_5mvff")
-
-[node name="Full" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H2/Half" unique_id=1134775085]
-z_index = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_mxvw5")
-
-[node name="H3" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1616613851]
-texture_filter = 1
+[node name="H3" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1919705351 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("9_w3rk5")
 
-[node name="Half" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H3" unique_id=433768132]
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_5mvff")
-
-[node name="Full" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H3/Half" unique_id=1320469631]
-z_index = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_mxvw5")
-
-[node name="H4" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=2084024448]
-texture_filter = 1
+[node name="H4" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1767175386 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("9_w3rk5")
 
-[node name="Half" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H4" unique_id=957807897]
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_5mvff")
-
-[node name="Full" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H4/Half" unique_id=2036703600]
-z_index = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_mxvw5")
-
-[node name="H5" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=657201954]
-texture_filter = 1
+[node name="H5" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1404316637 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("9_w3rk5")
 
-[node name="Half" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H5" unique_id=715842531]
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_5mvff")
-
-[node name="Full" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H5/Half" unique_id=2055708536]
-z_index = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_mxvw5")
-
-[node name="H6" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1334816669]
-texture_filter = 1
+[node name="H6" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1582441088 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("9_w3rk5")
 
-[node name="Half" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H6" unique_id=1263771180]
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_5mvff")
-
-[node name="Full" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H6/Half" unique_id=932057687]
-z_index = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_mxvw5")
-
-[node name="H7" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=452769604]
-texture_filter = 1
+[node name="H7" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=201557856 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("9_w3rk5")
 
-[node name="Half" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H7" unique_id=1795236779]
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_5mvff")
-
-[node name="Full" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H7/Half" unique_id=1504007794]
-z_index = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_mxvw5")
-
-[node name="H8" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=117011759]
-texture_filter = 1
+[node name="H8" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1831249941 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("9_w3rk5")
 
-[node name="Half" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H8" unique_id=38982576]
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("10_5mvff")
+[node name="H9" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=422146902 instance=ExtResource("9_sqvbp")]
+layout_mode = 2
 
-[node name="Full" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer/H8/Half" unique_id=535765003]
-z_index = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_mxvw5")
+[node name="H10" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1437467539 instance=ExtResource("9_sqvbp")]
+layout_mode = 2
 
 [node name="BlankItem" type="TextureRect" parent="MainPlayer" unique_id=477814736]
 texture_filter = 1
@@ -1258,20 +1075,7 @@ mesh = SubResource("BoxMesh_c6i3y")
 
 [node name="Entities" type="Node3D" parent="NavigationRegion3D" unique_id=592015246]
 
-[node name="TestEnemy" type="RigidBody3D" parent="NavigationRegion3D/Entities" unique_id=2061783066]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.173121, 0.55920553, -1.7917151)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
-script = ExtResource("29_w3rk5")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Entities/TestEnemy" unique_id=1773688041]
-shape = SubResource("CapsuleShape3D_w3rk5")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Entities/TestEnemy/CollisionShape3D" unique_id=1991141717]
-mesh = SubResource("CapsuleMesh_5mvff")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="NavigationRegion3D/Entities/TestEnemy" unique_id=917901652]
-debug_enabled = true
+[node name="TestEnemy" parent="NavigationRegion3D/Entities" unique_id=871990744 instance=ExtResource("27_sqvbp")]
 
 [connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]
