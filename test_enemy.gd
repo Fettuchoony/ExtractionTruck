@@ -10,11 +10,15 @@ static var HOP_INTENSITY : float = 2
 @onready var time_since_target_update : float = 0
 @onready var time_since_last_hop : float = 0
 @onready var player : CharacterBody3D = $"../../../MainPlayer"
+@onready var player_cam : Camera3D = $"../../../MainPlayer/CameraPivot/SpringArm3D/Camera3D"
 @onready var navigation_agent: NavigationAgent3D = get_node("NavigationAgent3D")
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	#set_movement_target(Vector3(100, -1, -100))
+
+func _process(delta: float) -> void:
+	pass
 
 func set_movement_target(movement_target: Vector3):
 	navigation_agent.set_target_position(movement_target)
@@ -45,6 +49,5 @@ func _on_velocity_computed(safe_velocity: Vector3):
 
 func _adjust_target() -> void :
 	if time_since_target_update > REFRESH_FREQUENCY:
-		print(player._ground_pos)
 		time_since_target_update = 0
 		set_movement_target(player._ground_pos)

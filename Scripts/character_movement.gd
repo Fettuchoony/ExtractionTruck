@@ -198,14 +198,15 @@ func _bind_item(target: TextureRect, slot_num : int) -> void:
 # TODO: actually unequip the item instead of just graphically removing
 # Clears the item from the hotbar	
 func _unbind_item(target: TextureRect) -> void:
-	# Clear GUI of sprite
-	_GUI_arr[target.equipped_on_slot_num].texture = _blank_item
-	# Clear from internal checker
-	_QER_items[target.equipped_on_slot_num] = ""
-	# Clear from equip list
-	_items_equipped[target.name] = false
-	# Clear item's tracking of its slot number
-	target.equipped_on_slot_num = -1
+	if target.equipped_on_slot_num != -1:
+		# Clear GUI of sprite
+		_GUI_arr[target.equipped_on_slot_num].texture = _blank_item
+		# Clear from internal checker
+		_QER_items[target.equipped_on_slot_num] = ""
+		# Clear from equip list
+		_items_equipped[target.name] = false
+		# Clear item's tracking of its slot number
+		target.equipped_on_slot_num = -1
 	
 func use_item() -> void:
 	if Input.is_action_just_pressed("QItem") and not _paused and _item_timer > item_cooldown_time:
@@ -235,6 +236,10 @@ func change_max_health(delta: int) -> void:
 	_max_health += delta
 	_health = _max_health
 	update_health_GUI.emit(_health, _max_health)
+	
+func apply_knockback(source_pos : Vector3, strength : float) -> void:
+	var dir : Vector3 = source_pos.direction_to(global_position)
+	velocity = strength * dir
 	
 func _update_ground_pos():
 	_ground_pos = _ground_ray.get_collision_point()

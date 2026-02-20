@@ -67,6 +67,8 @@ func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
 		# Unequip
 		if source.equipped:
 			# TODO : Emit signal to player control
+			awaiting_assignment = false
+			source.control_prompt.visible = false
 			equip.visible = false
 			source.equipped = false
 			#source.equipped_on_slot_num = -1
@@ -74,12 +76,13 @@ func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
 		# Skip Equip prompt if it is a passive item
 		elif source.is_passive:
 			# TODO: Emit signal to player control
+			awaiting_assignment = false
 			equip.visible = true
 			source.equipped = true
 		# Equip prompt brought up if item needs assignment
 		else:
-			equip.visible = true
-			source.equipped = true
+			equip.visible = false
+			source.equipped = false
 			awaiting_assignment = true
 			source.control_prompt.visible = true
 			print_debug("Awaiting input at " + current_focus_item.to_string() + " ...")
@@ -94,16 +97,26 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		if event.is_action_pressed("EItem"):
 			bind_item.emit(current_focus_item, ESLOT)
 			awaiting_assignment = false
+			current_focus_item.equipped = true
+			if current_focus_item.get_child(1) != null:
+				current_focus_item.get_child(1).visible = true
 			current_focus_item.control_prompt.visible = false
 		elif event.is_action_pressed("RItem"):
 			bind_item.emit(current_focus_item, RSLOT)
 			awaiting_assignment = false
+			current_focus_item.equipped = true
+			if current_focus_item.get_child(1) != null:
+				current_focus_item.get_child(1).visible = true
 			current_focus_item.control_prompt.visible = false
 		elif event.is_action_pressed("QItem"):
 			bind_item.emit(current_focus_item, QSLOT)
 			awaiting_assignment = false
+			current_focus_item.equipped = true
+			if current_focus_item.get_child(1) != null:
+				current_focus_item.get_child(1).visible = true
 			current_focus_item.control_prompt.visible = false
 		else:
+			print("unassign")
 			current_focus_item.control_prompt.visible = false
 			current_focus_item = null
 			awaiting_assignment = false
@@ -112,6 +125,3 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	# Bail on item assignment if incorrect input detected
 	else:
 		pass
-
-func _on_grapple_gui_input(event: InputEvent, source: Control) -> void:
-	pass # Replace with function body.

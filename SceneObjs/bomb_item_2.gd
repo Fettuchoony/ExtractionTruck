@@ -47,10 +47,10 @@ func explode() -> void:
 		# Knockback
 		# Scale knockback relevant to how close the bomb is
 		var distance : float = col.global_position.distance_to(global_position)
-		var knockback_scalar : float = knockback_strength / (distance + 0.01)
+		var knockback_scalar : float = knockback_strength / (distance + 0.1)
 		var knockback_dir : Vector3 = global_position.direction_to(col.global_position)
-		if knockback_dir.y > 0.1:
-			knockback_dir.y = 0.1
+		if knockback_dir.y > 1:
+			knockback_dir.y = 1
 		# Give it some upward velocity
 		col.velocity += knockback_scalar * knockback_dir
 	var explosion = explosion_fog.instantiate()
