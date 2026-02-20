@@ -40,6 +40,9 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _GUI_arr : Array[Node]
 @onready var _paused : bool
 @onready var _item_timer: float = 0
+@onready var _ground_ray : RayCast3D = $GroundDetect
+@onready var _ground_pos : Vector3 = Vector3(0, 0, 0)
+
 @export var item_cooldown_time : float = 0.2
 @export var debug:bool = false
 
@@ -55,6 +58,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	_enter_vehicle_cooldown += delta
+	_update_ground_pos()
 	handle_pausing()
 	enter_vehicle()
 	exit_vehicle()
@@ -231,6 +235,9 @@ func change_max_health(delta: int) -> void:
 	_max_health += delta
 	_health = _max_health
 	update_health_GUI.emit(_health, _max_health)
+	
+func _update_ground_pos():
+	_ground_pos = _ground_ray.get_collision_point()
 	
 func game_over() -> void:
 	pass
