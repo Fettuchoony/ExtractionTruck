@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://5vqebth03c5p" path="res://Textures/Extracted/BlankItem.png" id="22_3b0ty"]
 [ext_resource type="Script" uid="uid://d4gjljo0cxwsc" path="res://navigation_region_3d.gd" id="24_w3rk5"]
 [ext_resource type="PackedScene" uid="uid://bp3x8ebd1g2bm" path="res://SceneObjs/TestEnemy.tscn" id="27_sqvbp"]
+[ext_resource type="PackedScene" uid="uid://dm5nydlnkp6ps" path="res://SceneObjs/ground_loot.tscn" id="28_hri7i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
 
@@ -129,6 +130,10 @@ collide_with_areas = true
 
 [node name="DebugBall" type="MeshInstance3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlayerRay" unique_id=1974561682]
 mesh = SubResource("SphereMesh_cm0pq")
+
+[node name="ItemRay" type="RayCast3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D" unique_id=3895217]
+target_position = Vector3(0, 0, -20)
+collision_mask = 8
 
 [node name="CharacterAreaDetect" type="Area3D" parent="MainPlayer" unique_id=1226835851]
 collision_layer = 256
@@ -348,6 +353,13 @@ mesh = SubResource("SphereMesh_devvj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 target_position = Vector3(0, -50, 0)
 
+[node name="PickupPivot" type="Node3D" parent="MainPlayer" unique_id=45863599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("8_bg4s2")
+
+[node name="ItemHoverSpot" type="Node3D" parent="MainPlayer/PickupPivot" unique_id=1826112540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3201761, -3.5784016)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1612695682]
 transform = Transform3D(-0.9177185, 0.2922432, -0.2690474, -0.005625937, 0.6676767, 0.7444301, 0.3971914, 0.6846911, -0.61109525, 0, 6.8276563, 0)
 
@@ -480,6 +492,7 @@ scale = Vector2(3, 3)
 texture = ExtResource("11_5vvyt")
 script = ExtResource("13_j4qnp")
 is_passive = true
+is_primary = true
 
 [node name="Hover" type="TextureRect" parent="Menus/TabContainer/Inventory/sword" unique_id=73138548]
 visible = false
@@ -1076,6 +1089,10 @@ mesh = SubResource("BoxMesh_c6i3y")
 [node name="Entities" type="Node3D" parent="NavigationRegion3D" unique_id=592015246]
 
 [node name="TestEnemy" parent="NavigationRegion3D/Entities" unique_id=871990744 instance=ExtResource("27_sqvbp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.64392, 0, 0)
+
+[node name="GroundLoot" parent="." unique_id=296167991 instance=ExtResource("28_hri7i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7959852, 1.9703898, 4.6123323)
 
 [connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]

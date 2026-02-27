@@ -27,6 +27,8 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _debug_ball = $CameraPivot/SpringArm3D/Camera3D/PlayerRay/DebugBall
 @onready var _item_spawn_location = $ItemPivot/ItemSpawnSpot
 @onready var _blank_item : TextureRect = $BlankItem
+@onready var _pickup_hold_location : Node3D = $PickupPivot/ItemHoverSpot
+@onready var _held_item : RigidBody3D = null
 @onready var _can_enter_vehicle:bool = false
 @onready var _in_vehicle:bool = false
 @onready var _mouse_mode:int = 2
@@ -36,11 +38,13 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 # TODO: Create item list/map of all names, items ID by exact string (lowercase)
 # This is a list of all items and if they are equipped
 @onready var _items_equipped : Dictionary[String, bool]
+@onready var _primary : String
 @onready var _QER_items : Array[String]
 @onready var _GUI_arr : Array[Node]
 @onready var _paused : bool
 @onready var _item_timer: float = 0
 @onready var _aim_ray : RayCast3D = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
+@onready var _item_ray : RayCast3D = $CameraPivot/SpringArm3D/Camera3D/ItemRay
 @onready var _ground_ray : RayCast3D = $GroundDetect
 @onready var _ground_pos : Vector3 = Vector3(0, 0, 0)
 
@@ -67,6 +71,7 @@ func _physics_process(delta: float) -> void:
 	_GUI_arr = $GUI.get_children()
 	if !_in_vehicle:
 		movement_processing(delta)
+	pickup_and_lockon()
 	debug_aim()
 
 # Displays UI for entering vehicle and handles user input and controller handover to vehicle script
@@ -185,7 +190,7 @@ func _on_character_area_detect_area_exited(area: Area3D) -> void:
 func _bind_item(target: TextureRect, slot_num : int) -> void:
 	# Load textures onto hotbar
 	# Make sure our references are not lost
-	if _GUI_arr != null and target != null:
+	if _GUI_arr != null and target != null and target.is_passive == false:
 		_QER_items[slot_num] = target.name
 		# Pass slot info to object script
 		target.equipped_on_slot_num = slot_num
@@ -195,9 +200,17 @@ func _bind_item(target: TextureRect, slot_num : int) -> void:
 		_items_equipped[target.name] = true
 		# Set texture filter to nearest to avoid blur
 		_GUI_arr[slot_num].set_texture_filter(1) 
+	# for primary and non QER items
+	elif slot_num == -1 and not target.is_primary:
+		target.equipped_on_slot_num = -1
+		_items_equipped[target.name] = true
+		print(target.name)
+	elif target.is_primary == true:
+		_primary = target.name
+		target.equipped_on_slot_num = -1
+		_items_equipped[target.name] = true
 	# Refresh Inventory
 
-# TODO: actually unequip the item instead of just graphically removing
 # Clears the item from the hotbar	
 func _unbind_item(target: TextureRect) -> void:
 	if target.equipped_on_slot_num != -1:
@@ -209,6 +222,9 @@ func _unbind_item(target: TextureRect) -> void:
 		_items_equipped[target.name] = false
 		# Clear item's tracking of its slot number
 		target.equipped_on_slot_num = -1
+	elif target.equipped_on_slot_num == -1:
+		# Clear from equip list
+		_items_equipped[target.name] = false
 	
 func use_item() -> void:
 	if Input.is_action_just_pressed("QItem") and not _paused and _item_timer > item_cooldown_time:
@@ -220,6 +236,8 @@ func use_item() -> void:
 	if Input.is_action_just_pressed("RItem") and not _paused and _item_timer > item_cooldown_time:
 		trigger_item.emit(_QER_items[RSLOT], _item_spawn_location)
 		_item_timer = 0
+	if Input.is_action_just_pressed("Click") and not _paused and _item_timer > item_cooldown_time:
+		trigger_item.emit(_primary, _item_spawn_location)
 	return
 	
 # TODO: add more params for signals from enemies for debuffs and stuff
@@ -253,3 +271,18 @@ func _update_ground_pos():
 	
 func game_over() -> void:
 	pass
+	
+func pickup_and_lockon() -> void:
+	var col : RigidBody3D = _item_ray.get_collider()
+	# pickup
+	if Input.is_action_just_pressed("RClick") and _held_item == null and col != null:
+		# Reassign held item
+		print("picked up")
+		_held_item = col
+		_held_item.being_held = true
+		_held_item.hold_pos = _pickup_hold_location
+	# put down
+	elif Input.is_action_just_pressed("RClick") and _held_item != null:
+		print("put down")
+		_held_item.being_held = false
+		_held_item = null

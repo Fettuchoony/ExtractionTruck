@@ -79,6 +79,7 @@ func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
 			awaiting_assignment = false
 			equip.visible = true
 			source.equipped = true
+			bind_item.emit(current_focus_item, -1)
 		# Equip prompt brought up if item needs assignment
 		else:
 			equip.visible = false

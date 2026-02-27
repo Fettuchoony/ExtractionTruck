@@ -7,7 +7,9 @@ extends TextureRect
 @onready var control_prompt : Control = $ControlPrompt
 @onready var bomb_scene = preload("res://SceneObjs/bomb_item2.tscn")
 @onready var grapple_scene = preload("res://SceneObjs/grapple_item.tscn")
+@onready var player_ray : RayCast3D = $"../../../../MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlayerRay"
 @export var is_passive : bool
+@export var is_primary : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,7 +30,8 @@ func use_item(item_name: String, location: Node3D) -> void:
 		exec_grapple(location)
 	elif(item_name == "bomb"):
 		exec_bomb(location)
-	pass
+	elif(item_name == "sword"):
+		exec_sword(location)
 
 func exec_bomb(location: Node3D) -> void:
 	var bomb_instance = bomb_scene.instantiate()
@@ -39,3 +42,8 @@ func exec_grapple(location: Node3D) -> void:
 	var grapple_instance = grapple_scene.instantiate()
 	grapple_instance.position = location.global_position
 	add_child(grapple_instance)
+	
+func exec_sword(location: Node3D) -> void:
+	var enemy = player_ray.get_collider()
+	if enemy != null:
+		enemy.change_health(-1)
