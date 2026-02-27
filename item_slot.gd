@@ -45,5 +45,5 @@ func exec_grapple(location: Node3D) -> void:
 	
 func exec_sword(location: Node3D) -> void:
 	var enemy = player_ray.get_collider()
-	if enemy != null:
+	if enemy != null and enemy.collision_layer == 4:
 		enemy.change_health(-1)

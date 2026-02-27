@@ -10,7 +10,7 @@
 viewport_path = NodePath("Sprite3D/EnemyViewport")
 
 [node name="TestEnemy" type="RigidBody3D" unique_id=871990744]
-collision_layer = 5
+collision_layer = 4
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_516de")

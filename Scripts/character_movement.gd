@@ -52,6 +52,7 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @export var debug:bool = false
 
 func _ready() -> void:
+	# _QER_items = [Q Key, E Key, R Key]
 	_QER_items = ["", "", ""]
 	# force health to refresh
 	change_health(0)
@@ -263,7 +264,9 @@ func apply_knockback(source_pos : Vector3, strength : float) -> void:
 	
 func trigger_enemy_info() -> void:
 	var collision = _aim_ray.get_collider()
-	if collision != null:
+	# Enemy layer only
+	if collision != null and collision.collision_layer == 4:
+		print(collision.collision_layer)
 		collision.enable_info()
 	
 func _update_ground_pos():
@@ -275,14 +278,14 @@ func game_over() -> void:
 func pickup_and_lockon() -> void:
 	var col : RigidBody3D = _item_ray.get_collider()
 	# pickup
-	if Input.is_action_just_pressed("RClick") and _held_item == null and col != null:
+	if Input.is_action_just_pressed("RClick") and _held_item == null and col != null and col.collision_layer == 8:
 		# Reassign held item
-		print("picked up")
+		#print_debug("picked up: " + to_string(_held_item))
 		_held_item = col
 		_held_item.being_held = true
 		_held_item.hold_pos = _pickup_hold_location
 	# put down
 	elif Input.is_action_just_pressed("RClick") and _held_item != null:
-		print("put down")
+		#print("put down: " + to_string(_held_item))
 		_held_item.being_held = false
 		_held_item = null

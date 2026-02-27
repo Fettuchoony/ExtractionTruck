@@ -125,7 +125,7 @@ tilt_limit = 1.2
 
 [node name="PlayerRay" type="RayCast3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D" unique_id=469574903]
 target_position = Vector3(0, 0, -200)
-collision_mask = 4
+collision_mask = 5
 collide_with_areas = true
 
 [node name="DebugBall" type="MeshInstance3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlayerRay" unique_id=1974561682]
@@ -1073,18 +1073,22 @@ metadata/_custom_type_script = "uid://dm7atgmn4nyu2"
 
 [node name="WorldBuilds" type="Node3D" parent="NavigationRegion3D" unique_id=202330094]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/WorldBuilds" unique_id=490822742]
+[node name="Visible" type="Node3D" parent="NavigationRegion3D/WorldBuilds" unique_id=1816545643]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/WorldBuilds/Visible" unique_id=490822742]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9446764, 16.400337, -38.719704)
 visible = false
 collision_layer = 2049
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/WorldBuilds/StaticBody3D" unique_id=983902032]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/WorldBuilds/Visible/StaticBody3D" unique_id=983902032]
 transform = Transform3D(15.265, 0, 0, 0, 1, 0, 0, 0, 9.67, 12.796341, 0, 54.947502)
 shape = SubResource("BoxShape3D_5vvyt")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/WorldBuilds/StaticBody3D/CollisionShape3D" unique_id=1073012716]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/WorldBuilds/Visible/StaticBody3D/CollisionShape3D" unique_id=1073012716]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -17.188732, 0)
 mesh = SubResource("BoxMesh_c6i3y")
+
+[node name="Invisible" type="Node3D" parent="NavigationRegion3D/WorldBuilds" unique_id=1237233030]
 
 [node name="Entities" type="Node3D" parent="NavigationRegion3D" unique_id=592015246]
 

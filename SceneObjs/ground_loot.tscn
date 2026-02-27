@@ -2,17 +2,18 @@
 
 [ext_resource type="Script" uid="uid://40bkc40u78d0" path="res://SceneObjs/ground_loot.gd" id="1_wifvl"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_xp7af"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_wifvl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xp7af"]
 
 [node name="GroundLoot" type="RigidBody3D" unique_id=296167991]
 collision_layer = 8
 script = ExtResource("1_wifvl")
 hold_strength = 4.0
 
-[node name="ObjMesh" type="MeshInstance3D" parent="." unique_id=598206392]
-mesh = SubResource("BoxMesh_xp7af")
-
 [node name="ObjCollision" type="CollisionShape3D" parent="." unique_id=499014028]
 shape = SubResource("BoxShape3D_wifvl")
+
+[node name="ObjMesh" type="MeshInstance3D" parent="ObjCollision" unique_id=598206392]
+mesh = SubResource("BoxMesh_xp7af")
+skeleton = NodePath("../..")

@@ -25,6 +25,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	# If flying through air
 	if time < life:
 		var percent_complete : float = time/life
 		var t_pos : float = lerpf(0, rawdist, percent_complete)
@@ -34,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		global_position.x = lerp(start_pos.x, aim_pos.x, percent_complete)
 		global_position.z = lerp(start_pos.z, aim_pos.z, percent_complete)
 		#print(global_position)
-	#global_position = 
+	# If landed
 	time += delta
 
 
