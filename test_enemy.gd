@@ -2,7 +2,7 @@
 extends RigidBody3D
 
 static var REFRESH_FREQUENCY : float = 1
-static var HOP_FREQUENCY : float = 8
+static var HOP_FREQUENCY : float = 1
 static var HOP_INTENSITY : float = 2
 static var HEALTH_SHOW_TIME : float = 1
 
@@ -52,9 +52,9 @@ func _physics_process(delta: float) -> void:
 		return
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
 	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * movement_speed
-	# Hopping for slime
-	new_velocity.x *= abs(sin(time))
-	new_velocity.z *= abs(sin(time))
+	# Hopping for slime TODO: Rework this to use physics system and impulse
+	new_velocity.x *= abs(sin(HOP_FREQUENCY * time))
+	new_velocity.z *= abs(sin(HOP_FREQUENCY * time))
 	new_velocity.y += HOP_INTENSITY * sin(HOP_FREQUENCY * time)
 	if navigation_agent.avoidance_enabled:
 		navigation_agent.set_velocity(new_velocity)
@@ -105,3 +105,6 @@ func change_health(delta: int) -> void:
 		queue_free()
 	# Send info to the health GUI
 	health_gui_update(health, max_health)
+
+func apply_knockback(origin: Vector3) -> void:
+	apply_impulse(1000 * origin.direction_to(global_position) / (origin.distance_to(global_position) + 0.01))

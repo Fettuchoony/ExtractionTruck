@@ -52,7 +52,7 @@ func explode() -> void:
 		# Knockback
 		# Scale knockback relevant to how close the bomb is
 		if col is RigidBody3D:
-			col.apply_impulse(knockback_scalar * knockback_dir)
+			col.apply_knockback(global_position)
 		elif col is CharacterBody3D:
 			col.velocity += knockback_scalar * knockback_dir
 	var explosion = explosion_fog.instantiate()
