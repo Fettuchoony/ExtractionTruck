@@ -266,7 +266,6 @@ func trigger_enemy_info() -> void:
 	var collision = _aim_ray.get_collider()
 	# Enemy layer only
 	if collision != null and collision.collision_layer == 4:
-		print(collision.collision_layer)
 		collision.enable_info()
 	
 func _update_ground_pos():

@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckk61qf5220ji"
-path.etc2="res://.godot/imported/RockFace1.png-cd0f00a7dcd277f86acb57b7f77f9e85.etc2.ctex"
+uid="uid://ccggsllvbs0ce"
+path.etc2="res://.godot/imported/Slime_Slime.png-2b7c318556fd5a8f5736d0c8edd3c736.etc2.ctex"
 metadata={
 "imported_formats": ["etc2_astc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "6dcab2cae1909bd9e1b0045be9184023"
+}
 
 [deps]
 
-source_file="res://Textures/Extracted/RockFace1.png"
-dest_files=["res://.godot/imported/RockFace1.png-cd0f00a7dcd277f86acb57b7f77f9e85.etc2.ctex"]
+source_file="res://Textures/Blender/Slime_Slime.png"
+dest_files=["res://.godot/imported/Slime_Slime.png-2b7c318556fd5a8f5736d0c8edd3c736.etc2.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckk61qf5220ji"
-path.etc2="res://.godot/imported/RockFace1.png-cd0f00a7dcd277f86acb57b7f77f9e85.etc2.ctex"
+uid="uid://dhr1jlrogxy5l"
+path.etc2="res://.godot/imported/Slime.png-1fc037a485aea965a65870e28ebd5138.etc2.ctex"
 metadata={
 "imported_formats": ["etc2_astc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Textures/Extracted/RockFace1.png"
-dest_files=["res://.godot/imported/RockFace1.png-cd0f00a7dcd277f86acb57b7f77f9e85.etc2.ctex"]
+source_file="res://Textures/Extracted/Slime.png"
+dest_files=["res://.godot/imported/Slime.png-1fc037a485aea965a65870e28ebd5138.etc2.ctex"]
 
 [params]
 

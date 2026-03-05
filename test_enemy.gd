@@ -1,16 +1,21 @@
 # https://docs.godotengine.org/en/4.6/tutorials/navigation/navigation_using_navigationagents.html
 extends RigidBody3D
 
+
 static var REFRESH_FREQUENCY : float = 1
 static var HOP_FREQUENCY : float = 1
-static var HOP_INTENSITY : float = 2
+static var HOP_INTENSITY : float = 4
 static var HEALTH_SHOW_TIME : float = 1
 
 @export var movement_speed: float = 3.0
+@export var charge_attack_radius: float = 5
+@export var chargeup_time : float = 1
 
+# Theres some parabola magic going on here
 @onready var time : float = 0
 @onready var health : int = 6
 @onready var max_health : int = 10
+@onready var hop_frequency : float = 2
 @onready var health_sprite : Sprite3D = $Sprite3D
 @onready var health_sprite_timer : float = 0
 @onready var heart_module_scene = preload("res://SceneObjs/heart_module.tscn")
@@ -20,6 +25,9 @@ static var HEALTH_SHOW_TIME : float = 1
 @onready var player : CharacterBody3D = $"../../../MainPlayer"
 @onready var player_cam : Camera3D = $"../../../MainPlayer/CameraPivot/SpringArm3D/Camera3D"
 @onready var navigation_agent: NavigationAgent3D = get_node("NavigationAgent3D")
+@onready var b : float
+@onready var charge : float = 0
+@onready var slime_scale : Vector3 = scale
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -34,41 +42,73 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func set_movement_target(movement_target: Vector3):
-	navigation_agent.set_target_position(movement_target)
-
 func _physics_process(delta: float) -> void:
-	_adjust_target()
-	if health_sprite_timer > HEALTH_SHOW_TIME:
-		health_gui_update(6, 10)
-		health_sprite.visible = false
+	# Update timers
+	time += delta
 	health_sprite_timer += delta
 	time_since_target_update += delta
 	time_since_last_hop += delta
+	_adjust_target()
+	look_at(player.global_position)
+	rotation.x = 0
+	rotation.z = 0
+	if health_sprite_timer > HEALTH_SHOW_TIME:
+		health_gui_update(6, 10)
+		health_sprite.visible = false
 	# Do not query when the map has never synchronized and is empty.
 	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
 		return
 	if navigation_agent.is_navigation_finished():
 		return
-	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
-	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * movement_speed
-	# Hopping for slime TODO: Rework this to use physics system and impulse
-	new_velocity.x *= abs(sin(HOP_FREQUENCY * time))
-	new_velocity.z *= abs(sin(HOP_FREQUENCY * time))
-	new_velocity.y += HOP_INTENSITY * sin(HOP_FREQUENCY * time)
-	if navigation_agent.avoidance_enabled:
-		navigation_agent.set_velocity(new_velocity)
-	else:
-		_on_velocity_computed(new_velocity)
-	time += delta
+	if time_since_last_hop > hop_frequency:
+		var next_path_position: Vector3 = navigation_agent.get_next_path_position()
+		var new_dir: Vector3 = (global_position.direction_to(next_path_position)).normalized()
+		var dist_to_player : float = global_position.distance_to(player.global_position)
+		# Hopping for slime
+		# Initiate charge attack
+		if (dist_to_player < charge_attack_radius):
+			#first half of the chargeup
+			if (charge < chargeup_time/2):
+				slime_scale = lerp(slime_scale, Vector3(charge_attack_radius,
+				charge_attack_radius, 
+				charge_attack_radius,),
+				exp(delta))
+				scale = slime_scale
+				charge += delta
+			# Second half of the chargeup
+			elif (charge >= chargeup_time/2 and charge < chargeup_time):
+				slime_scale = lerp(slime_scale, Vector3(1,
+				1, 
+				1,),
+				log(delta))
+				scale = slime_scale
+				charge += delta
+			else:
+				print("resetting size")
+				charge = 0
+				slime_scale = Vector3(1, 1, 1)
+				scale = slime_scale
+				scale = Vector3(1,1,1)
+				
+		# Hop towards player calmly
+		else:
+			# Cancel any chargin if player leaves radius
+			charge = 0
+			new_dir.y = 1
+			apply_impulse(HOP_INTENSITY * new_dir)
+			time_since_last_hop = 0
+	#if navigation_agent.avoidance_enabled:
+		#navigation_agent.set_velocity(new_velocity)
+	#else:
+		#_on_velocity_computed(new_velocity)
 
 func _on_velocity_computed(safe_velocity: Vector3):
 	linear_velocity = safe_velocity
 
 func _adjust_target() -> void :
 	if time_since_target_update > REFRESH_FREQUENCY:
+		navigation_agent.set_target_position(player._ground_pos)
 		time_since_target_update = 0
-		set_movement_target(player._ground_pos)
 
 func enable_info() -> void:
 	health_sprite.visible = true
@@ -107,4 +147,4 @@ func change_health(delta: int) -> void:
 	health_gui_update(health, max_health)
 
 func apply_knockback(origin: Vector3) -> void:
-	apply_impulse(1000 * origin.direction_to(global_position) / (origin.distance_to(global_position) + 0.01))
+	apply_impulse(10 * origin.direction_to(global_position) / (origin.distance_to(global_position) + 0.01))
