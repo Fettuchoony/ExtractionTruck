@@ -9,10 +9,11 @@ extends Node3D
 @onready var aim_pos : Vector3 = aim_cast.get_collision_point()
 @onready var rawdist : float = start_pos.distance_to(aim_pos)
 @onready var life : float = 1
-# theres some parabola magic going on here
+# Theres some parabola magic going on here
 @onready var b : float = (aim_pos.y/rawdist) + arch_factor * rawdist
 # Arc length equation
 @onready var arc_length : float = 0.5 * sqrt(pow(b, 2) + 16 * pow(arch_factor, 2)) + (pow(b, 2) / (8 * arch_factor)) * log((4 * arch_factor + sqrt(pow(b, 2) + 16 * pow(arch_factor, 2))) / b)
+
 @export var arch_factor : float = 1
 @export var strength : float = 1
 @export var lifetime_factor : float = 1

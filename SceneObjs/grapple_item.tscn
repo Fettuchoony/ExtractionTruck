@@ -15,7 +15,7 @@
 
 [node name="GrappleItem" type="Node3D" unique_id=946829651]
 script = ExtResource("1_gayxh")
-arch_factor = 0.135
+arch_factor = 0.05
 lifetime_factor = 4.0
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1223135052]
