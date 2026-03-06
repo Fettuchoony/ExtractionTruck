@@ -138,7 +138,7 @@ target_position = Vector3(0, 0, -20)
 collision_mask = 8
 
 [node name="CharacterAreaDetect" type="Area3D" parent="MainPlayer" unique_id=1226835851]
-collision_layer = 256
+collision_layer = 258
 collision_mask = 256
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MainPlayer/CharacterAreaDetect" unique_id=299804558]
@@ -1097,7 +1097,6 @@ transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 263.06326, -0.45231372, 256
 
 [node name="TestEnemy" parent="NavigationRegion3D/Entities" unique_id=871990744 instance=ExtResource("27_sqvbp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 284.09647, 0, 288.23853)
-charge_attack_radius = 5.0
 
 [node name="GroundLoot" parent="." unique_id=296167991 instance=ExtResource("28_hri7i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 273.39948, 1.9703898, 283.83783)

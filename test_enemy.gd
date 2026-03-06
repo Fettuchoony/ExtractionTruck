@@ -28,6 +28,8 @@ static var HEALTH_SHOW_TIME : float = 1
 @onready var b : float
 @onready var charge : float = 0
 @onready var slime_scale : Vector3 = scale
+# Lets the slime do its animation even after player is flung outside its radius
+@onready var temp_radius : float = charge_attack_radius
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -71,25 +73,31 @@ func _physics_process(delta: float) -> void:
 		new_dir.y = 1
 		apply_impulse(HOP_INTENSITY * new_dir)
 		time_since_last_hop = 0
-		
+
 	# Initiate charge attack
-	if (dist_to_player < charge_attack_radius):
-		time_since_last_hop = HOP_FREQUENCY - 1
+	if (dist_to_player < temp_radius):
+		temp_radius = 99999
+		time_since_last_hop = HOP_FREQUENCY - chargeup_time
 		#first half of the chargeup
 		if charge < chargeup_time:
 			# This is a formula for a gaussian curve-like graph
-			var factor : float = 2.5 * exp(-100 * pow(charge - (chargeup_time/4), 2)) + 1
-			print(factor)
+			var factor : float = charge_attack_radius * exp(-30 * pow(charge - (chargeup_time/2), 2)) + 1
+			print(charge)
 			scale = factor * slime_scale
 			charge += delta
 		else:
-			print("resetting size")
 			charge = 0
+			temp_radius = charge_attack_radius
 			slime_scale = Vector3(1, 1, 1)
 			scale = Vector3(1,1,1)
 	
 	# Enemy dmg and knockback
-	
+	var cols = hurt_zone.get_overlapping_areas()
+	for col in cols:
+		var parent = col.get_parent()
+		# targets in enemy and player layers must have area3d as child right under their root or this errors
+		parent.apply_knockback(global_position, 100)
+		parent.change_health(-1)
 	
 	
 	#if navigation_agent.avoidance_enabled:
