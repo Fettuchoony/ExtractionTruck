@@ -3,23 +3,23 @@ extends RigidBody3D
 
 
 static var REFRESH_FREQUENCY : float = 1
-static var HOP_FREQUENCY : float = 1
+static var HOP_FREQUENCY : float = 2
 static var HOP_INTENSITY : float = 4
 static var HEALTH_SHOW_TIME : float = 1
 
 @export var movement_speed: float = 3.0
 @export var charge_attack_radius: float = 5
-@export var chargeup_time : float = 1
+@export var chargeup_time : float = 5
 
 # Theres some parabola magic going on here
 @onready var time : float = 0
 @onready var health : int = 6
 @onready var max_health : int = 10
-@onready var hop_frequency : float = 2
 @onready var health_sprite : Sprite3D = $Sprite3D
 @onready var health_sprite_timer : float = 0
 @onready var heart_module_scene = preload("res://SceneObjs/heart_module.tscn")
 @onready var health_bar : HBoxContainer = $"Sprite3D/EnemyViewport/Health Bar/HBoxContainer"
+@onready var hurt_zone : Area3D = $Area3D
 @onready var time_since_target_update : float = 0
 @onready var time_since_last_hop : float = 0
 @onready var player : CharacterBody3D = $"../../../MainPlayer"
@@ -60,43 +60,38 @@ func _physics_process(delta: float) -> void:
 		return
 	if navigation_agent.is_navigation_finished():
 		return
-	if time_since_last_hop > hop_frequency:
-		var next_path_position: Vector3 = navigation_agent.get_next_path_position()
-		var new_dir: Vector3 = (global_position.direction_to(next_path_position)).normalized()
-		var dist_to_player : float = global_position.distance_to(player.global_position)
-		# Hopping for slime
-		# Initiate charge attack
-		if (dist_to_player < charge_attack_radius):
-			#first half of the chargeup
-			if (charge < chargeup_time/2):
-				slime_scale = lerp(slime_scale, Vector3(charge_attack_radius,
-				charge_attack_radius, 
-				charge_attack_radius,),
-				exp(delta))
-				scale = slime_scale
-				charge += delta
-			# Second half of the chargeup
-			elif (charge >= chargeup_time/2 and charge < chargeup_time):
-				slime_scale = lerp(slime_scale, Vector3(1,
-				1, 
-				1,),
-				log(delta))
-				scale = slime_scale
-				charge += delta
-			else:
-				print("resetting size")
-				charge = 0
-				slime_scale = Vector3(1, 1, 1)
-				scale = slime_scale
-				scale = Vector3(1,1,1)
-				
-		# Hop towards player calmly
+	
+	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
+	var new_dir: Vector3 = (global_position.direction_to(next_path_position)).normalized()
+	var dist_to_player : float = global_position.distance_to(player.global_position)
+	
+	if time_since_last_hop > HOP_FREQUENCY:
+		# Cancel any charging if player leaves radius
+		charge = 0
+		new_dir.y = 1
+		apply_impulse(HOP_INTENSITY * new_dir)
+		time_since_last_hop = 0
+		
+	# Initiate charge attack
+	if (dist_to_player < charge_attack_radius):
+		time_since_last_hop = HOP_FREQUENCY - 1
+		#first half of the chargeup
+		if charge < chargeup_time:
+			# This is a formula for a gaussian curve-like graph
+			var factor : float = 2.5 * exp(-100 * pow(charge - (chargeup_time/4), 2)) + 1
+			print(factor)
+			scale = factor * slime_scale
+			charge += delta
 		else:
-			# Cancel any chargin if player leaves radius
+			print("resetting size")
 			charge = 0
-			new_dir.y = 1
-			apply_impulse(HOP_INTENSITY * new_dir)
-			time_since_last_hop = 0
+			slime_scale = Vector3(1, 1, 1)
+			scale = Vector3(1,1,1)
+	
+	# Enemy dmg and knockback
+	
+	
+	
 	#if navigation_agent.avoidance_enabled:
 		#navigation_agent.set_velocity(new_velocity)
 	#else:

@@ -8,13 +8,16 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_34rnb"]
 viewport_path = NodePath("Sprite3D/EnemyViewport")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_3lc1f"]
+radius = 0.77053624
+
 [node name="TestEnemy" type="RigidBody3D" unique_id=871990744]
 transform = Transform3D(-0.9992508, 0, -0.0387017, 0, 1, 0, 0.0387017, 0, -0.9992508, 0, 0, 0)
 collision_layer = 4
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_516de")
-chargeup_time = 100.0
+chargeup_time = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1773027660]
 shape = SubResource("SphereShape3D_516de")
@@ -57,3 +60,10 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1346917926]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=399375410]
+shape = SubResource("SphereShape3D_3lc1f")
