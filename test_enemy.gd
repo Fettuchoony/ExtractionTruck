@@ -30,6 +30,7 @@ static var HEALTH_SHOW_TIME : float = 1
 @onready var slime_scale : Vector3 = scale
 # Lets the slime do its animation even after player is flung outside its radius
 @onready var temp_radius : float = charge_attack_radius
+@onready var health_y : float = health_sprite.position.y
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -83,10 +84,16 @@ func _physics_process(delta: float) -> void:
 			# This is a formula for a gaussian curve-like graph
 			var factor : float = charge_attack_radius * exp(-30 * pow(charge - (chargeup_time/2), 2)) + 1
 			print(charge)
+			# Scale slime
 			scale = factor * slime_scale
 			charge += delta
+			# Shift health bar, undo scaling
+			health_sprite.position.y = health_y * factor
 		else:
 			charge = 0
+			# Reset health y pos
+			health_sprite.global_position.y = health_y
+			# Reset activation radius of slime charge
 			temp_radius = charge_attack_radius
 			slime_scale = Vector3(1, 1, 1)
 			scale = Vector3(1,1,1)
