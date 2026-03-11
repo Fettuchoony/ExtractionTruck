@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bre8dvvlvami"]
 
 [ext_resource type="Texture2D" uid="uid://bok63sp5licm0" path="res://Textures/Extracted/Grass.png" id="1_0ug5b"]
+[ext_resource type="PackedScene" uid="uid://2yhpf2hyn0t2" path="res://SceneObjs/test_loading_zone.tscn" id="2_xvxgx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xvxgx"]
 albedo_texture = ExtResource("1_0ug5b")
@@ -22,3 +23,6 @@ mesh = SubResource("QuadMesh_74i23")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1466834149]
 shape = SubResource("ConcavePolygonShape3D_d1621")
+
+[node name="TestLoadingZone" parent="." unique_id=1947763932 instance=ExtResource("2_xvxgx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.442702, 2.0274482, 0)

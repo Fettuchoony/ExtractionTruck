@@ -26,6 +26,7 @@ enabled=PackedStringArray("res://addons/zylann.hterrain/plugin.cfg")
 [global_group]
 
 carry_on_load="Carry this object into other \"levels\". Applied to character, car, items, etc..."
+loading_masters="The objects that hold scene loaders as children"
 
 [input]
 

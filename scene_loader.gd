@@ -1,11 +1,12 @@
+## THIS AREA3D MUST BE THE CHILD OF AN OBJECT WITH "loading_zone_master" SCRIPT ATTACHED
 extends Area3D
 
-# TODO: KEEP THIS UPDATED WITH ADDED LEVELS
-## Controls where the loading zone points.[br]
-## Scene Index:[br]
-## 0: Main test scene[br]
-## 1: First level test[br]
-@export var scene_target_index : int = 0
+## Set this loaders subscene so scene manager can grab it on load
+@onready var subscene : int = 0
+@onready var scene_target_index : int = 0
+@onready var subscene_target_index : int = 0
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,7 +15,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var cols = get_overlapping_areas()
-	if cols != null and cols.size() > 0:
-		get_tree().change_scene_to_file("res://SceneObjs/test_level.tscn")
-		
+	pass
+	
+## This must be called by parent object to make loader work
+func init_loader(scene_target : int, subscene_target : int, this_subscene : int) -> void:
+	scene_target_index = scene_target
+	subscene_target_index = subscene_target
+	subscene = this_subscene

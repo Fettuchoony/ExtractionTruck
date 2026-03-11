@@ -31,7 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://dm5nydlnkp6ps" path="res://SceneObjs/ground_loot.tscn" id="28_hri7i"]
 [ext_resource type="PackedScene" uid="uid://d3m5qmeybqvho" path="res://SceneObjs/test_course.tscn" id="28_oye8v"]
 [ext_resource type="PackedScene" uid="uid://coh1ixbnqytnp" path="res://Textures/Blender/tree.blend" id="30_5mvff"]
-[ext_resource type="PackedScene" uid="uid://bnb68pde5sj61" path="res://SceneObjs/test_loading_zone.tscn" id="32_40n85"]
+[ext_resource type="PackedScene" uid="uid://2yhpf2hyn0t2" path="res://SceneObjs/test_loading_zone.tscn" id="32_40n85"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
 
@@ -1111,6 +1111,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 274.62207, 1.0000005, 293.486
 
 [node name="TestLoadingZone" parent="." unique_id=1947763932 instance=ExtResource("32_40n85")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 282.37967, 2.7165494, 276.17114)
+scene_target = 1
 
 [connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]

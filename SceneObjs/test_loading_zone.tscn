@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://bnb68pde5sj61"]
+[gd_scene format=3 uid="uid://2yhpf2hyn0t2"]
 
 [ext_resource type="PackedScene" uid="uid://cnxgkuukwwcg3" path="res://Textures/Blender/TestLoadingZone.blend" id="1_8cnjx"]
+[ext_resource type="Script" uid="uid://blhywroidpww" path="res://SceneObjs/loading_zone_master.gd" id="2_fr6gs"]
 [ext_resource type="Texture2D" uid="uid://ckk61qf5220ji" path="res://Textures/Extracted/RockFace1.png" id="2_o34s3"]
 [ext_resource type="PackedScene" uid="uid://bnpuy6733k0y7" path="res://SceneObjs/loading_zone.tscn" id="3_fr6gs"]
 
@@ -10,13 +11,18 @@ albedo_texture = ExtResource("2_o34s3")
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_hwxbk"]
 data = PackedVector3Array(-1, 0.5, -0.5, -1, 1, -0.75, -1, 1, -0.5, -1, 0.5, -0.5, -1, 0.5, -1, -1, 1, -0.75, -1, 0.5, 0, -1, 0.5, -0.5, -1, 1, -0.5, -1, 0, -0.5, -1, 0.5, -1, -1, 0.5, -0.5, -1, 0.5, 0, -1, 1, -0.5, -1, 1, 0, -1, 0, -0.5, -1, 0, -1, -1, 0.5, -1, -1, -1, -0.5, -1, 0, -1, -1, 0, -0.5, -1, -1, -0.5, -1, -1, -1, -1, 0, -1, -1, 0.5, 0.5, -1, 0.5, 0, -1, 1, 0, -1, 0.5, 0.5, -1, 1, 0, -1, 1, 0.5, -1, 0.5, 1, -1, 0.5, 0.5, -1, 1, 0.5, -1, 0.5, 1, -1, 1, 0.5, -1, 1, 0.75009996, -1, 0, 1, -1, 0.5, 0.5, -1, 0.5, 1, -1, 0, 1, -1, 0, 0.5, -1, 0.5, 0.5, -1, -1, 1, -1, 0, 0.5, -1, 0, 1, -1, -1, 1, -1, -1, 0.5, -1, 0, 0.5, -1, 0.5, -1, 1, 1, -0.75, -1, 1, -0.75, -1, 0.5, -1, 1, 0.5, -1, 1, 1, -0.75, 1, 0.5, 0.5, 1, 1, 0.7499, 1, 1, 0.5, 1, 0.5, 0.5, 1, 0.5, 1, 1, 1, 0.7499, 1, 0.5, 0, 1, 0.5, 0.5, 1, 1, 0.5, 1, 0.5, 0, 1, 1, 0.5, 1, 1, 0, 1, 0.5, -0.5, 1, 0.5, 0, 1, 1, 0, 1, 0.5, -0.5, 1, 1, 0, 1, 1, -0.5, 1, 0.5, -1, 1, 0.5, -0.5, 1, 1, -0.5, 1, 0.5, -1, 1, 1, -0.5, 1, 1, -0.75, 1, 0, -1, 1, 0.5, -0.5, 1, 0.5, -1, 1, 0, -1, 1, 0, -0.5, 1, 0.5, -0.5, 1, -1, -1, 1, 0, -0.5, 1, 0, -1, 1, -1, -1, 1, -1, -0.5, 1, 0, -0.5, 1, 0, 0.5, 1, 0.5, 1, 1, 0.5, 0.5, 1, 0, 0.5, 1, 0, 1, 1, 0.5, 1, 1, -1, 0.5, 1, 0, 1, 1, 0, 0.5, 1, -1, 0.5, 1, -1, 1, 1, 0, 1, 1, 0.5, 1, -1, 1, 0.75009996, 1, 1, 0.7499, 1, 0.5, 1, -1, 0.5, 1, -1, 1, 0.75009996, -1, -1, 0.5, 1, -1, 1, 1, -1, 0.5, -1, -1, 0.5, -1, -1, 1, 1, -1, 1, 1, 1, 0.5, -1, 1, 0.75009996, -1, 1, 0.5, 1, 1, 0.5, 1, 1, 0.7499, -1, 1, 0.75009996, 1, 1, 0, 1, 1, 0.5, -1, 1, 0.5, 1, 1, 0, -1, 1, 0.5, -1, 1, 0, 1, 1, -0.5, 1, 1, 0, -1, 1, 0, 1, 1, -0.5, -1, 1, 0, -1, 1, -0.5, 1, 1, -0.75, 1, 1, -0.5, -1, 1, -0.5, 1, 1, -0.75, -1, 1, -0.5, -1, 1, -0.75, -1, -1, -1, 1, -1, -0.5, 1, -1, -1, -1, -1, -1, -1, -1, -0.5, 1, -1, -0.5, 1, -1, 1, -1, 0, 1, 1, 0, 1, 1, -1, 1, -1, -1, 1, -1, 0, 1, 1, 0, 1, -1, 0, 1, -1, 0.5, 1, 1, 0, 1, -1, 0.5, 1, 1, 0.5, 1, -1, -1, -1, 1, 0, -1, -1, 0, -1, -1, -1, -1, 1, -1, -1, 1, 0, -1, -1, 0, -1, 1, 0, -1, 1, 0.5, -1, -1, 0, -1, 1, 0.5, -1, -1, 0.5, -1, 1, 0.5, 0.5, -1, 0, 0.5, 1, 0, 0.5, 1, 0.5, 0.5, -1, 0.5, 0.5, -1, 0, 0.5, 1, 0, 0.5, -1, 0, 0.5, -1, -1, 0.5, 1, 0, 0.5, -1, -1, 0.5, 1, -1, 0.5, 1, 0.5, 0.5, -1, 0.5, -0.5, -1, 0.5, 0.5, 1, 0.5, 0.5, 1, 0.5, -0.5, -1, 0.5, -0.5, 1, 0.5, -0.5, -1, -1, -0.5, -1, 0.5, -0.5, 1, 0.5, -0.5, 1, -1, -0.5, -1, -1, -0.5)
 
-[node name="TestLoadingZone" unique_id=1947763932 instance=ExtResource("1_8cnjx")]
+[node name="TestLoadingZone" unique_id=1947763932 groups=["loading_masters"] instance=ExtResource("1_8cnjx")]
+script = ExtResource("2_fr6gs")
 
-[node name="Cube" parent="." index="0" unique_id=1661908289]
+[node name="Cube" parent="." index="0" unique_id=1302834285]
 transform = Transform3D(1, 0, 0, 0, 1.9738907, 0, 0, 0, 1.7386141, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_61ebj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1" unique_id=1317967987]
+transform = Transform3D(1.005, 0, 0, 0, 1.74, 0, 0, 0, 1.74, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_hwxbk")
 
-[node name="Area3D" parent="." index="2" unique_id=233027473 instance=ExtResource("3_fr6gs")]
+[node name="LoadingZone" parent="." index="2" unique_id=233027473 instance=ExtResource("3_fr6gs")]
+
+[node name="SpawnPoint" type="Node3D" parent="." index="3" unique_id=126084094]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.858307, 0, 0)

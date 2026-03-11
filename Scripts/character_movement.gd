@@ -22,7 +22,6 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 
 @onready var _max_health : int = 10
 @onready var _health : int = 10
-@onready var _camera = $CameraPivot/SpringArm3D/Camera3D
 @onready var _target = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
 @onready var _debug_ball = $CameraPivot/SpringArm3D/Camera3D/PlayerRay/DebugBall
 @onready var _item_spawn_location = $ItemPivot/ItemSpawnSpot
@@ -47,6 +46,7 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _item_ray : RayCast3D = $CameraPivot/SpringArm3D/Camera3D/ItemRay
 @onready var _ground_ray : RayCast3D = $GroundDetect
 @onready var _ground_pos : Vector3 = Vector3(0, 0, 0)
+@onready var _last_subscene : int = 0
 
 @export var item_cooldown_time : float = 0.2
 @export var debug:bool = false

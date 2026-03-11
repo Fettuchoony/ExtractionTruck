@@ -1,13 +1,10 @@
 [gd_scene format=3 uid="uid://bnpuy6733k0y7"]
 
-[ext_resource type="Script" uid="uid://cqup00nmy60mb" path="res://scene_loader.gd" id="1_0050v"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_4ctkb"]
 size = Vector3(1, 2, 1)
 
-[node name="Area3D" type="Area3D" unique_id=233027473]
+[node name="LoadingZone" type="Area3D" unique_id=233027473]
 collision_mask = 2
-script = ExtResource("1_0050v")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2018626089]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
