@@ -1,8 +1,6 @@
 extends Control
 
-# Editor order must be correct!
-static var HOVER_SPRITE : int = 0
-static var EQUIP_SPRITE : int = 1
+# Equipment slots TODO: Consider expanding to mc style taskbar?
 static var QSLOT : int = 0
 static var ESLOT : int = 1
 static var RSLOT : int = 2
@@ -37,24 +35,9 @@ func _on_main_player_pause_menu() -> void:
 	else:
 		visible = true
 
-# Removes hovering sprite
-
-
-# Displays hovering sprite
-func _on_item_slot_mouse_entered(source: Control) -> void:
-	# Grab hover sprite
-	var hover : TextureRect = source.get_child(HOVER_SPRITE)
-	hover.visible = true
-	
-
-
-func _on_item_slot_mouse_exited(source: Control) -> void:
-	var hover : TextureRect = source.get_child(HOVER_SPRITE)
-	hover.visible = false
-
 # Equip handler
 func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
-	var equip : TextureRect = source.get_child(EQUIP_SPRITE)
+	var equip : TextureRect = source.find_child("Equipped")
 	# Primary and passives
 	if event.is_action_pressed("Click"):
 		# Clear previous inputs

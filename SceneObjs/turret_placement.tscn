@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bymmtaymrvfka"]
+
+[ext_resource type="Script" uid="uid://bveertsp5mkpm" path="res://turret_placement.gd" id="1_1tygk"]
+
+[node name="TurretPlacement" type="Node3D" unique_id=1132009332]
+script = ExtResource("1_1tygk")

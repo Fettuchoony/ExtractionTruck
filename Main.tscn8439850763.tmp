@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dsg3aaq8k3xk8" path="res://SceneObjs/MainTestScene.tscn" id="20_2gh4u"]
 [ext_resource type="Texture2D" uid="uid://c5lr88gvig1n2" path="res://Textures/Extracted/bomb.png" id="20_devvj"]
 [ext_resource type="Texture2D" uid="uid://5vqebth03c5p" path="res://Textures/Extracted/BlankItem.png" id="22_3b0ty"]
+[ext_resource type="PackedScene" uid="uid://bymmtaymrvfka" path="res://SceneObjs/turret_placement.tscn" id="22_bg4s2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
 
@@ -947,6 +948,11 @@ environment = SubResource("Environment_w3rk5")
 
 [node name="MainTestScene" parent="." unique_id=869491980 instance=ExtResource("20_2gh4u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.424, -1, -0.772)
+
+[node name="TurretPlacement" parent="." unique_id=1132009332 instance=ExtResource("22_bg4s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 267.324, -0.5, 294.48)
+
+[node name="gunner_turret" type="StaticBody3D" parent="." unique_id=735086599]
 
 [connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]
