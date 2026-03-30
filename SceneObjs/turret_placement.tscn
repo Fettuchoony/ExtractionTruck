@@ -4,3 +4,4 @@
 
 [node name="TurretPlacement" type="Node3D" unique_id=1132009332]
 script = ExtResource("1_1tygk")
+placement_range = 100.0

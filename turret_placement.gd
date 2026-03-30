@@ -17,10 +17,11 @@ func _ready() -> void:
 	placement_ray.target_position = Vector3(0, 0, -placement_range)
 	var temp_turret = load("res://SceneObjs/" + Turret_Type.keys()[turret_type] + "_turret.tscn")
 	turret = temp_turret.instantiate()
+	add_child(turret)
 	print("placed: " + turret.name)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var target_pos = placement_ray.get_collision_point()
 	if turret != null:
 		turret.global_position = target_pos

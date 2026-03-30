@@ -70,9 +70,9 @@ func exec_sword(location: Node3D) -> void:
 		enemy.change_health(-1)
 
 func exec_turret(location: Node3D) -> void:
-	var placement_location = placement_ray.target_position
+	var placement_location = placement_ray.get_collision_point()
 	var turret_instance = turret_scene.instantiate()
-	turret_instance.position = location.global_position
+	turret_instance.position = placement_location
 	# Find current level to place turret
 	var curr_level = get_tree().get_nodes_in_group("levels")
 	if curr_level == null:
