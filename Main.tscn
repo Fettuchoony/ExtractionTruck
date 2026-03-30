@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bm8w6rbk6us6h" path="res://Textures/Extracted/RKey.png" id="18_3b0ty"]
 [ext_resource type="PackedScene" uid="uid://dsg3aaq8k3xk8" path="res://SceneObjs/MainTestScene.tscn" id="20_2gh4u"]
 [ext_resource type="Texture2D" uid="uid://c5lr88gvig1n2" path="res://Textures/Extracted/bomb.png" id="20_devvj"]
+[ext_resource type="Script" uid="uid://bveertsp5mkpm" path="res://turret_placement.gd" id="21_devvj"]
 [ext_resource type="Texture2D" uid="uid://5vqebth03c5p" path="res://Textures/Extracted/BlankItem.png" id="22_3b0ty"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
@@ -52,6 +53,8 @@ background_mode = 2
 sky = SubResource("Sky_hri7i")
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_3b0ty"]
 
 [node name="Node3D" type="Node3D" unique_id=1688291202]
 script = ExtResource("1_2gh4u")
@@ -93,6 +96,8 @@ mesh = SubResource("SphereMesh_cm0pq")
 [node name="ItemRay" type="RayCast3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D" unique_id=3895217]
 target_position = Vector3(0, 0, -20)
 collision_mask = 8
+
+[node name="PlacementRay" type="RayCast3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D" unique_id=1696424785]
 
 [node name="CharacterAreaDetect" type="Area3D" parent="MainPlayer" unique_id=1226835851]
 collision_layer = 2
@@ -932,6 +937,16 @@ text = "SAVE
 environment = SubResource("Environment_w3rk5")
 
 [node name="MainTestScene" parent="." unique_id=869491980 instance=ExtResource("20_2gh4u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.424, -1, -0.772)
+
+[node name="TurretPlacement" type="Node3D" parent="." unique_id=1655861313]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 267.324, -0.5, 294.48)
+script = ExtResource("21_devvj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TurretPlacement" unique_id=851827497]
+mesh = SubResource("SphereMesh_3b0ty")
+
+[node name="gunner_turret" type="StaticBody3D" parent="." unique_id=735086599]
 
 [connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]

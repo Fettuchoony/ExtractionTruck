@@ -13,15 +13,16 @@ static var OUT_OF_BOUNDS : Vector3 = Vector3(99999, 99999, 99999)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if enable_saving && FileAccess.file_exists("res://UserGeneratedScenes/save.tscn"):
-		var saved_scene = load("res://UserGeneratedScenes/save.tscn").instantiate()
-		# Remove all children from game
-		for child in get_children():
-			child.free()
-		# Replace with saved variants
-		print(saved_scene.get_children())
-		for child in saved_scene.get_children():
-			add_child(child)
+	# TODO: Fix whole game saving system, its jank rn so im just disabling it, per scene saving on switching still works
+	#if enable_saving && FileAccess.file_exists("res://UserGeneratedScenes/save.tscn"):
+		#var saved_scene = load("res://UserGeneratedScenes/save.tscn").instantiate()
+		## Remove all children from game
+		#for child in get_children():
+			#child.free()
+		## Replace with saved variants
+		#print(saved_scene.get_children())
+		#for child in saved_scene.get_children():
+			#child.reparent(self) 
 	var level_scenes = get_tree().get_nodes_in_group("levels")
 	# Just assume the only loaded scene is indx 0
 	print(level_scenes)
