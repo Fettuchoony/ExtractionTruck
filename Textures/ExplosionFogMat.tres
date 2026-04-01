@@ -1,0 +1,4 @@
+[gd_resource type="FogMaterial" format=3 uid="uid://cygbdkmmfwgaw"]
+
+[resource]
+albedo = Color(0.8982332, 0.00036923506, 0.00020109028, 1)

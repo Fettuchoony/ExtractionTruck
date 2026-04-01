@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://lm5ccv8vx83w"]
+
+[ext_resource type="Texture2D" uid="uid://c615juwycvyxk" path="res://Textures/Extracted/EmptyHeart.png" id="1_h2kd0"]
+[ext_resource type="Texture2D" uid="uid://davef1q2acnys" path="res://Textures/Extracted/HalfHeart.png" id="2_t7u35"]
+[ext_resource type="Texture2D" uid="uid://dtbplsdj5457y" path="res://Textures/Extracted/FullHeart.png" id="3_opnix"]
+
+[node name="H1" type="TextureRect" unique_id=1197161023]
+texture_filter = 1
+size_flags_horizontal = 2
+texture = ExtResource("1_h2kd0")
+
+[node name="Half" type="TextureRect" parent="." unique_id=538472034]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_t7u35")
+
+[node name="Full" type="TextureRect" parent="Half" unique_id=450513532]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_opnix")
