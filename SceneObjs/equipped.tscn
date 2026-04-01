@@ -3,7 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bc7pp8j75j6gc" path="res://Textures/Extracted/EquippedSlot.png" id="1_fmqm4"]
 
 [node name="Equipped" type="TextureRect" unique_id=475267279]
-visible = false
 offset_right = 32.0
 offset_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource("1_fmqm4")
+expand_mode = 1

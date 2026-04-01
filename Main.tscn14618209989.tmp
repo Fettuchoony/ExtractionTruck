@@ -448,6 +448,7 @@ texture = ExtResource("11_5vvyt")
 script = ExtResource("13_j4qnp")
 is_passive = true
 is_primary = true
+item_type = null
 
 [node name="Hover" type="TextureRect" parent="Menus/TabContainer/Inventory/sword" unique_id=644574038]
 visible = false
@@ -518,6 +519,9 @@ offset_bottom = 55.300003
 scale = Vector2(3, 3)
 texture = ExtResource("16_sc1dx")
 script = ExtResource("13_j4qnp")
+is_passive = null
+is_primary = null
+item_type = null
 
 [node name="Hover" type="TextureRect" parent="Menus/TabContainer/Inventory/grapple" unique_id=587182829]
 visible = false
@@ -588,6 +592,9 @@ offset_bottom = 55.300003
 scale = Vector2(3, 3)
 texture = ExtResource("20_devvj")
 script = ExtResource("13_j4qnp")
+is_passive = null
+is_primary = null
+item_type = null
 
 [node name="Hover" type="TextureRect" parent="Menus/TabContainer/Inventory/bomb" unique_id=618614273]
 visible = false
@@ -597,7 +604,6 @@ offset_bottom = 32.0
 texture = ExtResource("13_c2ibq")
 
 [node name="Equipped" parent="Menus/TabContainer/Inventory/bomb" unique_id=475267279 instance=ExtResource("20_bg4s2")]
-visible = false
 layout_mode = 0
 
 [node name="ControlPrompt" type="Control" parent="Menus/TabContainer/Inventory/bomb" unique_id=25528137]
@@ -672,6 +678,9 @@ offset_bottom = 55.300003
 scale = Vector2(3, 3)
 texture = ExtResource("19_3b0ty")
 script = ExtResource("13_j4qnp")
+is_passive = null
+is_primary = null
+item_type = null
 
 [node name="Hover" type="TextureRect" parent="Menus/TabContainer/Inventory/gunner_turret" unique_id=125107757]
 visible = false

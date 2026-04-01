@@ -19,6 +19,7 @@ signal vehicle_exited()
 signal pause_menu()
 signal trigger_item(item_name: String, spawn_location: Node3D)
 signal update_health_GUI(deltaH: int, deltaMax: int)
+signal trigger_item_idle(item_name : String)
 
 @onready var _max_health : int = 10
 @onready var _health : int = 10
@@ -39,12 +40,13 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _items_equipped : Dictionary[String, bool]
 @onready var _primary : String
 @onready var _taskbar_items : Array[String]
-@onready var _taskbar_textures : Array[Node]
+@onready var _taskbar_containers : Array[Node]
 @onready var _paused : bool
 @onready var _item_timer: float = 0
 @onready var _aim_ray : RayCast3D = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
 @onready var _item_ray : RayCast3D = $CameraPivot/SpringArm3D/Camera3D/ItemRay
 @onready var _ground_ray : RayCast3D = $GroundDetect
+@onready var _menu : Control = $"../Menus"
 @onready var _ground_pos : Vector3 = Vector3(0, 0, 0)
 @onready var _last_subscene : int = 0
 
@@ -53,8 +55,10 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 
 func _ready() -> void:
 	# force health to refresh
-	change_health(0)
 	_taskbar_items = ["","","","","","","","",""]
+	_taskbar_containers = $GUI/TaskBar/HBoxContainer.get_children()
+	change_health(0)
+	_initialize_taskbar()
 	return
 	
 func _process(delta: float) -> void:
@@ -68,10 +72,10 @@ func _physics_process(delta: float) -> void:
 	handle_pausing()
 	enter_vehicle()
 	exit_vehicle()
-	_taskbar_textures = $GUI/TaskBar/HBoxContainer.get_children()
 	if !_in_vehicle:
 		movement_processing(delta)
 	pickup_and_lockon()
+	use_item()
 	debug_aim()
 
 # Displays UI for entering vehicle and handles user input and controller handover to vehicle script
@@ -187,16 +191,20 @@ func _on_character_area_detect_area_exited(area: Area3D) -> void:
 func _bind_item(target: TextureRect, slot_num : int) -> void:
 	# Load textures onto hotbar
 	# Make sure our references are not lost
-	if _taskbar_textures != null and target != null and target.is_passive == false:
+	if _taskbar_containers != null and target != null and target.is_passive == false:
 		_taskbar_items[slot_num] = target.name
 		# Pass slot info to object script
 		target.equipped_on_slot_num = slot_num
 		# Texture inventory slot
-		_taskbar_textures[slot_num].texture = target.texture
+		var item_tex = _taskbar_containers[slot_num].find_child("ItemTexture")
+		if item_tex != null:
+			item_tex.texture = target.texture
+		else:
+			print("Error: item with no texture was added to taskbar?")
 		# Set item status to active, checked on refresh
 		_items_equipped[target.name] = true
 		# Set texture filter to nearest to avoid blur
-		_taskbar_textures[slot_num].set_texture_filter(1) 
+		_taskbar_containers[slot_num].find_child("TextureRect").set_texture_filter(1) 
 	# for primary and non QER items
 	elif slot_num == -1 and not target.is_primary:
 		target.equipped_on_slot_num = -1
@@ -212,7 +220,7 @@ func _bind_item(target: TextureRect, slot_num : int) -> void:
 func _unbind_item(target: TextureRect) -> void:
 	if target.equipped_on_slot_num != -1:
 		# Clear GUI of sprite
-		_taskbar_textures[target.equipped_on_slot_num].texture = _blank_item
+		_taskbar_containers[target.equipped_on_slot_num].find_child("ItemTexture").texture = _blank_item
 		# Clear from internal checker
 		_taskbar_items[target.equipped_on_slot_num] = ""
 		# Clear from equip list
@@ -224,18 +232,13 @@ func _unbind_item(target: TextureRect) -> void:
 		_items_equipped[target.name] = false
 	
 func use_item() -> void:
-	#if Input.is_action_just_pressed("QItem") and not _paused and _item_timer > item_cooldown_time:
-		#trigger_item.emit(_tas[QSLOT], _item_spawn_location)
-		#_item_timer = 0
-	#if Input.is_action_just_pressed("EItem") and not _paused and _item_timer > item_cooldown_time:
-		#trigger_item.emit(_QER_items[ESLOT], _item_spawn_location)
-		#_item_timer = 0
-	#if Input.is_action_just_pressed("RItem") and not _paused and _item_timer > item_cooldown_time:
-		#trigger_item.emit(_QER_items[RSLOT], _item_spawn_location)
-		#_item_timer = 0
-	#if Input.is_action_just_pressed("Click") and not _paused and _item_timer > item_cooldown_time:
-		#trigger_item.emit(_primary, _item_spawn_location)
-	return
+	var indx = _menu._current_taskbar_index
+	#if _taskbar_items[indx] != "":
+		#trigger_item_idle.emit(_taskbar_items[indx])
+	if (Input.is_action_just_pressed("Click")) and not _paused and _item_timer > item_cooldown_time:
+		trigger_item.emit(_taskbar_items[indx], _item_spawn_location)
+		_item_timer = 0
+	
 	
 # TODO: add more params for signals from enemies for debuffs and stuff
 func change_health(delta: int) -> void:
@@ -284,3 +287,7 @@ func pickup_and_lockon() -> void:
 		#print("put down: " + to_string(_held_item))
 		_held_item.being_held = false
 		_held_item = null
+
+func _initialize_taskbar() -> void:
+	pass
+		

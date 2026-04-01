@@ -19,6 +19,8 @@ enum Item_Type {grapple,
 @onready var placement_ray : RayCast3D = $"../../../../MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlacementRay"
 @onready var hover_sprite : TextureRect
 @onready var equipped_sprite : TextureRect
+@onready var amount : int = 10
+@onready var amount_label : Label = $"../bomb/Label"
 
 @export var is_passive : bool
 @export var is_primary : bool
@@ -45,14 +47,17 @@ func connect_signals() -> void:
 # Needs to work for every item
 func use_item(item_name: String, location: Node3D) -> void:
 	#print_debug("Using: " + item_name)
-	if(item_name == "grapple"):
-		exec_grapple(location)
-	elif(item_name == "bomb"):
-		exec_bomb(location)
-	elif(item_name == "sword"):
-		exec_sword(location)
-	elif(item_name == "gunner_turret"):
-		exec_turret(location)
+	if amount > 0:
+		if(item_name == "grapple"):
+			exec_grapple(location)
+		elif(item_name == "bomb"):
+			exec_bomb(location)
+		elif(item_name == "sword"):
+			exec_sword(location)
+		elif(item_name == "gunner_turret"):
+			exec_turret(location)
+	amount -= 1
+	amount_label.text = str(amount)
 
 func exec_bomb(location: Node3D) -> void:
 	var bomb_instance = bomb_scene.instantiate()
@@ -70,17 +75,18 @@ func exec_sword(location: Node3D) -> void:
 		enemy.change_health(-1)
 
 func exec_turret(location: Node3D) -> void:
-	var placement_location = placement_ray.get_collision_point()
-	var turret_instance = turret_scene.instantiate()
-	turret_instance.position = placement_location
-	# Find current level to place turret
-	var curr_level = get_tree().get_nodes_in_group("levels")
-	if curr_level == null:
-		print("Cannot find current level for turret placement")
-	else:
-		curr_level = curr_level[0]
-	# This way, turrets are saved on changing level
-	curr_level.add_child(turret_instance)
+	#var placement_location = placement_ray.get_collision_point()
+	#var turret_instance = turret_scene.instantiate()
+	#turret_instance.position = placement_location
+	## Find current level to place turret
+	#var curr_level = get_tree().get_nodes_in_group("levels")
+	#if curr_level == null:
+		#print("Cannot find current level for turret placement")
+	#else:
+		#curr_level = curr_level[0]
+	## This way, turrets are saved on changing level
+	#curr_level.add_child(turret_instance)
+	pass
 	
 # Signals to menu to equip
 func _gui_input(event: InputEvent) -> void:

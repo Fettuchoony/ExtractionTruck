@@ -5,6 +5,7 @@ enum Turret_Type {gunner}
 var placement_ray : RayCast3D
 
 @onready var turret : StaticBody3D
+@onready var place_mode : bool = true
 
 @export var placement_range : float = 10
 @export var turret_type : Turret_Type = Turret_Type.gunner
@@ -22,6 +23,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	var target_pos = placement_ray.get_collision_point()
-	if turret != null:
-		turret.global_position = target_pos
+	if place_mode:
+		var target_pos = placement_ray.get_collision_point()
+		if turret != null:
+			turret.global_position = target_pos
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("Click"):
+		place_mode = false
