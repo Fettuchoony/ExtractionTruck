@@ -236,7 +236,7 @@ func use_item() -> void:
 	#if _taskbar_items[indx] != "":
 		#trigger_item_idle.emit(_taskbar_items[indx])
 	if (Input.is_action_just_pressed("Click")) and not _paused and _item_timer > item_cooldown_time:
-		trigger_item.emit(_taskbar_items[indx], _item_spawn_location)
+		trigger_item.emit(_taskbar_items[indx], _item_spawn_location) 
 		_item_timer = 0
 	
 	

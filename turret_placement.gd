@@ -1,10 +1,10 @@
-extends Node3D
+extends RigidBody3D
 
 enum Turret_Type {gunner}
 
 var placement_ray : RayCast3D
 
-@onready var turret : StaticBody3D
+@onready var turret : Node3D
 @onready var place_mode : bool = true
 
 @export var placement_range : float = 10
@@ -26,8 +26,12 @@ func _physics_process(delta: float) -> void:
 	if place_mode:
 		var target_pos = placement_ray.get_collision_point()
 		if turret != null:
-			turret.global_position = target_pos
+			var ground_detect : RayCast3D = turret.find_child("GroundDetect")
+			turret.global_position = target_pos + Vector3(0,5,0)
+			if ground_detect != null:
+				turret.global_position.y = ground_detect.get_collision_point().y
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Click"):
 		place_mode = false
+		

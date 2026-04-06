@@ -17,7 +17,7 @@ signal _unbind_item(target: TextureRect)
 @onready var turret_scene = preload("res://SceneObjs/turret_placement.tscn")
 @onready var placement_ray : RayCast3D = $"../MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlacementRay"
 @onready var _currently_idleing : bool = false
-@onready var _idleing_object_mesh = null
+@onready var _current_idle_obj = null
 
 
 
@@ -66,7 +66,6 @@ func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
 			equip.visible = true
 			source.equipped = true
 			bind_item.emit(current_focus_item, _current_taskbar_index)
-			print_debug("Awaiting input at " + current_focus_item.to_string() + " ...")
 	
 # Check for assignment of item
 # Send signal to inventory and character manager for assignment
@@ -134,14 +133,11 @@ func _on_main_player_trigger_item_idle(item_name: String) -> void:
 	pass # Replace with function body.
 
 func _execute_idles() -> void:
-	if _current_hovered_item_name == "gunner_turret":
+	if _current_hovered_item_name.ends_with("turret"):
 		if !_currently_idleing:
 			var placement_location = placement_ray.get_collision_point()
-			var turret_instance = turret_scene.instantiate()
-			_idleing_object_mesh = turret_instance.find_child("TurretMesh")
-			if _idleing_object_mesh == null:
-				print("Failed to load idle/placement mesh")
-			turret_instance.position = placement_location
+			_current_idle_obj = turret_scene.instantiate()
+			_current_idle_obj.position = placement_location
 			# Find current level to place turret
 			var curr_level = get_tree().get_nodes_in_group("levels")
 			if curr_level == null:
@@ -149,8 +145,10 @@ func _execute_idles() -> void:
 			else:
 				curr_level = curr_level[0]
 			# This way, turrets are saved on changing level
-			curr_level.add_child(turret_instance)
+			curr_level.add_child(_current_idle_obj)
 			_currently_idleing = true
+	elif (_current_idle_obj != null && _current_idle_obj.place_mode == true):
+		_current_idle_obj.free()
 
 func init_taskbar() -> void:
 	_taskbar_rects[_current_taskbar_index].find_child("Equipped").visible = true
