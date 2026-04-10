@@ -35,6 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		place_mode = false
 		turret.global_position = item_spawn_node.global_position
 		turret_mesh.position = Vector3(0,0,0)
+		# Grabs turret specific collision to use
 		var col : CollisionShape3D = turret.find_child("TurretCollision")
 		if col != null:
 			col.reparent(self)

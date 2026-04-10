@@ -7,7 +7,7 @@ signal bind_item(target : TextureRect, slot_index : int)
 # Unequip signal to player controller
 signal _unbind_item(target: TextureRect)
 
-@onready var _item_slots : Control = $TabContainer/Inventory
+@onready var _item_slots : Control = $TabContainer/Inventory/HFlowContainer
 @onready var _current_taskbar_index : int = 0
 @onready var current_focus_item : TextureRect
 @onready var _taskbar_rects = $"../MainPlayer/GUI/TaskBar/HBoxContainer".get_children()
@@ -55,9 +55,11 @@ func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
 			source.equipped = false
 			#source.equipped_on_slot_num = -1
 			_unbind_item.emit(current_focus_item)
+			_currently_idleing = false
+			_current_hovered_item_name = ""
 		# Skip Equip prompt if it is a passive item
 		if source.is_passive:
-
+			# Skip idle update
 			equip.visible = true
 			source.equipped = true
 			bind_item.emit(current_focus_item, -1)
@@ -65,57 +67,21 @@ func _on_item_slot_gui_input(event: InputEvent, source: Control) -> void:
 		else:
 			equip.visible = true
 			source.equipped = true
-			bind_item.emit(current_focus_item, _current_taskbar_index)
-	
-# Check for assignment of item
-# Send signal to inventory and character manager for assignment
-func _unhandled_key_input(event: InputEvent) -> void:
-	pass
-	#if awaiting_assignment:
-		## Display Input options
-		#current_focus_item.control_prompt.visible = true
-		## Pass item info to player controller and GUI update
-		#if event.is_action_pressed("EItem"):
-			#bind_item.emit(current_focus_item, ESLOT)
-			#awaiting_assignment = false
-			#current_focus_item.equipped = true
-			#if current_focus_item.get_child(1) != null:
-				#current_focus_item.get_child(1).visible = true
-			#current_focus_item.control_prompt.visible = false
-		#elif event.is_action_pressed("RItem"):
-			#bind_item.emit(current_focus_item, RSLOT)
-			#awaiting_assignment = false
-			#current_focus_item.equipped = true
-			#if current_focus_item.get_child(1) != null:
-				#current_focus_item.get_child(1).visible = true
-			#current_focus_item.control_prompt.visible = false
-		#elif event.is_action_pressed("QItem"):
-			#bind_item.emit(current_focus_item, QSLOT)
-			#awaiting_assignment = false
-			#current_focus_item.equipped = true
-			#if current_focus_item.get_child(1) != null:
-				#current_focus_item.get_child(1).visible = true
-			#current_focus_item.control_prompt.visible = false
-		#else:
-			#print("unassign")
-			#current_focus_item.control_prompt.visible = false
-			#current_focus_item = null
-			#awaiting_assignment = false
-	
-		
-	# Bail on item assignment if incorrect input detected
-	#else:
-		#pass
-	pass
+			bind_item.emit(source)
+			_currently_idleing = true
+			_current_hovered_item_name = current_focus_item.name
 
 # TODO: Find a way to make this use event instead of direct input?
 func _taskbar_scrolling() -> void:
 	if Input.is_action_just_released("ScrollDown"):
 		print("scrolling down")
+		# Clear equip sprite from prev index
 		_taskbar_rects[_current_taskbar_index].find_child("Equipped").visible = false
+		# Move index
 		_current_taskbar_index -= 1
 		if _current_taskbar_index < 0:
 			_current_taskbar_index = 8
+		# Reveal equip sprite for curr index of taskbar
 		_taskbar_rects[_current_taskbar_index].find_child("Equipped").visible = true
 		_currently_idleing = false
 		
@@ -127,14 +93,14 @@ func _taskbar_scrolling() -> void:
 			_current_taskbar_index = 0
 		_taskbar_rects[_current_taskbar_index].find_child("Equipped").visible = true
 		_currently_idleing = false
-	_current_hovered_item_name = _player._taskbar_items[_current_taskbar_index]
+	#_current_hovered_item_name = _player._taskbar_items[_current_taskbar_index]
 
-func _on_main_player_trigger_item_idle(item_name: String) -> void:
-	pass # Replace with function body.
 
+## Executes all idle anims TODO: might replace with animgraph at some point?
 func _execute_idles() -> void:
+	# Turrets idle is the mesh floating infront of the player, specifics managed by turret placement tscn
 	if _current_hovered_item_name.ends_with("turret"):
-		if !_currently_idleing:
+		if _currently_idleing && _current_idle_obj == null:
 			var placement_location = placement_ray.get_collision_point()
 			_current_idle_obj = turret_scene.instantiate()
 			_current_idle_obj.position = placement_location
@@ -146,9 +112,23 @@ func _execute_idles() -> void:
 				curr_level = curr_level[0]
 			# This way, turrets are saved on changing level
 			curr_level.add_child(_current_idle_obj)
-			_currently_idleing = true
 	elif (_current_idle_obj != null && _current_idle_obj.place_mode == true):
 		_current_idle_obj.free()
 
 func init_taskbar() -> void:
 	_taskbar_rects[_current_taskbar_index].find_child("Equipped").visible = true
+
+func _refresh_inventory() -> void:
+	# Remove old icons
+	for child in _item_slots.get_children():
+		child.queue_free()
+	# Add new icons
+	for item in _player._inventory:
+		if item != null:
+			var item_gui : Control = item.find_child("GUI").duplicate()
+			var amount_label : Label = item_gui.get_node("Amount")
+			item_gui.name = item.name
+			# Update item count
+			if amount_label != null:
+				amount_label.text = str(item.amount)
+			_item_slots.add_child(item_gui)
