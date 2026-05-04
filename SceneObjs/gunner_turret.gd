@@ -9,7 +9,10 @@ static var DETECT_TIME_INTERVAL : float = 0.1
 # Attack mode is which enemy to attack in group: first, middle, last, strongest, weakest
 @onready var _attack_mode : String = "last"
 @onready var _debug_target_ball : MeshInstance3D = $DebugTargetBall
-
+@onready var _bullet_scene = preload("res://SceneObjs/test_bullet.tscn")
+@onready var _firing_point : Node3D = $FiringPoint
+@onready var _firing_rate : float = 0.5
+@onready var _firing_timer : float = 0
 # These two variables are essential for every pickupable object
 var being_held
 var hold_pos
@@ -29,6 +32,7 @@ func _physics_process(delta: float) -> void:
 	_pickup_func()
 	_enemy_detection()
 	_turret_attack()
+	_firing_timer += delta
 	
 
 # This makes the object pickupable by the player, needs to be added to every appropriate obj
@@ -42,6 +46,7 @@ func _pickup_func() -> void:
 # Updates enemy list, adjust speed with DETECT_TIME_INTERVAL
 func _enemy_detection() -> void:
 	var updated_enemy_list : Dictionary[Node3D, float]
+	_current_reachable_enemies.clear()
 	if DETECT_TIME_INTERVAL < _enemy_detect_timer && _enemy_detection_area.has_overlapping_bodies():
 		for enemy in _enemy_detection_area.get_overlapping_bodies():
 			updated_enemy_list[enemy] = enemy.path_length
@@ -66,9 +71,26 @@ func _turret_attack() -> void:
 			if _current_reachable_enemies[enemy] > curr_target_path_length:
 				target = enemy
 				curr_target_path_length = enemy.path_length
-	
-	if target != null:
+	# Actually firing
+	if target != null && _firing_timer > _firing_rate:
+		var target_pos = target.find_child("TargetPoint").global_position
 		_debug_target_ball.global_position = target.global_position
+		var bullet = _bullet_scene.instantiate()
+		bullet.target = target
+		#look_at(target.global_position)
+		get_tree().root.add_child(bullet)
+		bullet.global_position = _firing_point.global_position
+		var flight_time = 0.5
+		var deltaX = target_pos.x - global_position.x
+		var deltaZ = target_pos.z - global_position.z
+		var deltaY = target_pos.y - global_position.y
+		var vX = deltaX / flight_time
+		var vZ = deltaZ / flight_time
+		var vY = (deltaY / flight_time) + (0.5 * 9.8 * flight_time)
+		bullet.apply_impulse(Vector3(vX, vY, vZ))
+		_firing_timer = 0 
+		
+		
 	
 
 func change_turret_mode(mode : String) -> void:

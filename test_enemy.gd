@@ -19,7 +19,6 @@ static var HEALTH_SHOW_TIME : float = 1
 @onready var health_sprite_timer : float = 0
 @onready var heart_module_scene = preload("res://SceneObjs/heart_module.tscn")
 @onready var health_bar : HBoxContainer = $"Sprite3D/EnemyViewport/Health Bar/HBoxContainer"
-@onready var hurt_zone : Area3D = $Area3D
 @onready var time_since_target_update : float = 0
 @onready var time_since_last_hop : float = 0
 @onready var player : CharacterBody3D = $"../../../../MainPlayer"
@@ -54,7 +53,7 @@ func _physics_process(delta: float) -> void:
 	time_since_target_update += delta
 	time_since_last_hop += delta
 	_adjust_target()
-	look_at(player.global_position)
+	#look_at(player.global_position)
 	rotation.x = 0
 	rotation.z = 0
 	if health_sprite_timer > HEALTH_SHOW_TIME:
@@ -69,6 +68,9 @@ func _physics_process(delta: float) -> void:
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
 	var new_dir: Vector3 = (global_position.direction_to(next_path_position)).normalized()
 	var dist_to_target : float = global_position.distance_to(player.global_position)
+	
+	var next_path_pos = navigation_agent.get_next_path_position()
+	look_at(Vector3(next_path_pos.x, global_position.y, next_path_pos.z))
 	
 	if time_since_last_hop > HOP_FREQUENCY:
 		# Cancel any charging if player leaves radius
@@ -100,13 +102,12 @@ func _physics_process(delta: float) -> void:
 			scale = Vector3(1,1,1)
 	
 	# Enemy dmg and knockback
-	var cols = hurt_zone.get_overlapping_areas()
-	for col in cols:
-		var parent = col.get_parent()
-		# targets in enemy and player layers must have area3d as child right under their root or this errors
-		parent.apply_knockback(global_position, 100)
-		parent.change_health(-1)
-	
+	#var cols = hurt_zone.get_overlapping_areas()
+	#for col in cols:
+		#var parent = col.get_parent()
+		## targets in enemy and player layers must have area3d as child right under their root or this errors
+		#parent.apply_knockback(global_position, 100)
+		#parent.change_health(-1)
 	
 	#if navigation_agent.avoidance_enabled:
 		#navigation_agent.set_velocity(new_velocity)
@@ -163,3 +164,9 @@ func change_health(delta: int) -> void:
 
 func apply_knockback(origin: Vector3) -> void:
 	apply_impulse(10 * origin.direction_to(global_position) / (origin.distance_to(global_position) + 0.01))
+
+# TODO: give money or something when enemy is killed
+func recieve_dmg(amt : int) -> void:
+	health -= amt
+	if health == 0:
+		queue_free()

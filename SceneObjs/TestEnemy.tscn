@@ -8,13 +8,13 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_34rnb"]
 viewport_path = NodePath("Sprite3D/EnemyViewport")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_3lc1f"]
-radius = 0.77053624
+[sub_resource type="BoxMesh" id="BoxMesh_516de"]
 
 [node name="TestEnemy" type="RigidBody3D" unique_id=871990744]
 transform = Transform3D(-0.9992508, 0, -0.0387017, 0, 1, 0, 0.0387017, 0, -0.9992508, 0, 0, 0)
 collision_layer = 4
 axis_lock_angular_x = true
+axis_lock_angular_y = true
 axis_lock_angular_z = true
 script = ExtResource("1_516de")
 chargeup_time = 1.0
@@ -60,9 +60,8 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Area3D" type="Area3D" parent="." unique_id=1346917926]
-collision_layer = 0
-collision_mask = 6
+[node name="TargetPoint" type="Node3D" parent="." unique_id=590453167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06534129, 0.36711717, -1.6870662)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=399375410]
-shape = SubResource("SphereShape3D_3lc1f")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TargetPoint" unique_id=632597966]
+mesh = SubResource("BoxMesh_516de")
