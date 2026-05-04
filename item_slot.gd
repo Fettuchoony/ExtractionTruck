@@ -1,4 +1,4 @@
-extends TextureRect
+class_name ItemSlot extends TextureRect
 
 enum Item_Type {grapple, 
 				sword,
@@ -8,10 +8,7 @@ enum Item_Type {grapple,
 
 @onready var root : Node3D = $"../../../.."
 @onready var menu : Control = $"../../.."
-@onready var equipped : bool
 # Set by menu controller and nullified by player controller
-@onready var equipped_on_slot_num : int
-@onready var control_prompt : Control = $ControlPrompt
 @onready var bomb_scene = preload("res://SceneObjs/bomb_item2.tscn")
 @onready var grapple_scene = preload("res://SceneObjs/grapple_item.tscn")
 @onready var turret_scene = preload("res://SceneObjs/turret_placement.tscn")
@@ -19,9 +16,11 @@ enum Item_Type {grapple,
 @onready var placement_ray : RayCast3D = $"../../../../MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlacementRay"
 @onready var hover_sprite : TextureRect
 @onready var equipped_sprite : TextureRect
-@onready var amount : int = 10
-@onready var amount_label : Label = $"../bomb/Label"
 
+@export var equipped_on_slot_num : int
+@export var equipped : bool
+@export var amount_label : Label = find_child("Label")
+@export var amount : int = 10
 @export var is_passive : bool
 @export var is_primary : bool
 @export var item_type: Item_Type = Item_Type.sword
@@ -47,28 +46,34 @@ func connect_signals() -> void:
 # Needs to work for every item
 func use_item(item_name: String, location: Node3D) -> void:
 	#print_debug("Using: " + item_name)
-	if amount > 0:
+	if amount > -1:
 		if(item_name == "grapple"):
 			exec_grapple(location)
 		elif(item_name == "bomb"):
+			amount -= 1
 			exec_bomb(location)
 		elif(item_name == "sword"):
 			exec_sword(location)
 		elif(item_name == "gunner_turret"):
+			amount -= 1
 			exec_turret(location)
-	amount -= 1
-	amount_label.text = str(amount)
+	else:
+		amount = 0
+	if amount_label != null:
+		amount_label.text = str(amount)
 
 func exec_bomb(location: Node3D) -> void:
 	var bomb_instance = bomb_scene.instantiate()
 	bomb_instance.position = location.global_position
 	root.add_child(bomb_instance)
+	bomb_instance.set_owner(root)
 	
 func exec_grapple(location: Node3D) -> void:
 	var grapple_instance = grapple_scene.instantiate()
 	grapple_instance.position = location.global_position
 	add_child(grapple_instance)
-	
+
+## TODO: Sword probably getting phased out?
 func exec_sword(location: Node3D) -> void:
 	var enemy = player_ray.get_collider()
 	if enemy != null and enemy.collision_layer == 4:

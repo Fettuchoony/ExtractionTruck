@@ -1,18 +1,17 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://djd43huil28ek"]
 
-[ext_resource type="Script" path="res://scene_manager.gd" id="1_x6pu2"]
-[ext_resource type="Script" path="res://Scripts/character_movement.gd" id="2_ai1nw"]
-[ext_resource type="Script" path="res://Scripts/Player/camera_3d.gd" id="3_5bwac"]
-[ext_resource type="Texture2D" path="res://Textures/Extracted/Crosshair.png" id="4_l1rha"]
-[ext_resource type="Script" path="res://health_GUI_update.gd" id="5_d1d1c"]
-[ext_resource type="PackedScene" path="res://SceneObjs/heart_module.tscn" id="6_u2hwk"]
-[ext_resource type="Texture2D" path="res://Textures/Extracted/EmptyHeart.png" id="7_rxbah"]
-[ext_resource type="Texture2D" path="res://Textures/Extracted/ItemSlot.png" id="8_pxuqo"]
-[ext_resource type="Texture2D" path="res://Textures/Extracted/EquippedSlot.png" id="9_sph3i"]
-[ext_resource type="Texture2D" path="res://Textures/Extracted/BlankItem.png" id="10_a0nle"]
-[ext_resource type="Script" path="res://item_pivot.gd" id="11_pww71"]
-[ext_resource type="Script" path="res://menu_func.gd" id="12_mycie"]
-[ext_resource type="PackedScene" path="res://SceneObjs/MainTestScene.tscn" id="13_q3em1"]
+[ext_resource type="Script" uid="uid://exycttr6jbdy" path="res://scene_manager.gd" id="1_2gh4u"]
+[ext_resource type="Script" uid="uid://cq48dxeabn5gs" path="res://Scripts/character_movement.gd" id="1_uu6xs"]
+[ext_resource type="Script" uid="uid://dvrsrr1i7byml" path="res://Scripts/Player/camera_3d.gd" id="2_r0du0"]
+[ext_resource type="Texture2D" uid="uid://ccgykkk5ueg02" path="res://Textures/Extracted/ItemSlot.png" id="7_3b0ty"]
+[ext_resource type="Texture2D" uid="uid://b2b533e7fydfk" path="res://Textures/Extracted/Crosshair.png" id="7_hhcpw"]
+[ext_resource type="Script" uid="uid://dix651ieftiuw" path="res://item_pivot.gd" id="8_bg4s2"]
+[ext_resource type="Script" uid="uid://dimv3hf7bsc53" path="res://health_GUI_update.gd" id="8_hri7i"]
+[ext_resource type="PackedScene" uid="uid://ewc5qej3n60j" path="res://SceneObjs/heart_module.tscn" id="9_sqvbp"]
+[ext_resource type="Script" uid="uid://dxme07nhdrpmn" path="res://menu_func.gd" id="10_20pc6"]
+[ext_resource type="Texture2D" uid="uid://bc7pp8j75j6gc" path="res://Textures/Extracted/EquippedSlot.png" id="15_fpfj3"]
+[ext_resource type="PackedScene" uid="uid://dsg3aaq8k3xk8" path="res://SceneObjs/MainTestScene.tscn" id="20_2gh4u"]
+[ext_resource type="Texture2D" uid="uid://5vqebth03c5p" path="res://Textures/Extracted/BlankItem.png" id="22_3b0ty"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uu6xs"]
 
@@ -42,14 +41,14 @@ volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
 
 [node name="Node3D" type="Node3D" unique_id=1688291202]
-script = ExtResource("1_x6pu2")
+script = ExtResource("1_2gh4u")
 enable_saving = true
 
 [node name="MainPlayer" type="CharacterBody3D" parent="." unique_id=1501440258 groups=["carry_on_load"]]
-transform = Transform3D(0.96377075, 0, 0.2667314, 0, 1, 0, -0.2667314, 0, 0.96377075, 270.6035, -1.4869972, 279.2255)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 270.6035, 1.2649469, 279.2255)
 disable_mode = 2
 collision_layer = 258
-script = ExtResource("2_ai1nw")
+script = ExtResource("1_uu6xs")
 item_cooldown_time = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MainPlayer" unique_id=13420787]
@@ -61,15 +60,13 @@ debug_color = Color(3.706068e-06, 0.62085986, 0.5616422, 0.41960785)
 mesh = SubResource("CapsuleMesh_uu6xs")
 
 [node name="CameraPivot" type="Node3D" parent="MainPlayer" unique_id=1057470171]
-transform = Transform3D(1, 0, 0, 0, 0.99995, -0.009999837, 0, 0.009999837, 0.99995, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="MainPlayer/CameraPivot" unique_id=1271630180]
 spring_length = 5.0
 
 [node name="Camera3D" type="Camera3D" parent="MainPlayer/CameraPivot/SpringArm3D" unique_id=873020112]
-transform = Transform3D(1.0000002, 3.213063e-08, 2.9802322e-08, -3.213063e-08, 1.0000001, 4.004687e-07, -2.9802322e-08, -3.9767474e-07, 1.0000004, 0, 0, 5)
-current = true
-script = ExtResource("3_5bwac")
+script = ExtResource("2_r0du0")
 tilt_limit = 1.2
 
 [node name="PlayerRay" type="RayCast3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D" unique_id=469574903]
@@ -78,7 +75,6 @@ collision_mask = 5
 collide_with_areas = true
 
 [node name="DebugBall" type="MeshInstance3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlayerRay" unique_id=1974561682]
-visible = false
 mesh = SubResource("SphereMesh_cm0pq")
 
 [node name="ItemRay" type="RayCast3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D" unique_id=3895217]
@@ -125,7 +121,7 @@ texture_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("4_l1rha")
+texture = ExtResource("7_hhcpw")
 
 [node name="Health" type="Control" parent="MainPlayer/GUI" unique_id=846317371]
 layout_mode = 1
@@ -137,7 +133,7 @@ offset_left = -0.12800217
 offset_bottom = -0.27200127
 grow_horizontal = 2
 mouse_filter = 2
-script = ExtResource("5_d1d1c")
+script = ExtResource("8_hri7i")
 metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainPlayer/GUI/Health" unique_id=1592403817]
@@ -146,70 +142,35 @@ layout_mode = 1
 offset_right = 56.0
 offset_bottom = 16.0
 
-[node name="H1" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=2028691687 instance=ExtResource("6_u2hwk")]
-texture_filter = 1
+[node name="H1" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=2028691687 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("7_rxbah")
 
-[node name="H2" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1406597796 instance=ExtResource("6_u2hwk")]
-texture_filter = 1
+[node name="H2" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1406597796 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("7_rxbah")
 
-[node name="H3" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1919705351 instance=ExtResource("6_u2hwk")]
-texture_filter = 1
+[node name="H3" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1919705351 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("7_rxbah")
 
-[node name="H4" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1767175386 instance=ExtResource("6_u2hwk")]
-texture_filter = 1
+[node name="H4" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1767175386 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("7_rxbah")
 
-[node name="H5" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1404316637 instance=ExtResource("6_u2hwk")]
-texture_filter = 1
+[node name="H5" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1404316637 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("7_rxbah")
 
-[node name="H6" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1582441088 instance=ExtResource("6_u2hwk")]
-visible = false
-texture_filter = 1
+[node name="H6" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1582441088 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("7_rxbah")
 
-[node name="H7" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=201557856 instance=ExtResource("6_u2hwk")]
-visible = false
-texture_filter = 1
+[node name="H7" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=201557856 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("7_rxbah")
 
-[node name="H8" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1831249941 instance=ExtResource("6_u2hwk")]
-visible = false
-texture_filter = 1
+[node name="H8" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1831249941 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("7_rxbah")
 
-[node name="H9" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=422146902 instance=ExtResource("6_u2hwk")]
-visible = false
-texture_filter = 1
+[node name="H9" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=422146902 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("7_rxbah")
 
-[node name="H10" type="TextureRect" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1437467539 instance=ExtResource("6_u2hwk")]
-visible = false
-texture_filter = 1
+[node name="H10" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1437467539 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
-size_flags_horizontal = 2
-texture = ExtResource("7_rxbah")
 
 [node name="TaskBar" type="Control" parent="MainPlayer/GUI" unique_id=1395109480]
 layout_mode = 1
@@ -244,11 +205,12 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item0" unique_id=1698104186]
 layout_mode = 2
-texture = ExtResource("8_pxuqo")
+texture = ExtResource("7_3b0ty")
 
 [node name="Equipped" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item0" unique_id=1280306635]
+visible = false
 layout_mode = 2
-texture = ExtResource("9_sph3i")
+texture = ExtResource("15_fpfj3")
 
 [node name="ItemTexture" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item0" unique_id=1570586408]
 texture_filter = 1
@@ -259,12 +221,12 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item1" unique_id=1681701401]
 layout_mode = 2
-texture = ExtResource("8_pxuqo")
+texture = ExtResource("7_3b0ty")
 
 [node name="Equipped" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item1" unique_id=827656527]
 visible = false
 layout_mode = 2
-texture = ExtResource("9_sph3i")
+texture = ExtResource("15_fpfj3")
 
 [node name="ItemTexture" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item1" unique_id=434000665]
 texture_filter = 1
@@ -275,12 +237,12 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item2" unique_id=1902200561]
 layout_mode = 2
-texture = ExtResource("8_pxuqo")
+texture = ExtResource("7_3b0ty")
 
 [node name="Equipped" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item2" unique_id=122135696]
 visible = false
 layout_mode = 2
-texture = ExtResource("9_sph3i")
+texture = ExtResource("15_fpfj3")
 
 [node name="ItemTexture" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item2" unique_id=1481847684]
 texture_filter = 1
@@ -291,12 +253,12 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item3" unique_id=423264637]
 layout_mode = 2
-texture = ExtResource("8_pxuqo")
+texture = ExtResource("7_3b0ty")
 
 [node name="Equipped" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item3" unique_id=185528547]
 visible = false
 layout_mode = 2
-texture = ExtResource("9_sph3i")
+texture = ExtResource("15_fpfj3")
 
 [node name="ItemTexture" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item3" unique_id=2021160565]
 texture_filter = 1
@@ -307,12 +269,12 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item4" unique_id=57406113]
 layout_mode = 2
-texture = ExtResource("8_pxuqo")
+texture = ExtResource("7_3b0ty")
 
 [node name="Equipped" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item4" unique_id=675767787]
 visible = false
 layout_mode = 2
-texture = ExtResource("9_sph3i")
+texture = ExtResource("15_fpfj3")
 
 [node name="ItemTexture" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item4" unique_id=957996041]
 texture_filter = 1
@@ -323,12 +285,12 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item5" unique_id=867402755]
 layout_mode = 2
-texture = ExtResource("8_pxuqo")
+texture = ExtResource("7_3b0ty")
 
 [node name="Equipped" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item5" unique_id=1276323843]
 visible = false
 layout_mode = 2
-texture = ExtResource("9_sph3i")
+texture = ExtResource("15_fpfj3")
 
 [node name="ItemTexture" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item5" unique_id=2073987097]
 texture_filter = 1
@@ -339,12 +301,12 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item6" unique_id=1069400374]
 layout_mode = 2
-texture = ExtResource("8_pxuqo")
+texture = ExtResource("7_3b0ty")
 
 [node name="Equipped" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item6" unique_id=1395278385]
 visible = false
 layout_mode = 2
-texture = ExtResource("9_sph3i")
+texture = ExtResource("15_fpfj3")
 
 [node name="ItemTexture" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item6" unique_id=1934617466]
 texture_filter = 1
@@ -355,12 +317,12 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item7" unique_id=1722156783]
 layout_mode = 2
-texture = ExtResource("8_pxuqo")
+texture = ExtResource("7_3b0ty")
 
 [node name="Equipped" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item7" unique_id=31851012]
 visible = false
 layout_mode = 2
-texture = ExtResource("9_sph3i")
+texture = ExtResource("15_fpfj3")
 
 [node name="ItemTexture" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item7" unique_id=196935304]
 texture_filter = 1
@@ -371,12 +333,12 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item8" unique_id=810089468]
 layout_mode = 2
-texture = ExtResource("8_pxuqo")
+texture = ExtResource("7_3b0ty")
 
 [node name="Equipped" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item8" unique_id=494073420]
 visible = false
 layout_mode = 2
-texture = ExtResource("9_sph3i")
+texture = ExtResource("15_fpfj3")
 
 [node name="ItemTexture" type="TextureRect" parent="MainPlayer/GUI/TaskBar/HBoxContainer/Item8" unique_id=925679245]
 texture_filter = 1
@@ -386,11 +348,11 @@ layout_mode = 2
 texture_filter = 1
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("10_a0nle")
+texture = ExtResource("22_3b0ty")
 
 [node name="ItemPivot" type="Node3D" parent="MainPlayer" unique_id=1756800719]
-transform = Transform3D(1, 0, 0, 0, 0.99995, -0.009999837, 0, 0.009999837, 0.99995, 0, 2, 0)
-script = ExtResource("11_pww71")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("8_bg4s2")
 
 [node name="ItemSpawnSpot" type="Node3D" parent="MainPlayer/ItemPivot" unique_id=42834980]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -403,8 +365,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 target_position = Vector3(0, -50, 0)
 
 [node name="PickupPivot" type="Node3D" parent="MainPlayer" unique_id=45863599]
-transform = Transform3D(1, 0, 0, 0, 0.99995, -0.009999837, 0, 0.009999837, 0.99995, 0, 1.5, 0)
-script = ExtResource("11_pww71")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("8_bg4s2")
 
 [node name="ItemHoverSpot" type="Node3D" parent="MainPlayer/PickupPivot" unique_id=1826112540]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3201761, -3.5784016)
@@ -414,13 +376,14 @@ transform = Transform3D(-0.9177185, 0.2922433, -0.26904747, -0.005625937, 0.6676
 shadow_enabled = true
 
 [node name="Menus" type="Control" parent="." unique_id=1694970739 groups=["carry_on_load"]]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("12_mycie")
+script = ExtResource("10_20pc6")
 
 [node name="TabContainer" type="TabContainer" parent="Menus" unique_id=263424285]
 texture_filter = 1
@@ -465,19 +428,19 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
-button_pressed = true
 text = "SAVE
 "
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=280029085]
 environment = SubResource("Environment_w3rk5")
 
-[node name="MainTestScene" type="Node3D" parent="." unique_id=869491980 groups=["levels"] instance=ExtResource("13_q3em1")]
+[node name="MainTestScene" parent="." unique_id=869491980 instance=ExtResource("20_2gh4u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.424, -1, -0.772)
 
 [connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]
 [connection signal="transfer_cam_to_vehicle" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_vehicle"]
+[connection signal="trigger_item_idle" from="MainPlayer" to="Menus" method="_on_main_player_trigger_item_idle"]
 [connection signal="update_health_GUI" from="MainPlayer" to="MainPlayer/GUI/Health" method="health_gui_update"]
 [connection signal="area_entered" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_entered"]
 [connection signal="area_exited" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_exited"]

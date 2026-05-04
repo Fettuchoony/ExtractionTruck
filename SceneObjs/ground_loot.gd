@@ -4,11 +4,12 @@ extends RigidBody3D
 @export var dampen_factor : float = 1
 
 @onready var being_held : bool = false
-@onready var hold_pos : Node3D = null
+@onready var hold_pos : Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

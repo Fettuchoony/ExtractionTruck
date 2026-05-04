@@ -19,7 +19,6 @@ static var HEALTH_SHOW_TIME : float = 1
 @onready var health_sprite_timer : float = 0
 @onready var heart_module_scene = preload("res://SceneObjs/heart_module.tscn")
 @onready var health_bar : HBoxContainer = $"Sprite3D/EnemyViewport/Health Bar/HBoxContainer"
-@onready var hurt_zone : Area3D = $Area3D
 @onready var time_since_target_update : float = 0
 @onready var time_since_last_hop : float = 0
 @onready var player : CharacterBody3D = $"../../../../MainPlayer"
@@ -31,6 +30,8 @@ static var HEALTH_SHOW_TIME : float = 1
 # Lets the slime do its animation even after player is flung outside its radius
 @onready var temp_radius : float = charge_attack_radius
 @onready var health_y : float = health_sprite.position.y
+@onready var castle : Node3D = $"../../../Castle"
+@onready var path_length : float = 0
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -52,7 +53,7 @@ func _physics_process(delta: float) -> void:
 	time_since_target_update += delta
 	time_since_last_hop += delta
 	_adjust_target()
-	look_at(player.global_position)
+	#look_at(player.global_position)
 	rotation.x = 0
 	rotation.z = 0
 	if health_sprite_timer > HEALTH_SHOW_TIME:
@@ -66,7 +67,10 @@ func _physics_process(delta: float) -> void:
 	
 	var next_path_position: Vector3 = navigation_agent.get_next_path_position()
 	var new_dir: Vector3 = (global_position.direction_to(next_path_position)).normalized()
-	var dist_to_player : float = global_position.distance_to(player.global_position)
+	var dist_to_target : float = global_position.distance_to(player.global_position)
+	
+	var next_path_pos = navigation_agent.get_next_path_position()
+	look_at(Vector3(next_path_pos.x, global_position.y, next_path_pos.z))
 	
 	if time_since_last_hop > HOP_FREQUENCY:
 		# Cancel any charging if player leaves radius
@@ -75,15 +79,14 @@ func _physics_process(delta: float) -> void:
 		apply_impulse(HOP_INTENSITY * new_dir)
 		time_since_last_hop = 0
 
-	# Initiate charge attack
-	if (dist_to_player < temp_radius):
+	# Initiate charge attack, probably will be removed idk
+	if (dist_to_target < temp_radius):
 		temp_radius = 99999
 		time_since_last_hop = HOP_FREQUENCY - chargeup_time
 		#first half of the chargeup
 		if charge < chargeup_time:
 			# This is a formula for a gaussian curve-like graph
 			var factor : float = charge_attack_radius * exp(-30 * pow(charge - (chargeup_time/2), 2)) + 1
-			print(charge)
 			# Scale slime
 			scale = factor * slime_scale
 			charge += delta
@@ -99,13 +102,12 @@ func _physics_process(delta: float) -> void:
 			scale = Vector3(1,1,1)
 	
 	# Enemy dmg and knockback
-	var cols = hurt_zone.get_overlapping_areas()
-	for col in cols:
-		var parent = col.get_parent()
-		# targets in enemy and player layers must have area3d as child right under their root or this errors
-		parent.apply_knockback(global_position, 100)
-		parent.change_health(-1)
-	
+	#var cols = hurt_zone.get_overlapping_areas()
+	#for col in cols:
+		#var parent = col.get_parent()
+		## targets in enemy and player layers must have area3d as child right under their root or this errors
+		#parent.apply_knockback(global_position, 100)
+		#parent.change_health(-1)
 	
 	#if navigation_agent.avoidance_enabled:
 		#navigation_agent.set_velocity(new_velocity)
@@ -115,10 +117,14 @@ func _physics_process(delta: float) -> void:
 func _on_velocity_computed(safe_velocity: Vector3):
 	linear_velocity = safe_velocity
 
+# Determines pathfinding behaviour of enemy
 func _adjust_target() -> void :
+	# Readjust path of enemies and updates length for the turrets to use to determine order
 	if time_since_target_update > REFRESH_FREQUENCY:
-		navigation_agent.set_target_position(player._ground_pos)
+		navigation_agent.set_target_position(castle.global_position)
 		time_since_target_update = 0
+		path_length = navigation_agent.get_path_length()
+		
 
 func enable_info() -> void:
 	health_sprite.visible = true
@@ -145,7 +151,7 @@ func health_gui_update(updated_health: int, updated_max: int) -> void:
 			full.visible = false
 		temp_max -= 2
 		temp_health -= 2
-		
+
 func change_health(delta: int) -> void:
 	health += delta
 	# Cap health
@@ -158,3 +164,9 @@ func change_health(delta: int) -> void:
 
 func apply_knockback(origin: Vector3) -> void:
 	apply_impulse(10 * origin.direction_to(global_position) / (origin.distance_to(global_position) + 0.01))
+
+# TODO: give money or something when enemy is killed
+func recieve_dmg(amt : int) -> void:
+	health -= amt
+	if health == 0:
+		queue_free()

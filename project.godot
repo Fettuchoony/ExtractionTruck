@@ -19,6 +19,10 @@ run/main_scene="uid://djd43huil28ek"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/always_on_top=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/zylann.hterrain/plugin.cfg")
@@ -127,6 +131,8 @@ ScrollUp={
 3d_physics/layer_2="PlayerLayer"
 3d_physics/layer_3="EnemyLayer"
 3d_physics/layer_4="GroundLoot"
+3d_physics/layer_5="Turret"
+3d_physics/layer_8="pickupable"
 3d_physics/layer_9="VehicleEnter"
 3d_physics/layer_10="BombDamage"
 3d_physics/layer_11="WallBomb"
