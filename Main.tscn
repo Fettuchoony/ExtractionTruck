@@ -67,6 +67,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 spring_length = 5.0
 
 [node name="Camera3D" type="Camera3D" parent="MainPlayer/CameraPivot/SpringArm3D" unique_id=873020112]
+current = true
 script = ExtResource("2_r0du0")
 tilt_limit = 1.2
 

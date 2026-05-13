@@ -10,9 +10,12 @@ static var DETECT_TIME_INTERVAL : float = 0.1
 @onready var _attack_mode : String = "last"
 @onready var _debug_target_ball : MeshInstance3D = $DebugTargetBall
 @onready var _bullet_scene = preload("res://SceneObjs/test_bullet.tscn")
-@onready var _firing_point : Node3D = $FiringPoint
+@onready var _firing_point : Node3D = $TurretBase/HeadPivot/TurretHead/FiringPoint
 @onready var _firing_rate : float = 0.5
 @onready var _firing_timer : float = 0
+@onready var _head_pivot : Node3D = $TurretBase/HeadPivot
+
+
 # These two variables are essential for every pickupable object
 var being_held
 var hold_pos
@@ -76,19 +79,15 @@ func _turret_attack() -> void:
 		var target_pos = target.find_child("TargetPoint").global_position
 		_debug_target_ball.global_position = target.global_position
 		var bullet = _bullet_scene.instantiate()
-		bullet.target = target
 		#look_at(target.global_position)
 		get_tree().root.add_child(bullet)
+		bullet._target_pos.x = target.global_position.x
+		bullet._target_pos.y = target.global_position.y
+		bullet._target_pos.z = target.global_position.z
 		bullet.global_position = _firing_point.global_position
-		var flight_time = 0.5
-		var deltaX = target_pos.x - global_position.x
-		var deltaZ = target_pos.z - global_position.z
-		var deltaY = target_pos.y - global_position.y
-		var vX = deltaX / flight_time
-		var vZ = deltaZ / flight_time
-		var vY = (deltaY / flight_time) + (0.5 * 9.8 * flight_time)
-		bullet.apply_impulse(Vector3(vX, vY, vZ))
+		bullet._spawn_pos = bullet.global_position
 		_firing_timer = 0 
+		_head_pivot.look_at(target_pos)
 		
 		
 	
