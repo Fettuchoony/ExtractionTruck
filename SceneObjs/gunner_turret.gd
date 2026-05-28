@@ -1,6 +1,7 @@
 extends RigidBody3D
 
 static var DETECT_TIME_INTERVAL : float = 0.01
+static var COLLOQUIAL_NAME : String = "Gunner Turret"
 
 @onready var _enemy_detection_area = $EnemyDetect
 @onready var _enemy_detect_timer : float = 0
@@ -11,10 +12,13 @@ static var DETECT_TIME_INTERVAL : float = 0.01
 @onready var _debug_target_ball : MeshInstance3D = $DebugTargetBall
 @onready var _bullet_scene = preload("res://SceneObjs/test_bullet.tscn")
 @onready var _firing_point : Node3D = $TurretBase/HeadPivot/TurretHead/FiringPoint
-@onready var _firing_rate : float = 0.5
 @onready var _firing_timer : float = 0
 @onready var _head_pivot : Node3D = $TurretBase/HeadPivot
+@onready var _up_ref : Node3D = $TurretBase/UpRef
 @onready var target : Node3D
+
+@export var dmg : int = 1
+@export var firing_rate : float = 0.5
 
 
 # These two variables are essential for every pickupable object
@@ -29,9 +33,10 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if target != null:
-		_head_pivot.look_at(target.global_position)
+		
+		_head_pivot.look_at(target.global_position, _up_ref.global_position - global_position)
 		#var target_rotation = (_head_pivot.global_position - target.global_position).normalized()
 		#_head_pivot.global_rotation = lerp(_head_pivot.global_rotation, angle, 0.02)
 
@@ -79,30 +84,21 @@ func _turret_attack() -> void:
 				target = enemy
 				curr_target_path_length = enemy.path_length
 	# Actually firing
-	if target != null && _firing_timer > _firing_rate:
+	if target != null && _firing_timer > firing_rate:
 		var target_pos = target.find_child("TargetPoint").global_position
 		var bullet = _bullet_scene.instantiate()
-		#look_at(target.global_position)
 		get_tree().root.add_child(bullet)
+		# Set projectile damage
+		bullet._dmg = dmg
 		var fire_pos = _firing_point.global_position
 		bullet.global_position = _firing_point.global_position
-		#var dir = Vector2(fire_pos.x, fire_pos.z).direction_to(Vector2(target_pos.x, target_pos.z))
 		var velocity = 1
 		var difference = target_pos - fire_pos
-		#var y_vel = (target_pos.y - fire_pos.y) / flight_time + 4.8 * flight_time
-		#var t = (1.0/48.0) * (sqrt(5.0) * sqrt(5.0 * pow(velocity, 2) - 96.0 * (fire_pos.y - target_pos.y)) + 5.0 * velocity)
-		#var t = (1.0/48.0) * (5 * velocity - sqrt(5) * sqrt(5 * pow(velocity, 2) + 96 * (fire_pos.y - target_pos.y)))
 		# TODO: I think target and fire pos should be swapped but this works better idk
 		var t = (-velocity - sqrt(abs(pow(velocity, 2.0) - 4.0 * -4.8 * (target_pos.y - fire_pos.y)))) / (2.0 * -4.8)
 		var future_enemy_pos : Vector3 = target_pos + (t * target.linear_velocity)
 		_debug_target_ball.global_position = future_enemy_pos
 		var future_t = (-velocity - sqrt(abs(pow(velocity, 2.0) - 4.0 * -4.8 * (target_pos.y - fire_pos.y)))) / (2.0 * -4.8)
-		#print("target_pos: " + str(target_pos) + " future_pos: " + str(future_enemy_pos))
-		#if future_enemy_pos.y > _firing_point.global_position.y: print_debug("enemy higher")
-		#print_debug(pow(velocity, 2.0) - 4.0 * -4.8 * (fire_pos.y - future_enemy_pos.y))
-		#print_debug("future enemy pos: " + str(future_enemy_pos))
-		#print_debug("future t: " + str(future_t))
-		#print_debug("impulse: " + str(Vector3(difference.x / future_t, velocity, difference.z/future_t)))
 		bullet.apply_impulse(Vector3(difference.x / future_t, velocity, difference.z/future_t))
 		_firing_timer = 0 
 		

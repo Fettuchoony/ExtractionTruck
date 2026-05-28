@@ -13,10 +13,10 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if being_held:
 		gravity_scale = 0
 		linear_velocity = hold_strength * global_position.distance_to(hold_pos.global_position) * global_position.direction_to(hold_pos.global_position)

@@ -73,7 +73,7 @@ tilt_limit = 1.2
 
 [node name="PlayerRay" type="RayCast3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D" unique_id=469574903]
 target_position = Vector3(0, 0, -200)
-collision_mask = 5
+collision_mask = 13
 collide_with_areas = true
 
 [node name="DebugBall" type="MeshInstance3D" parent="MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlayerRay" unique_id=1974561682]

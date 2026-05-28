@@ -43,7 +43,7 @@ func _ready() -> void:
 		health_bar.add_child(heart)
 		i += 2
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -156,9 +156,11 @@ func change_health(delta: int) -> void:
 	health += delta
 	# Cap health
 	health = min(health, max_health)
+	print(health)
 	# ded
 	if health <= 0:
 		queue_free()
+		pass
 	# Send info to the health GUI
 	health_gui_update(health, max_health)
 

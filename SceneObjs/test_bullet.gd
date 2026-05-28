@@ -3,6 +3,7 @@ extends RigidBody3D
 var _dmg_area : Area3D
 var _death_time : float
 var _time_alive : float
+var _dmg : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,7 +14,7 @@ func _ready() -> void:
 	print("spawned")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -25,6 +26,6 @@ func _physics_process(delta: float) -> void:
 func _dmg_calc() -> void:
 	if _dmg_area.has_overlapping_bodies():
 		for col in _dmg_area.get_overlapping_bodies():
-			col.recieve_dmg(1)
+			col.recieve_dmg(_dmg)
 			print(col.health)
 		queue_free()

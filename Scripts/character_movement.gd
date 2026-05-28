@@ -49,8 +49,13 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _menu : Control = $"../Menus"
 @onready var _ground_pos : Vector3 = Vector3(0, 0, 0)
 @onready var _last_subscene : int = 0
+# Keeps track if the turret gui is displaying or not
+@onready var _displaying_turret_gui : bool = false
+# Keep track of the gui being displayed
+@onready var _current_turret_gui : Control
 
 # Preload all items (Might be a better way to do this)
+@onready var _turret_gui = preload("res://SceneObjs/info_upgrade_gui.tscn")
 @onready var _bomb_spawner = preload("res://SceneObjs/bomb_spawner.tscn")
 @onready var _grapple_spawner = preload("res://SceneObjs/grapple_spawner.tscn")
 @onready var _turret_spawner = preload("res://SceneObjs/turret_spawner.tscn")
@@ -72,6 +77,7 @@ func _process(delta: float) -> void:
 	_item_timer += delta
 	trigger_enemy_info()
 	_taskbar_scrolling()
+	_upgrade_hover_ui()
 
 func _physics_process(delta: float) -> void:
 	_enter_vehicle_cooldown += delta
@@ -82,7 +88,7 @@ func _physics_process(delta: float) -> void:
 	while_driving()
 	if !_in_vehicle:
 		movement_processing(delta)
-	pickup_and_lockon()
+	pickup_and_lockon(delta)
 	use_item()
 	debug_aim()
 
@@ -193,7 +199,7 @@ func _on_character_area_detect_area_entered(area: Area3D) -> void:
 		print_debug("Error: Cannot grab vehicle info despite colliding with entrance")
 
 
-func _on_character_area_detect_area_exited(area: Area3D) -> void:
+func _on_character_area_detect_area_exited(_area: Area3D) -> void:
 	_vehicle_info = null
 	_can_enter_vehicle = false
 
@@ -279,7 +285,7 @@ func game_over() -> void:
 	pass
 
 # Actually picking up the rigidbodies and moving them
-func pickup_and_lockon() -> void:
+func pickup_and_lockon(delta : float) -> void:
 	var col : RigidBody3D = _item_ray.get_collider()
 	# pickup
 	if Input.is_action_just_pressed("RClick") and _held_item == null and col != null and col.collision_layer == 8:
@@ -288,13 +294,22 @@ func pickup_and_lockon() -> void:
 		_held_item = col
 		_held_item.being_held = true
 		_held_item.hold_pos = _pickup_hold_location
+		# Right object upward when picked up
+		#var y_ang_vel : float = _held_item.angular_velocity.y
+		#_held_item.angular_velocity.x = -_held_item.global_rotation.x
+		#_held_item.angular_velocity.z = -_held_item.global_rotation.z
+		#TODO: Fix righting
+		#_held_item.rotation = Vector3(0, _held_item.rotation.y, 0)
 		print(_pickup_hold_location)
 	# put down
 	elif Input.is_action_just_pressed("RClick") and _held_item != null:
 		#print("put down: " + to_string(_held_item))
 		_held_item.being_held = false
 		_held_item = null
-
+	if _held_item != null:
+		_held_item.rotation = lerp(_held_item.rotation, _held_item.rotation.y * Vector3.UP, 0.05)
+		_held_item.angular_velocity.z = -_held_item.rotation.z
+	
 # Adds item to inventory and updates the menu accordingly
 func _pickup_item(item : Node3D) -> void:
 	for inv_item in _inventory:
@@ -349,3 +364,16 @@ func _init_items() -> void:
 	_grapple_spawner = preload("res://SceneObjs/grapple_spawner.tscn")
 	_turret_spawner = preload("res://SceneObjs/turret_spawner.tscn")
 	
+func _upgrade_hover_ui() -> void:
+	var col = _aim_ray.get_collider()
+	# Trigger gui when hovering
+	if col != null && col.collision_layer == 8 && !_displaying_turret_gui:
+		_current_turret_gui = _turret_gui.instantiate()
+		get_tree().root.add_child(_current_turret_gui)
+		_displaying_turret_gui = true
+		# Initialize the GUI
+		_current_turret_gui.init(col)
+	if (col == null || col.collision_layer != 8) && _displaying_turret_gui:
+		print("delete gui")
+		_current_turret_gui.queue_free()
+		_displaying_turret_gui = false

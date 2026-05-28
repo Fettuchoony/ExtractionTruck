@@ -24,7 +24,7 @@ func _ready() -> void:
 	print("placed: " + turret.name)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	print(turret_mesh)
 	if place_mode && turret_mesh != null:
 		linear_velocity = Vector3(0,0,0)

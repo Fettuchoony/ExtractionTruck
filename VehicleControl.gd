@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 
 # All player controls are removed asid from the interact key
 func vehicle_controls(delta: float) -> void:
-	var fwd_mps := (linear_velocity * transform.basis).x
+	#var fwd_mps := (linear_velocity * transform.basis).x
 
 	_steer_target = Input.get_axis(&"turn_right", &"turn_left")
 	_steer_target *= STEER_LIMIT

@@ -17,21 +17,20 @@ material = SubResource("StandardMaterial3D_ph50j")
 radius = 0.2
 height = 0.4
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rbi6e"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_50ni8"]
+size = Vector3(3, 3.21875, 3)
 
 [node name="gunner_turret" type="RigidBody3D" unique_id=2091475285]
 collision_layer = 8
 collision_mask = 129
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
 script = ExtResource("1_ph50j")
+dmg = 10
 
 [node name="EnemyDetect" type="Area3D" parent="." unique_id=814179510]
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyDetect" unique_id=21061634]
+[node name="AttackRadius" type="CollisionShape3D" parent="EnemyDetect" unique_id=21061634]
 shape = SubResource("CylinderShape3D_hdy2w")
 
 [node name="DebugTargetBall" type="MeshInstance3D" parent="." unique_id=418315631]
@@ -56,6 +55,9 @@ transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0,
 transform = Transform3D(2.1786492, 0, 0, 0, 2.1786492, 0, 0, 0, 2.1786492, 0, -5.45043, 0.99999994)
 target_position = Vector3(0, -27.935, 0)
 
-[node name="TurretBase2" type="CollisionShape3D" parent="." unique_id=2131536079]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
-shape = SubResource("BoxShape3D_rbi6e")
+[node name="UpRef" type="Node3D" parent="TurretBase" unique_id=1198264619]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 6.7004986, 0)
+
+[node name="TurretCol" type="CollisionShape3D" parent="." unique_id=1997634634]
+transform = Transform3D(0.36, 0, 0, 0, 0.36, 0, 0, 0, 0.36, 0, 0.28437513, 0)
+shape = SubResource("BoxShape3D_50ni8")

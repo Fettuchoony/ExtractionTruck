@@ -16,7 +16,7 @@ func _ready() -> void:
 	level_node = get_tree().get_nodes_in_group("levels")[0]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
 func trigger() -> void:
