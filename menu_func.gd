@@ -7,7 +7,6 @@ const DEFAULT_ICON_SIZE = 32.0
 @onready var current_focus_item : TextureRect
 ## The rects that contain the item icon
 @onready var _taskbar_rects = $"../MainPlayer/GUI/TaskBar/HBoxContainer".get_children()
-@onready var _equip_texture = preload("res://SceneObjs/equipped.tscn")
 @onready var _player : CharacterBody3D = $"../MainPlayer"
 @onready var _current_hovered_item_name : String = ""
 @onready var turret_scene = preload("res://SceneObjs/turret_placement.tscn")
@@ -23,7 +22,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_execute_idles()
 	_item_hovering_and_selection_func()
 	
@@ -69,7 +68,7 @@ func _refresh_inventory() -> void:
 	for item in inv:
 		var item_gui : Control = item.find_child("GUI", true, false).duplicate()
 		var amount_label : Label = item_gui.get_node("Amount")
-		var item_icon : TextureRect = item_gui.get_node("Icon")
+		#var item_icon : TextureRect = item_gui.get_node("Icon")
 		item_gui.name = item.name
 		item_gui.visible = true
 		#print("item name = " + item_gui.name)
@@ -102,7 +101,6 @@ func _item_hovering_and_selection_func() -> void:
 			slot_rect.position = slot.global_position
 			# Check if shifted rect is clicked, if so bind item
 			if Input.is_action_just_pressed("Click") and slot_rect.has_point(get_screen_transform() * get_local_mouse_position()):
-				var equip_tex : TextureRect = slot.find_child("Equipped")
 				# If item isnt equipped already:
 				slot.find_child("Equipped").visible = true
 				_player._unbind_item(_player._current_taskbar_index)

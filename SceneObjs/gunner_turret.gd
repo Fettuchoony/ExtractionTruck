@@ -1,31 +1,43 @@
 extends RigidBody3D
 
-static var DETECT_TIME_INTERVAL : float = 0.1
+static var DETECT_TIME_INTERVAL : float = 0.01
+static var COLLOQUIAL_NAME : String = "Gunner Turret"
 
 @onready var _enemy_detection_area = $EnemyDetect
 @onready var _enemy_detect_timer : float = 0
 # [Enemy node, distance enemy is from end of path] useful for detecting front/back enemy
 @onready var _current_reachable_enemies : Dictionary[Node3D, float]
 # Attack mode is which enemy to attack in group: first, middle, last, strongest, weakest
-@onready var _attack_mode : String = "last"
+@onready var _attack_mode : String = "first"
 @onready var _debug_target_ball : MeshInstance3D = $DebugTargetBall
 @onready var _bullet_scene = preload("res://SceneObjs/test_bullet.tscn")
-@onready var _firing_point : Node3D = $FiringPoint
-@onready var _firing_rate : float = 0.5
+@onready var _firing_point : Node3D = $TurretBase/HeadPivot/TurretHead/FiringPoint
 @onready var _firing_timer : float = 0
+@onready var _head_pivot : Node3D = $TurretBase/HeadPivot
+@onready var _up_ref : Node3D = $TurretBase/UpRef
+@onready var target : Node3D
+
+@export var dmg : int = 1
+@export var firing_rate : float = 0.5
+
+
 # These two variables are essential for every pickupable object
 var being_held
 var hold_pos
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("The Gunner turret has spawned")
 	being_held = false
 	hold_pos = global_position
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _process(_delta: float) -> void:
+	if target != null:
+		
+		_head_pivot.look_at(target.global_position, _up_ref.global_position - global_position)
+		#var target_rotation = (_head_pivot.global_position - target.global_position).normalized()
+		#_head_pivot.global_rotation = lerp(_head_pivot.global_rotation, angle, 0.02)
 
 func _physics_process(delta: float) -> void:
 	_enemy_detect_timer += delta
@@ -54,7 +66,6 @@ func _enemy_detection() -> void:
 		_enemy_detect_timer = 0
 
 func _turret_attack() -> void:
-	var target : Node3D
 	var curr_target_path_length : float
 	# Must be initialized different depending on mode for sorting
 	if _attack_mode == "first":
@@ -72,22 +83,23 @@ func _turret_attack() -> void:
 				target = enemy
 				curr_target_path_length = enemy.path_length
 	# Actually firing
-	if target != null && _firing_timer > _firing_rate:
+	if target != null && _firing_timer > firing_rate:
 		var target_pos = target.find_child("TargetPoint").global_position
-		_debug_target_ball.global_position = target.global_position
 		var bullet = _bullet_scene.instantiate()
-		bullet.target = target
-		#look_at(target.global_position)
 		get_tree().root.add_child(bullet)
+		# Set projectile damage
+		bullet._dmg = dmg
+		var fire_pos = _firing_point.global_position
 		bullet.global_position = _firing_point.global_position
-		var flight_time = 0.5
-		var deltaX = target_pos.x - global_position.x
-		var deltaZ = target_pos.z - global_position.z
-		var deltaY = target_pos.y - global_position.y
-		var vX = deltaX / flight_time
-		var vZ = deltaZ / flight_time
-		var vY = (deltaY / flight_time) + (0.5 * 9.8 * flight_time)
-		bullet.apply_impulse(Vector3(vX, vY, vZ))
+		bullet.look_at(target_pos)
+		var velocity = 1
+		var difference = target_pos - fire_pos
+		# TODO: I think target and fire pos should be swapped but this works better idk
+		var t = (-velocity - sqrt(abs(pow(velocity, 2.0) - 4.0 * -4.8 * (target_pos.y - fire_pos.y)))) / (2.0 * -4.8)
+		var future_enemy_pos : Vector3 = target_pos + (t * target.linear_velocity)
+		_debug_target_ball.global_position = future_enemy_pos
+		var future_t = (-velocity - sqrt(abs(pow(velocity, 2.0) - 4.0 * -4.8 * (target_pos.y - fire_pos.y)))) / (2.0 * -4.8)
+		bullet.apply_impulse(Vector3(difference.x / future_t, velocity, difference.z/future_t))
 		_firing_timer = 0 
 		
 		

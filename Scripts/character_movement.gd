@@ -24,10 +24,10 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _target = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
 @onready var _debug_ball = $CameraPivot/SpringArm3D/Camera3D/PlayerRay/DebugBall
 @onready var _item_spawn_location = $ItemPivot/ItemSpawnSpot
-@onready var _blank_item : TextureRect = $BlankItem
 @onready var _pickup_hold_location : Node3D = $PickupPivot/ItemHoverSpot
 @onready var _held_item : RigidBody3D = null
 @onready var _can_enter_vehicle:bool = false
+@onready var _last_vehicle_entered : Node3D = null
 @onready var _in_vehicle:bool = false
 @onready var _mouse_mode:int = 2
 # Vehicle entrance should be the only collision option on layer 9
@@ -49,8 +49,14 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _menu : Control = $"../Menus"
 @onready var _ground_pos : Vector3 = Vector3(0, 0, 0)
 @onready var _last_subscene : int = 0
+# Keeps track if the turret gui is displaying or not
+@onready var _displaying_turret_gui : bool = false
+# Keep track of the gui being displayed
+@onready var _current_turret_gui : Control
+@onready var _camera : Camera3D = $CameraPivot/SpringArm3D/Camera3D
 
 # Preload all items (Might be a better way to do this)
+@onready var _turret_gui = preload("res://SceneObjs/info_upgrade_gui.tscn")
 @onready var _bomb_spawner = preload("res://SceneObjs/bomb_spawner.tscn")
 @onready var _grapple_spawner = preload("res://SceneObjs/grapple_spawner.tscn")
 @onready var _turret_spawner = preload("res://SceneObjs/turret_spawner.tscn")
@@ -72,6 +78,7 @@ func _process(delta: float) -> void:
 	_item_timer += delta
 	trigger_enemy_info()
 	_taskbar_scrolling()
+	_upgrade_hover_ui()
 
 func _physics_process(delta: float) -> void:
 	_enter_vehicle_cooldown += delta
@@ -79,31 +86,38 @@ func _physics_process(delta: float) -> void:
 	handle_pausing()
 	enter_vehicle()
 	exit_vehicle()
+	while_driving()
 	if !_in_vehicle:
 		movement_processing(delta)
-	pickup_and_lockon()
+	pickup_and_lockon(delta)
 	use_item()
 	debug_aim()
 
 # Displays UI for entering vehicle and handles user input and controller handover to vehicle script
 func enter_vehicle() -> void:
-	# TODO: UI implementation "Press F to enter vehicle"
-	
 	# Handles user input for transfering controls over to vehicle mode
 	if _can_enter_vehicle and Input.is_action_just_pressed("Interact") and !_in_vehicle and _enter_vehicle_cooldown > INTERACT_COOLDOWN_TIME:
-		print_debug("Player controller side camera transfer initiated")
-		_enter_vehicle_cooldown = 0
-		_in_vehicle = true
-		vehicle_entered.emit(self)
-		transfer_cam_to_vehicle.emit(_vehicle_info)
+		var vehicle_detect = $CharacterAreaDetect.get_overlapping_areas()
+		if vehicle_detect.size() > 0:
+			var vehicle = vehicle_detect[0].get_parent()
+			_last_vehicle_entered = vehicle
+			vehicle._vehicle_occupied = true
+			_enter_vehicle_cooldown = 0
+			_in_vehicle = true
+			vehicle_entered.emit(self)
+			transfer_cam_to_vehicle.emit(_vehicle_info)
 		
 func exit_vehicle() -> void:
-	if _in_vehicle and Input.is_action_just_pressed("Interact") and _enter_vehicle_cooldown > INTERACT_COOLDOWN_TIME:
-		_enter_vehicle_cooldown = 0
-		_in_vehicle = false
-		vehicle_exited.emit()
-		transfer_cam_to_player.emit(self)
+	if _in_vehicle and Input.is_action_just_pressed("Interact") and _enter_vehicle_cooldown > INTERACT_COOLDOWN_TIME && _last_vehicle_entered != null:
+			_last_vehicle_entered._vehicle_occupied = false
+			_enter_vehicle_cooldown = 0
+			_in_vehicle = false
+			vehicle_exited.emit()
+			transfer_cam_to_player.emit(self)
 		
+func while_driving() -> void:
+	if _last_vehicle_entered != null && _in_vehicle:
+		global_position = _last_vehicle_entered.global_position
 
 # Handles user input and player direction / cardinal movement/jumping
 func movement_processing(delta: float) -> void:
@@ -155,12 +169,20 @@ func movement_processing(delta: float) -> void:
 func handle_pausing() -> void:
 	# Pausing Functionality / Free mouse
 	if Input.is_action_just_pressed("Escape"):
-		_paused = !_paused
+		#_paused = !_paused
 		if _mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			_paused = true
+			_mouse_mode = Input.MOUSE_MODE_VISIBLE
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			pause_menu.emit()
+		elif _displaying_turret_gui:
+			_paused = true
 			_mouse_mode = Input.MOUSE_MODE_VISIBLE
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			pause_menu.emit()
 		else:
+			_paused = false
+			_camera.enable_movement = true
 			_mouse_mode = Input.MOUSE_MODE_CAPTURED
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			pause_menu.emit()
@@ -186,7 +208,7 @@ func _on_character_area_detect_area_entered(area: Area3D) -> void:
 		print_debug("Error: Cannot grab vehicle info despite colliding with entrance")
 
 
-func _on_character_area_detect_area_exited(area: Area3D) -> void:
+func _on_character_area_detect_area_exited(_area: Area3D) -> void:
 	_vehicle_info = null
 	_can_enter_vehicle = false
 
@@ -231,7 +253,7 @@ func _unbind_item(taskbar_index : int) -> void:
 	pass
 	
 func use_item() -> void:
-	if !_paused && Input.is_action_just_pressed("Click") && _taskbar_rects[_current_taskbar_index].get_children().size() > 2:
+	if !_paused && Input.is_action_just_pressed("Click") && _taskbar_rects[_current_taskbar_index].get_children().size() > 2 && !_displaying_turret_gui:
 		var curr_item_name = _taskbar_rects[_current_taskbar_index].get_child(2).name
 		_taskbar_items[curr_item_name].trigger()
 		
@@ -272,7 +294,7 @@ func game_over() -> void:
 	pass
 
 # Actually picking up the rigidbodies and moving them
-func pickup_and_lockon() -> void:
+func pickup_and_lockon(delta : float) -> void:
 	var col : RigidBody3D = _item_ray.get_collider()
 	# pickup
 	if Input.is_action_just_pressed("RClick") and _held_item == null and col != null and col.collision_layer == 8:
@@ -281,13 +303,21 @@ func pickup_and_lockon() -> void:
 		_held_item = col
 		_held_item.being_held = true
 		_held_item.hold_pos = _pickup_hold_location
-		print(_pickup_hold_location)
+		# Right object upward when picked up
+		#var y_ang_vel : float = _held_item.angular_velocity.y
+		#_held_item.angular_velocity.x = -_held_item.global_rotation.x
+		#_held_item.angular_velocity.z = -_held_item.global_rotation.z
+		#TODO: Fix righting
+		#_held_item.rotation = Vector3(0, _held_item.rotation.y, 0)
 	# put down
 	elif Input.is_action_just_pressed("RClick") and _held_item != null:
 		#print("put down: " + to_string(_held_item))
 		_held_item.being_held = false
 		_held_item = null
-
+	if _held_item != null:
+		_held_item.rotation = lerp(_held_item.rotation, _held_item.rotation.y * Vector3.UP, 0.05)
+		_held_item.angular_velocity.z = -_held_item.rotation.z
+	
 # Adds item to inventory and updates the menu accordingly
 func _pickup_item(item : Node3D) -> void:
 	for inv_item in _inventory:
@@ -300,7 +330,6 @@ func _pickup_item(item : Node3D) -> void:
 			return
 	_inventory.append(item)
 	_item_spawn_location.add_child(item)
-	print("Item added")
 	# Make the GUI elements invisible
 	item.find_child("GUI").visible = false
 	_menu._refresh_inventory()
@@ -342,3 +371,39 @@ func _init_items() -> void:
 	_grapple_spawner = preload("res://SceneObjs/grapple_spawner.tscn")
 	_turret_spawner = preload("res://SceneObjs/turret_spawner.tscn")
 	
+func _upgrade_hover_ui() -> void:
+	var col = _aim_ray.get_collider()
+	# Trigger gui when hovering but dont free mouse
+	if col != null && col.collision_layer == 8 && !_displaying_turret_gui && !_paused:
+		_current_turret_gui = _turret_gui.instantiate()
+		get_tree().root.add_child(_current_turret_gui)
+		_current_turret_gui.init(col)
+		for perk in _current_turret_gui._tree.get_children():
+			perk._turret = col
+		_displaying_turret_gui = true
+		# Initialize the GUI
+	# Delete GUI when the player has the GUI up already and the game is puased or focus lost on turret
+	if (col == null || col.collision_layer != 8 || _paused) && _displaying_turret_gui:
+		_current_turret_gui.queue_free()
+		_displaying_turret_gui = false
+		# If exited with e press, recapture mouse
+		if !_paused:
+			_mouse_mode = Input.MOUSE_MODE_CAPTURED
+			Input.mouse_mode = _mouse_mode
+			_camera.enable_movement = true
+		# If exited with pause, keep mouse visible
+		else: 
+			_mouse_mode = Input.MOUSE_MODE_VISIBLE
+			Input.mouse_mode = _mouse_mode
+			_camera.enable_movement = false
+	# Handle edit prompt
+	if col != null && _displaying_turret_gui && Input.is_action_just_pressed("EItem"):
+		if _mouse_mode == Input.MOUSE_MODE_VISIBLE:
+			_mouse_mode = Input.MOUSE_MODE_CAPTURED
+			_camera.enable_movement = true
+		else:
+			_mouse_mode = Input.MOUSE_MODE_VISIBLE
+			_camera.enable_movement = false
+		Input.mouse_mode = _mouse_mode
+		#_current_turret_gui.mouse_filter = 1
+		print("Click")

@@ -10,13 +10,13 @@ var level_node : Node3D
 func _init() -> void:
 	icon = find_child("Icon")
 	gunner_turret_data = preload("res://SceneObjs/gunner_turret.tscn")
-	print("Created spawner for: " + str(gunner_turret_data))
+	
 	
 func _ready() -> void:
 	level_node = get_tree().get_nodes_in_group("levels")[0]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
 func trigger() -> void:
