@@ -114,6 +114,9 @@ func _item_hovering_and_selection_func() -> void:
 				_cursor_item.visible = true
 				var floating_icon = slot.duplicate()
 				_cursor_item.add_child(floating_icon)
+				if slot is Augment:
+					floating_icon.find_child("Amount").visible = false
+					slot.amount -= 1
 				floating_icon.mouse_filter = MOUSE_FILTER_IGNORE
 				#_player._unbind_item(_player._current_taskbar_index)
 				## Move to taskbar and augment controller

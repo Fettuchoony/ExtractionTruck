@@ -19,7 +19,8 @@ static var COLLOQUIAL_NAME : String = "Gunner Turret"
 @onready var target : Node3D
 
 # Added to by perk when clicked, used to populate upgrade gui with equip when created and avoid repeats
-@onready var _applied_upgrades : Dictionary[String, bool]
+# Key : Perk name, Value : item slot
+@onready var _applied_upgrades : Dictionary[String, Control]
 
 @export var dmg : int = 1
 @export var firing_rate : float = 0.5

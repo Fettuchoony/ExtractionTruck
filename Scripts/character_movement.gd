@@ -381,9 +381,8 @@ func _upgrade_hover_ui() -> void:
 	if col != null && col.collision_layer == 8 && !_displaying_turret_gui && !_paused:
 		_current_turret_gui = _turret_gui.instantiate()
 		_menu.add_child(_current_turret_gui)
+		# Gui searches all perks and applies/displays all upgrades
 		_current_turret_gui.init(col)
-		for perk in _current_turret_gui._tree.get_children():
-			perk._turret = col
 		_displaying_turret_gui = true
 	if _displaying_turret_gui:
 		if col == null || col.collision_layer != 8:

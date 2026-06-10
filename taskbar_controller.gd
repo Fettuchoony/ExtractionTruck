@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 		# Shift rect to position so click aligns
 		slot_rect.position =  item_slot.global_position
 		# Check if shifted rect is clicked, if so bind item
-		if Input.is_action_just_pressed("Click") and slot_rect.has_point(get_screen_transform() * get_local_mouse_position()) && _menu._cursor_item != null:
-			item_slot.add_child(_menu._cursor_item.get_child(0).duplicate())
+		# Dont let augments be put in task bar, they only go in turrets
+		if Input.is_action_just_pressed("Click") and slot_rect.has_point(get_screen_transform() * get_local_mouse_position()) && _menu._cursor_item != null && !(_menu._cursor_item.get_child(0) is Augment):
+			_menu._cursor_item.get_child(0).reparent(item_slot)
 			print(_menu._cursor_item)

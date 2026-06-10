@@ -1,4 +1,5 @@
 extends Control
+class_name Augment
 
 @onready var hover = $Hover
 
@@ -7,6 +8,9 @@ extends Control
 
 # If player is holding the item on cursor or not
 @onready var _floating : bool = false
+
+# Amount of the item available
+@onready var amount : int = 1
 
 # Set on instantiation by creator, exported for debugging purposes
 @export var selected_augment : String
@@ -37,4 +41,4 @@ func _pickup_func() -> void:
 	var rect = get_rect()
 	rect.position = global_position
 	if rect.has_point(get_screen_transform() * get_local_mouse_position()) && Input.is_action_just_pressed("Click"):
-		print("Augment Selected")
+		_floating = true

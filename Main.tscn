@@ -314,6 +314,7 @@ texture = ExtResource("15_fpfj3")
 
 [node name="ItemHold" type="Control" parent="MainPlayer/GUI" unique_id=361187350]
 visible = false
+z_index = 10
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
