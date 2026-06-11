@@ -1,5 +1,6 @@
 extends Control
 
+@export var item_name = "grapple"
 
 @export var icon : TextureRect
 @export var amount : int = 5

@@ -13,6 +13,7 @@ offset_bottom = -0.15200806
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_j3tkb")
+amount = 1
 
 [node name="GUI" parent="." unique_id=963375078 instance=ExtResource("2_bw0iu")]
 layout_mode = 1

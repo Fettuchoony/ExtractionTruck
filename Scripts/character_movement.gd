@@ -170,13 +170,14 @@ func movement_processing(delta: float) -> void:
 func handle_pausing() -> void:
 	# Pausing Functionality / Free mouse
 	if Input.is_action_just_pressed("Escape"):
-		#_paused = !_paused
+		# if not paused, then pause
 		if _mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			_paused = true
 			_camera.enable_movement = false
 			_mouse_mode = Input.MOUSE_MODE_VISIBLE
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			pause_menu.emit()
+		# if paused, then unpause, return held item to inv
 		else:
 			_paused = false
 			_camera.enable_movement = true
@@ -256,7 +257,7 @@ func use_item() -> void:
 		# trigger the current item
 		curr_item.trigger(_item_spawn_location.global_position)
 		for item in _inventory:
-			if item.name == curr_item.name:
+			if item != null && item.name == curr_item.name:
 				item.amount = curr_item.amount
 				print("decrementing")
 				item.amount_label.text = str(item.amount)
@@ -325,22 +326,40 @@ func pickup_and_lockon(delta : float) -> void:
 func _pickup_item(item : Control) -> void:
 	for inv_item in _inventory:
 		# If item already exists, increment it
-		if inv_item.name == item.name:
+		if inv_item != null && inv_item.item_name == item.item_name:
+			print("repeat item added, incrementing: " + inv_item.name)
 			inv_item.amount += 1
+			print(inv_item.amount)
 			_menu._refresh_inventory()
 			# No need to instantiate more spawners than 1
 			item.queue_free()
 			return
+	print("new item added, adding: " + item.name)
 	_inventory.append(item)
-	_item_spawn_location.add_child(item)
+	#_item_spawn_location.add_child(item)
 	# Make the GUI elements invisible
 	item.visible = false
 	_menu._refresh_inventory()
+
+func _remove_item(item : Control) -> void:
+	for inv_item in _inventory:
+		# If item already exists, increment it
+		if inv_item.item_name == item.item_name:
+			print("item found, decrementing: " + inv_item.name)
+			inv_item.amount -= 1
+			print(inv_item.amount)
+			if inv_item.amount <= 0:
+				_inventory.erase(inv_item)
+			_menu._refresh_inventory()
+			return
 
 func _spawn_with_all_items() -> void:
 	_pickup_item(_bomb_spawner.instantiate())
 	_pickup_item(_grapple_spawner.instantiate())
 	_pickup_item(_turret_spawner.instantiate())
+	_pickup_item(_augment.instantiate())
+	_pickup_item(_augment.instantiate())
+	_pickup_item(_augment.instantiate())
 	_pickup_item(_augment.instantiate())
 
 # TODO: Find a way to make this use event instead of direct input?
@@ -383,6 +402,7 @@ func _upgrade_hover_ui() -> void:
 		_menu.add_child(_current_turret_gui)
 		# Gui searches all perks and applies/displays all upgrades
 		_current_turret_gui.init(col)
+		_current_turret_gui.populate_upgrade_slots()
 		_displaying_turret_gui = true
 	if _displaying_turret_gui:
 		if col == null || col.collision_layer != 8:

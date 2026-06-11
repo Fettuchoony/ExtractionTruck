@@ -5,6 +5,7 @@ var level_node : Node3D
 
 @onready var amount_label : Label = $GUI/Amount
 
+@export var item_name = "base_turret"
 @export var icon : TextureRect
 @export var amount : int = 5
 

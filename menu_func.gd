@@ -33,7 +33,9 @@ func _process(_delta: float) -> void:
 func _on_main_player_pause_menu() -> void:
 	if inv_window.visible:
 		_cursor_item.visible = false
-		for child in _cursor_item.get_children(): child.queue_free()
+		for child in _cursor_item.get_children(): 
+			_player._pickup_item(child)
+			child.queue_free()
 		inv_window.visible = false
 	else:
 		inv_window.visible = true
@@ -69,27 +71,31 @@ func _refresh_inventory() -> void:
 	var inv = _player._inventory
 	assert(inv != null, "Fatal error: inventory not refreshable")
 	for item in inv:
-		var item_gui : Control = item.duplicate()
-		var amount_label : Label = item_gui.find_child("Amount")
-		#var item_icon : TextureRect = item_gui.get_node("Icon")
-		item_gui.name = item.name
-		item_gui.visible = true
-		#print("item name = " + item_gui.name)
-		# Update item count
-		if amount_label != null:
-			amount_label.text = str(item.amount)
-		var already_in_menu = false
-		for icon in _item_slots.get_children():
-			if icon.name == item.name: 
-				already_in_menu = true
-		# If the item is already in the inventory, just update it
-		## TODO: increment item count when picking up duplicates
-		if already_in_menu:
-			pass
-		# If the item is new to the inventory, add it
-		else:
-			_item_slots.add_child(item_gui)
-		# Do not scale taskbar rects
+		if item != null:
+			if item.get_parent() != null:
+				item.reparent(_item_slots)
+			else:
+				_item_slots.add_child(item)
+			var amount_label : Label = item.find_child("Amount")
+			#var item_icon : TextureRect = item_gui.get_node("Icon")
+			#item_gui.name = item.name
+			item.visible = true
+			#print("item name = " + item_gui.name)
+			# Update item count
+			if amount_label != null:
+				amount_label.text = str(item.amount)
+			var already_in_menu = false
+			for icon in _item_slots.get_children():
+				if icon.name == item.name: 
+					already_in_menu = true
+			# If the item is already in the inventory, just update it
+			## TODO: increment item count when picking up duplicates
+			if already_in_menu:
+				pass
+			# If the item is new to the inventory, add it
+			#else:
+				#_item_slots.add_child(item_gui)
+			# Do not scale taskbar rects
 
 func _item_hovering_and_selection_func() -> void:
 	# move cursor item to mouse, even if invisible atm
@@ -107,16 +113,25 @@ func _item_hovering_and_selection_func() -> void:
 			var slot_rect = slot_icon.get_rect()
 			# Shift rect to position so click aligns
 			slot_rect.position = slot.global_position
-			# Check if shifted rect is clicked, if so bind item
+			# Check if shifted rect is clicked, if so bind item, also check if cursor already holding item
 			if Input.is_action_just_pressed("Click") and slot_rect.has_point(get_screen_transform() * get_local_mouse_position()):
+				# check if item is already being held, if so return it to inv and delete from cursor
+				if _cursor_item.get_child_count() != 0:
+					# Only augment increment because turret amount doesnt decrease until use
+					if _cursor_item.get_child(0) is Augment:
+						var item_dupe = _cursor_item.get_child(0).duplicate(DUPLICATE_INTERNAL_STATE)
+						_player._pickup_item(item_dupe)
+					_cursor_item.get_child(0).queue_free()
 				# If item isnt equipped already:
 				slot.find_child("Equipped").visible = true
 				_cursor_item.visible = true
 				var floating_icon = slot.duplicate()
 				_cursor_item.add_child(floating_icon)
 				if slot is Augment:
+					floating_icon._floating = true
+					floating_icon.amount = 1
 					floating_icon.find_child("Amount").visible = false
-					slot.amount -= 1
+				floating_icon.name = slot.name
 				floating_icon.mouse_filter = MOUSE_FILTER_IGNORE
 				#_player._unbind_item(_player._current_taskbar_index)
 				## Move to taskbar and augment controller
