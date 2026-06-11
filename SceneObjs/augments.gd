@@ -3,9 +3,6 @@ class_name Augment
 
 @onready var hover = $Hover
 
-# List of every augment type
-@onready var augment_list : Array[String] = ["Simple_Dmg"]
-
 # If player is holding the item on cursor or not
 @onready var _floating : bool = false
 @onready var _in_turret : bool = false
@@ -31,9 +28,6 @@ func _process(delta: float) -> void:
 	if amount <= 0:
 		queue_free()
 
-func set_augment (augment_name : String) -> bool:
-	return true
-
 func _hovering_func() -> void:
 	var rect = get_rect()
 	rect.position = global_position
@@ -49,7 +43,7 @@ func _input(event: InputEvent) -> void:
 	var rect = get_rect()
 	rect.position = global_position
 	#if rect.has_point(get_screen_transform() * get_local_mouse_position()) && Input.is_action_just_pressed("Click"):
-	if rect.has_point(get_screen_transform() * get_local_mouse_position()) && event.is_action_pressed("Click") && !_floating:
+	if rect.has_point(get_screen_transform() * get_local_mouse_position()) && event.is_action_pressed("Click") && !_floating && !_in_turret:
 		print("augment decrement")
 		amount -= 1
 		amt_label.text = str(amount)

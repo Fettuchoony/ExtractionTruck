@@ -15,7 +15,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jis4q")
-selected_augment = "Base Augment"
 
 [node name="Icon" type="TextureRect" parent="." unique_id=713070883]
 texture_filter = 1

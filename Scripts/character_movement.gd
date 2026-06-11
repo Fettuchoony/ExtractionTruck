@@ -398,19 +398,18 @@ func _upgrade_hover_ui() -> void:
 	var col = _aim_ray.get_collider()
 	# Trigger gui when hovering but dont free mouse
 	if col != null && col.collision_layer == 8 && !_displaying_turret_gui && !_paused:
-		_current_turret_gui = _turret_gui.instantiate()
-		_menu.add_child(_current_turret_gui)
-		# Gui searches all perks and applies/displays all upgrades
-		_current_turret_gui.init(col)
-		_current_turret_gui.populate_upgrade_slots()
+		_current_turret_gui = col.ui
+		col._menu = _menu
+		#_current_turret_gui.populate_upgrade_slots()
 		_displaying_turret_gui = true
+		_current_turret_gui.visible = true
 	if _displaying_turret_gui:
+		_current_turret_gui._menu = _menu
 		if col == null || col.collision_layer != 8:
 			_mouse_mode = Input.MOUSE_MODE_CAPTURED
 			_camera.enable_movement = true
 			_displaying_turret_gui = false
-			if _current_turret_gui != null:
-				_current_turret_gui.queue_free()
+			_current_turret_gui.visible = false
 			# Exit pause aswell if walking away (QOL I think)
 			if _paused:
 				_paused = false
