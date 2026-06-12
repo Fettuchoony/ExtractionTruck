@@ -1,4 +1,5 @@
-extends Control
+extends PanelContainer
+class_name Item
 
 var target_item : Resource
 var level_node : Node3D

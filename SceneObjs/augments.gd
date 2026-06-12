@@ -1,4 +1,4 @@
-extends Control
+extends PanelContainer
 class_name Augment
 
 @onready var hover = $Hover

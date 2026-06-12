@@ -121,13 +121,14 @@ func _item_hovering_and_selection_func() -> void:
 					# Only augment increment because turret amount doesnt decrease until use
 					if _cursor_item.get_child(0) is Augment:
 						var grab_item = _cursor_item.get_child(0)
-						_player._pickup_item(grab_item)
+						## TODO: Check if this should b duplicate or not
+						_player._pickup_item(grab_item.duplicate(DUPLICATE_INTERNAL_STATE))
 					else:
 						_cursor_item.get_child(0).queue_free()
 				# If item isnt equipped already:
 				slot.find_child("Equipped").visible = true
 				_cursor_item.visible = true
-				var floating_icon = slot.duplicate()
+				var floating_icon = slot.duplicate(DUPLICATE_INTERNAL_STATE)
 				_cursor_item.add_child(floating_icon)
 				if slot is Augment:
 					floating_icon._floating = true

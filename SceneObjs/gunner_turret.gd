@@ -151,6 +151,7 @@ func _handle_upgrade_input() -> void:
 						grab_item.reparent(slot_augment_spot)
 						grab_item.global_position = slot.global_position
 						already_toggled = true
+						
 						print(grab_item.global_position)
 						
 			# REMOVE CASE

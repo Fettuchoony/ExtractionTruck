@@ -1,4 +1,4 @@
-extends Control
+extends PanelContainer
 
 @export var item_name = "bomb"
 

@@ -4,14 +4,17 @@
 [ext_resource type="PackedScene" uid="uid://c4v07qkjcxnw1" path="res://SceneObjs/item_gui.tscn" id="2_g6cll"]
 [ext_resource type="Texture2D" uid="uid://c5lr88gvig1n2" path="res://Textures/Extracted/bomb.png" id="2_ygcvh"]
 
-[node name="BombSpawner" type="AspectRatioContainer" unique_id=312354407]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xfv6e"]
+
+[node name="BombSpawner" type="PanelContainer" unique_id=706844038]
 anchors_preset = -1
 anchor_right = 0.1
 anchor_bottom = 0.2
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-stretch_mode = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xfv6e")
 script = ExtResource("1_r12s0")
 metadata/_edit_use_anchors_ = true
 

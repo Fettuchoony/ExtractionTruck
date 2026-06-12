@@ -40,7 +40,7 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _current_taskbar_index : int = 0
 @onready var _taskbar_rects = $GUI/TaskBar/HBoxContainer.get_children()
 
-@onready var _inventory : Array[Control]
+@onready var _inventory : Array[PanelContainer]
 @onready var _paused : bool
 @onready var _item_timer: float = 0
 @onready var _aim_ray : RayCast3D = $CameraPivot/SpringArm3D/Camera3D/PlayerRay
@@ -254,6 +254,7 @@ func _unbind_item(taskbar_index : int) -> void:
 func use_item() -> void:
 	if !_paused && Input.is_action_just_pressed("Click") && _taskbar_rects[_current_taskbar_index].get_children().size() > 2 && !_displaying_turret_gui:
 		var curr_item = _taskbar_rects[_current_taskbar_index].get_child(2)
+		print(curr_item.amount)
 		# trigger the current item
 		curr_item.trigger(_item_spawn_location.global_position)
 		for item in _inventory:
@@ -323,7 +324,7 @@ func pickup_and_lockon(delta : float) -> void:
 		_held_item.angular_velocity.z = -_held_item.rotation.z
 	
 # Adds item to inventory and updates the menu accordingly
-func _pickup_item(item : Control) -> void:
+func _pickup_item(item : PanelContainer) -> void:
 	for inv_item in _inventory:
 		# If item already exists, increment it
 		if inv_item != null && inv_item.item_name == item.item_name:

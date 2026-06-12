@@ -4,16 +4,22 @@
 [ext_resource type="PackedScene" uid="uid://c4v07qkjcxnw1" path="res://SceneObjs/item_gui.tscn" id="2_bw0iu"]
 [ext_resource type="Texture2D" uid="uid://bivup58xsnbb3" path="res://Textures/Extracted/GunnerTurret.png" id="3_bw0iu"]
 
-[node name="TurretSpawner" type="AspectRatioContainer" unique_id=1856044530]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bw0iu"]
+
+[node name="TurretSpawner" type="PanelContainer" unique_id=1847876787]
 anchors_preset = -1
-anchor_right = 0.1
+anchor_right = 0.105902776
 anchor_bottom = 0.2
+offset_right = 6.0
+offset_bottom = -1.6000061
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-stretch_mode = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_bw0iu")
 script = ExtResource("1_j3tkb")
 amount = 1
+metadata/_custom_type_script = "uid://ckijqqeiabeua"
 metadata/_edit_use_anchors_ = true
 
 [node name="GUI" parent="." unique_id=963375078 instance=ExtResource("2_bw0iu")]
