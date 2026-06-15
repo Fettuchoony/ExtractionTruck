@@ -62,6 +62,7 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _grapple_spawner = preload("res://SceneObjs/grapple_spawner.tscn")
 @onready var _turret_spawner = preload("res://SceneObjs/turret_spawner.tscn")
 @onready var _augment = preload("res://SceneObjs/augment_generic.tscn")
+@onready var _dmg_mod_tier1 = preload("res://SceneObjs/dmg_mod_tier1.tscn")
 
 
 @export var item_cooldown_time : float = 0.2
@@ -243,7 +244,7 @@ func _unbind_item(taskbar_index : int) -> void:
 		print("removing " + target_name)
 		_taskbar_items.erase(target_name)
 	for control_node in _taskbar_containers[taskbar_index].get_children():
-		if control_node is AspectRatioContainer:
+		if control_node is PanelContainer:
 			control_node.free()
 	var inv_icon = _menu._item_slots.find_child(_taskbar_containers[taskbar_index].name)
 	if inv_icon != null && inv_icon.find_child("Equipped") != null :
@@ -359,10 +360,9 @@ func _spawn_with_all_items() -> void:
 	_pickup_item(_bomb_spawner.instantiate() as BombSpawner)
 	_pickup_item(_grapple_spawner.instantiate() as GrappleSpawner)
 	_pickup_item(_turret_spawner.instantiate() as TurretSpawner)
-	_pickup_item(_augment.instantiate() as Augment)
-	_pickup_item(_augment.instantiate() as Augment)
-	_pickup_item(_augment.instantiate() as Augment)
-	_pickup_item(_augment.instantiate() as Augment)
+	_pickup_item(_dmg_mod_tier1.instantiate())
+	_pickup_item(_dmg_mod_tier1.instantiate())
+	_pickup_item(_dmg_mod_tier1.instantiate())
 
 # TODO: Find a way to make this use event instead of direct input?
 func _taskbar_scrolling() -> void:

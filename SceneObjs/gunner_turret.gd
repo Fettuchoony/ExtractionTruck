@@ -16,6 +16,7 @@ static var COLLOQUIAL_NAME : String = "Gunner Turret"
 @onready var _firing_timer : float = 0
 @onready var _head_pivot : Node3D = $TurretBase/HeadPivot
 @onready var _up_ref : Node3D = $TurretBase/UpRef
+@onready var _current_projectile : Projectile
 @onready var target : Node3D
 
 @onready var _menu : Control
@@ -144,17 +145,13 @@ func _handle_upgrade_input() -> void:
 			# ADD CASE
 			# Cursor item set, put on empty space
 			if clicked && within_rect && cursor_holding_item && held_item_is_augment && !slot_occupied:
-						print_debug("Adding augment: " + cursor_item.get_child(0).name + " to " + ui._turret_name.text)
-						var grab_item = cursor_item.get_child(0)
-						applied_upgrades[slot_num] = grab_item
-						print(applied_upgrades)
-						
-						#_player._remove_item(cursor_item.get_child(0))
-						grab_item.reparent(slot_augment_spot)
-						grab_item.global_position = slot.global_position
-						already_toggled = true
-						
-						print(grab_item.global_position)
+				print_debug("Adding augment: " + cursor_item.get_child(0).name + " to " + ui._turret_name.text)
+				var grab_item = cursor_item.get_child(0)
+				applied_upgrades[slot_num] = grab_item
+				grab_item.reparent(slot_augment_spot)
+				grab_item.global_position = slot.global_position
+				already_toggled = true
+				update_turret_stats()
 						
 			# REMOVE CASE
 			# No cursor item, but augment clicked and slot isnt empty
@@ -163,6 +160,7 @@ func _handle_upgrade_input() -> void:
 				applied_upgrades.erase(slot_num)
 				grab_item.reparent(cursor_item)
 				grab_item.global_position = cursor_item.global_position
+				update_turret_stats()
 			
 			# SWAP CASE
 			# Cursor item set, put on occupied space
@@ -174,8 +172,22 @@ func _handle_upgrade_input() -> void:
 				cursor_item.global_position = slot_augment_spot.global_position
 				cursor_augment.reparent(slot_augment_spot)
 				slot_augment.reparent(cursor_item)
+				update_turret_stats()
 			
 			slot_num += 1
 
 func change_turret_mode(mode : String) -> void:
 	_attack_mode = mode
+
+# On augment change, update turret with new stats
+func update_turret_stats() -> void:
+	print("updating turret gui to reflect stat change")
+	if _current_projectile != null:
+		# Modify the projectile
+		for augment in applied_upgrades.values():
+			if augment is ProjectileModifier:
+				dmg += augment.delta_dmg
+				print(dmg)
+				
+	# Visually updates ui with new stats
+	ui.update_info()

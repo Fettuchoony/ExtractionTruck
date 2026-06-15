@@ -111,6 +111,7 @@ func _item_hovering_and_selection_func() -> void:
 		for slot in _item_slots.get_children():
 			# Get the rect of the actual item
 			var slot_icon : TextureRect =  slot.find_child("Icon")
+
 			assert(slot_icon != null)
 			var slot_rect = slot_icon.get_rect()
 			# Shift rect to position so click aligns
@@ -123,7 +124,7 @@ func _item_hovering_and_selection_func() -> void:
 					if _cursor_item.get_child(0) is Augment:
 						var grab_item = _cursor_item.get_child(0)
 						## TODO: Check if this should b duplicate or not
-						_player._pickup_item(grab_item.duplicate(DUPLICATE_INTERNAL_STATE))
+						_player._pickup_item(grab_item)
 					else:
 						_cursor_item.get_child(0).queue_free()
 				# If item isnt equipped already:
