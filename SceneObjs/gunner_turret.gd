@@ -97,7 +97,7 @@ func _turret_attack() -> void:
 	if target != null && _current_projectile != null && _firing_timer > _current_projectile.get_firerate():
 		var target_pos = target.find_child("TargetPoint").global_position
 		var fire_pos = _firing_point.global_position
-		_current_projectile.fire(fire_pos, target_pos)
+		_current_projectile.fire(fire_pos, target)
 		#bullet.global_position = _firing_point.global_position
 		#bullet.look_at(target_pos)
 		#var velocity = 1

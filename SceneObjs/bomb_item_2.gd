@@ -20,16 +20,9 @@ class_name Bomb extends RigidBody3D
 @export var throw_strength : float = 1
 
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("Firing bomb")
-	# 1.2 is the camera angle max rotation in x
-	throw_strength *= camera_tilt + 1.2
-	var dir : Vector3 = player.global_position.direction_to(global_position)
-	dir = dir.normalized()
-	apply_impulse(throw_strength * dir)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -70,5 +63,15 @@ func explode() -> void:
 	# Delete the bomb
 	queue_free()
 
-func flight_behaviour(target_pos : Vector3) -> void:
-	print("bomb projectile flight!")
+func flight_behaviour(target_enemy : Enemy) -> void:
+	var target_pos : Vector3 = target_enemy.global_position
+	look_at(target_pos)
+	var velocity = 1
+	var difference = target_pos - global_position
+	# TODO: I think target and fire pos should be swapped but this works better idk
+	var t = (-velocity - sqrt(abs(pow(velocity, 2.0) - 4.0 * -4.8 * (target_pos.y - global_position.y)))) / (2.0 * -4.8)
+	var future_enemy_pos : Vector3 = target_pos + (t * target_enemy.linear_velocity)
+	#_debug_target_ball.global_position = future_enemy_pos
+	var future_t = (-velocity - sqrt(abs(pow(velocity, 2.0) - 4.0 * -4.8 * (target_pos.y - global_position.y)))) / (2.0 * -4.8)
+	lifetime = future_t
+	apply_impulse(throw_strength * Vector3(difference.x / future_t, velocity, difference.z/future_t))

@@ -23,6 +23,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	super(delta)
 	# Update timers
 	time_since_last_hop += delta
 	#look_at(player.global_position)

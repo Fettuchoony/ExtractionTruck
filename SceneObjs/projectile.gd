@@ -9,6 +9,9 @@ class_name ProjectileSpawner extends Augment
 @onready var added_dmg : int = 0
 @onready var added_firerate : float = 0.0
 
+# Enemy targeted at instantiation, can still hit others or miss
+@onready var target_enemy : Enemy
+
 # Default projectile is bullet TODO: For now?
 @export var projectile : PackedScene
 
@@ -31,7 +34,7 @@ func get_dmg() -> int:
 func get_firerate() -> float:
 	return base_firerate + added_firerate
 
-func fire(fire_pos : Vector3, target_pos : Vector3) -> void:
+func fire(fire_pos : Vector3, target_enemy : Enemy) -> void:
 	var proj_obj : RigidBody3D = projectile.instantiate()
 	# Add copy of spawner just for the stats to carry into projectile
 	var self_duplicate : ProjectileSpawner = self.duplicate()
@@ -40,8 +43,8 @@ func fire(fire_pos : Vector3, target_pos : Vector3) -> void:
 	print(get_tree().root)
 	get_tree().root.get_child(0).add_child(proj_obj)
 	proj_obj.global_position = fire_pos
-	proj_obj.flight_behaviour(target_pos)
+	proj_obj.flight_behaviour(target_enemy)
 
 # This exists to be overriden by specific projectile
-func flight_behaviour(target_pos : Vector3) -> void:
+func flight_behaviour(target_enemy : Enemy) -> void:
 	print("Cannot find prjectile " + name + " flight behaviour, falling back to default")
