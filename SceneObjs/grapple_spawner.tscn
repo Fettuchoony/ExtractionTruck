@@ -8,7 +8,7 @@
 
 [node name="GrappleSpawner" type="PanelContainer" unique_id=1378566282]
 anchors_preset = -1
-anchor_right = 0.1
+anchor_right = 0.11024305
 anchor_bottom = 0.2
 grow_horizontal = 2
 grow_vertical = 2

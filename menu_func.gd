@@ -26,7 +26,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	_execute_idles()
 	_item_hovering_and_selection_func()
 	
 
@@ -44,23 +43,23 @@ func _on_main_player_pause_menu() -> void:
 
 
 ## Executes all idle anims TODO: might replace with animgraph at some point?
-func _execute_idles() -> void:
-	# Turrets idle is the mesh floating infront of the player, specifics managed by turret placement tscn
-	if _current_hovered_item_name.ends_with("turret"):
-		if _currently_idleing && _current_idle_obj == null:
-			var placement_location = placement_ray.get_collision_point()
-			_current_idle_obj = turret_scene.instantiate()
-			_current_idle_obj.position = placement_location
-			# Find current level to place turret
-			var curr_level = get_tree().get_nodes_in_group("levels")
-			if curr_level == null:
-				print("Cannot find current level for turret placement")
-			else:
-				curr_level = curr_level[0]
-			# This way, turrets are saved on changing level
-			curr_level.add_child(_current_idle_obj)
-	elif (_current_idle_obj != null && _current_idle_obj.place_mode == true):
-		_current_idle_obj.free()
+#func _execute_idles() -> void:
+	## Turrets idle is the mesh floating infront of the player, specifics managed by turret placement tscn
+	#if _current_hovered_item_name.ends_with("turret"):
+		#if _currently_idleing && _current_idle_obj == null:
+			#var placement_location = placement_ray.get_collision_point()
+			#_current_idle_obj = turret_scene.instantiate()
+			#_current_idle_obj.position = placement_location
+			## Find current level to place turret
+			#var curr_level = get_tree().get_nodes_in_group("levels")
+			#if curr_level == null:
+				#print("Cannot find current level for turret placement")
+			#else:
+				#curr_level = curr_level[0]
+			## This way, turrets are saved on changing level
+			#curr_level.add_child(_current_idle_obj)
+	#elif (_current_idle_obj != null && _current_idle_obj.place_mode == true):
+		#_current_idle_obj.free()
 
 
 func _refresh_inventory() -> void:

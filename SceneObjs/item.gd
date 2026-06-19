@@ -23,12 +23,13 @@ class_name Item extends PanelContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("items")
 	fallback_location = get_parent()
 	if fallback_location == null:
 		print_debug("Orphan Item found, not allowed because no fallback location can be set")
 	item_name = name
 	# gets rid of ugly panel
-	theme.panel = StyleBoxEmpty
+	#theme.panel = StyleBoxEmpty
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -63,3 +64,8 @@ func move(new_parent : Control) -> void:
 	print("to: " + get_parent().name)
 	position = Vector2.ZERO
 	_stored = !_stored
+
+# Item slots can request an item
+func _request_item_for_slot(slot : Control) -> void:
+	if !_stored:
+		move(slot)

@@ -231,7 +231,13 @@ layout_mode = 2
 [node name="ItemHold" type="AspectRatioContainer" parent="MainPlayer/GUI" unique_id=1863207805]
 z_index = 10
 layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.054631073
+anchor_bottom = 0.09876543
+offset_right = 1.0650024
+stretch_mode = 0
 script = ExtResource("10_c2ibq")
+metadata/_edit_use_anchors_ = true
 
 [node name="BlankItem" type="TextureRect" parent="MainPlayer" unique_id=477814736]
 texture_filter = 1
