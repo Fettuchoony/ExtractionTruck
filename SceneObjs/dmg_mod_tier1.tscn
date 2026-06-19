@@ -7,10 +7,10 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6r8k6"]
 
 [node name="DmgModTier1" type="PanelContainer" unique_id=896875203]
-offset_right = 19.0
-offset_bottom = 23.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+offset_right = 16.0
+offset_bottom = 16.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6r8k6")
 script = ExtResource("1_jowd6")
 delta_dmg = 1

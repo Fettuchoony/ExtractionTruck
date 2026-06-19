@@ -113,68 +113,68 @@ func _turret_attack() -> void:
 func _handle_upgrade_input() -> void:
 	if _menu != null:
 		var slot_num = 0
-		for slot in ui._perk_slot_matrix.get_children():
-			# Where all the augments sit in each slot so theyre easily referenced as child 0
-			var slot_augment_spot = slot.find_child("Augment")
-			var slot_rect = slot.get_rect()
-			slot_rect.position = slot.global_position
-			var cursor_item = _menu._cursor_item
-			# Hovering func
-			if slot_rect.has_point(_menu.get_screen_transform() * _menu.get_local_mouse_position()):
-				slot.find_child("Hover").visible = true
-			else: 
-				slot.find_child("Hover").visible = false
-			var already_toggled : bool = false
-			
-			# Flags
-			var clicked : bool = Input.is_action_just_pressed("Click")
-			var within_rect : bool = slot_rect.has_point(_menu.get_screen_transform() * _menu.get_local_mouse_position())
-			var cursor_holding_item : bool = cursor_item.get_child_count() != 0
-			var held_item_is_augment : bool = false
-			var held_item_is_projectile : bool = false
-			if cursor_holding_item: 
-				held_item_is_augment = cursor_item.get_child(0) is Item
-				cursor_item.get_child(0).set_anchors_and_offsets_preset(Control.LayoutPreset.PRESET_FULL_RECT)
-				held_item_is_projectile = cursor_item.get_child(0) is ProjectileSpawner
-			var slot_occupied : bool = slot.get_child(2).get_child_count() != 0
-			
-			# ADD CASE
-			# Cursor item set, put on empty space
-			if clicked && within_rect && cursor_holding_item && held_item_is_augment && !slot_occupied:
-				print_debug("Adding augment: " + cursor_item.get_child(0).name + " to " + ui._turret_name.text)
-				var grab_item = cursor_item.get_child(0)
-				applied_upgrades[slot_num] = grab_item
-				grab_item.reparent(slot_augment_spot)
-				grab_item.global_position = slot.global_position
-				already_toggled = true
-				if held_item_is_projectile: _current_projectile = grab_item
-				update_turret_stats()
-						
-			# REMOVE CASE
-			# No cursor item, but augment clicked and slot isnt empty
-			if clicked && within_rect && !cursor_holding_item && slot_occupied:
-				var grab_item = slot.get_child(2).get_child(0)
-				applied_upgrades.erase(slot_num)
-				grab_item.reparent(cursor_item)
-				grab_item.global_position = cursor_item.global_position
-				if grab_item is ProjectileSpawner: _current_projectile = null
-				update_turret_stats()
-			
-			# SWAP CASE
-			# Cursor item set, put on occupied space
-			if clicked && within_rect && cursor_holding_item && slot_occupied && held_item_is_augment:
-				var cursor_augment = cursor_item.get_child(0)
-				var slot_augment = slot.get_child(2).get_child(0)
-				_current_projectile = null
-				if cursor_augment is ProjectileSpawner: _current_projectile = cursor_augment
-				applied_upgrades[slot_num] = cursor_augment
-				slot_augment.global_position = cursor_item.global_position
-				cursor_item.global_position = slot_augment_spot.global_position
-				cursor_augment.reparent(slot_augment_spot)
-				slot_augment.reparent(cursor_item)
-				update_turret_stats()
-			
-			slot_num += 1
+		#for slot in ui._perk_slot_matrix.get_children():
+			## Where all the augments sit in each slot so theyre easily referenced as child 0
+			#var slot_augment_spot = slot.find_child("Augment")
+			#var slot_rect = slot.get_rect()
+			#slot_rect.position = slot.global_position
+			#var cursor_item = _menu._cursor_item
+			## Hovering func
+			#if slot_rect.has_point(_menu.get_screen_transform() * _menu.get_local_mouse_position()):
+				#slot.find_child("Hover").visible = true
+			#else: 
+				#slot.find_child("Hover").visible = false
+			#var already_toggled : bool = false
+			#
+			## Flags
+			#var clicked : bool = Input.is_action_just_pressed("Click")
+			#var within_rect : bool = slot_rect.has_point(_menu.get_screen_transform() * _menu.get_local_mouse_position())
+			#var cursor_holding_item : bool = cursor_item.get_child_count() != 0
+			#var held_item_is_augment : bool = false
+			#var held_item_is_projectile : bool = false
+			#if cursor_holding_item: 
+				#held_item_is_augment = cursor_item.get_child(0) is Item
+				#cursor_item.get_child(0).set_anchors_and_offsets_preset(Control.LayoutPreset.PRESET_FULL_RECT)
+				#held_item_is_projectile = cursor_item.get_child(0) is ProjectileSpawner
+			#var slot_occupied : bool = slot.get_child(2).get_child_count() != 0
+			#
+			## ADD CASE
+			## Cursor item set, put on empty space
+			#if clicked && within_rect && cursor_holding_item && held_item_is_augment && !slot_occupied:
+				#print_debug("Adding augment: " + cursor_item.get_child(0).name + " to " + ui._turret_name.text)
+				#var grab_item = cursor_item.get_child(0)
+				#applied_upgrades[slot_num] = grab_item
+				#grab_item.reparent(slot_augment_spot)
+				#grab_item.global_position = slot.global_position
+				#already_toggled = true
+				#if held_item_is_projectile: _current_projectile = grab_item
+				#update_turret_stats()
+						#
+			## REMOVE CASE
+			## No cursor item, but augment clicked and slot isnt empty
+			#if clicked && within_rect && !cursor_holding_item && slot_occupied:
+				#var grab_item = slot.get_child(2).get_child(0)
+				#applied_upgrades.erase(slot_num)
+				#grab_item.reparent(cursor_item)
+				#grab_item.global_position = cursor_item.global_position
+				#if grab_item is ProjectileSpawner: _current_projectile = null
+				#update_turret_stats()
+			#
+			## SWAP CASE
+			## Cursor item set, put on occupied space
+			#if clicked && within_rect && cursor_holding_item && slot_occupied && held_item_is_augment:
+				#var cursor_augment = cursor_item.get_child(0)
+				#var slot_augment = slot.get_child(2).get_child(0)
+				#_current_projectile = null
+				#if cursor_augment is ProjectileSpawner: _current_projectile = cursor_augment
+				#applied_upgrades[slot_num] = cursor_augment
+				#slot_augment.global_position = cursor_item.global_position
+				#cursor_item.global_position = slot_augment_spot.global_position
+				#cursor_augment.reparent(slot_augment_spot)
+				#slot_augment.reparent(cursor_item)
+				#update_turret_stats()
+			#
+			#slot_num += 1
 
 func change_turret_mode(mode : String) -> void:
 	_attack_mode = mode

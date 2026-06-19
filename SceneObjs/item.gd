@@ -23,6 +23,7 @@ class_name Item extends PanelContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	_adjust_rect()
 	add_to_group("items")
 	fallback_location = get_parent()
 	if fallback_location == null:
@@ -55,7 +56,8 @@ func _input(event: InputEvent) -> void:
 				_cursor_slot.get_child(0).move(get_parent())
 			move(_cursor_slot)
 
-func move(new_parent : Control) -> void:
+# Used for moving the item somewhere
+func move(new_parent : Control = fallback_location) -> void:
 	#if _cursor_slot.get_child_count() > 0:
 		#var cursor_item : Item = _cursor_slot.get_child(0)
 		#cursor_item.reparent(get_parent())
@@ -64,8 +66,16 @@ func move(new_parent : Control) -> void:
 	print("to: " + get_parent().name)
 	position = Vector2.ZERO
 	_stored = !_stored
+	_adjust_rect()
 
 # Item slots can request an item
 func _request_item_for_slot(slot : Control) -> void:
 	if !_stored:
 		move(slot)
+
+
+func _adjust_rect() -> void:
+	pass
+	#size = Vector2(128.0, 128.0)
+	#size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#size_flags_vertical = Control.SIZE_EXPAND_FILL

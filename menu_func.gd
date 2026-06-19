@@ -35,8 +35,7 @@ func _on_main_player_pause_menu() -> void:
 	if inv_window.visible:
 		_cursor_item.visible = false
 		for child in _cursor_item.get_children(): 
-			if child is Item: _player._pickup_item(child)
-			child.queue_free()
+			if child is Item: child.move()
 		inv_window.visible = false
 	else:
 		inv_window.visible = true
