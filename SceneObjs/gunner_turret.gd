@@ -13,7 +13,6 @@ static var COLLOQUIAL_NAME : String = "Gunner Turret"
 @onready var _debug_target_ball : MeshInstance3D = $DebugTargetBall
 @onready var _bullet_scene = preload("res://SceneObjs/test_bullet.tscn")
 @onready var _firing_point : Node3D = $TurretBase/HeadPivot/TurretHead/FiringPoint
-@onready var _firing_timer : float = 0
 @onready var _head_pivot : Node3D = $TurretBase/HeadPivot
 @onready var _up_ref : Node3D = $TurretBase/UpRef
 @onready var _current_projectiles : Array[ProjectileSpawner]
@@ -58,7 +57,6 @@ func _physics_process(delta: float) -> void:
 	_pickup_func()
 	_enemy_detection()
 	_turret_attack()
-	_firing_timer += delta
 	
 
 # This makes the object pickupable by the player, needs to be added to every appropriate obj
@@ -98,11 +96,9 @@ func _turret_attack() -> void:
 				curr_target_path_length = enemy.path_length
 	# Actually firing
 	for proj in _current_projectiles:
-		if target != null && proj != null && _firing_timer > proj.get_firerate():
-			var target_pos = target.find_child("TargetPoint").global_position
+		if target != null && proj != null && !proj.invalid.visible:
 			var fire_pos = _firing_point.global_position
 			proj.fire(fire_pos, target)
-			_firing_timer = 0 
 		
 
 func change_turret_mode(mode : String) -> void:
@@ -129,12 +125,15 @@ func update_turret_stats() -> void:
 		if curr_item is ProjectileSpawner:
 			applied_upgrades[i] = curr_item
 			_current_projectiles.append(curr_item)
-			if _current_projectiles.size() > 1:
-				curr_item.invalid.visible = true
 		
 		if curr_item is ProjectileModifier:
 			applied_upgrades[i] = curr_item
 		i += 1
+	
+	# Disable all projectiles if theres more than one, can only be undone by special modifiers
+	if _current_projectiles.size() > 1:
+		for projectile in _current_projectiles:
+			projectile.invalid.visible = true
 	
 	i = 0
 	# Meta modifier loop, performed after because it mods the mods
@@ -145,17 +144,20 @@ func update_turret_stats() -> void:
 		i += 1
 	
 	
-	# Visually updates ui with new stats
+	# Visually updates ui with new stats and applys the upgrades to projectiles
 	if _current_projectiles.size() > 0:
 		print("Applying augments")
 		for proj in _current_projectiles:
 			proj.reset()
+			# TODO: this only works under projectiles condition ie: This projectile only upgrades items in same row
 			apply_augments_to_projectile(proj)
 			ui.update_info(proj)
 	else:
 		ui.update_info(null)
 
 func apply_augments_to_projectile(proj : ProjectileSpawner) -> void:
+	# TODO: loop through dictionary with int i so you can pass slot number and grid height to projectile
+	# Projectile can then calculate if it should modify the object or not
 	for augment in applied_upgrades.values():
 		if augment is ProjectileModifier:
 			augment.modify_proj(proj)

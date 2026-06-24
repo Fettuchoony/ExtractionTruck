@@ -61,7 +61,7 @@ func set_projectiles_in_row(slot_num : int, enabled : bool = true) -> void:
 
 	# Row neighbors
 	for i in range(perk_slot_matrix.columns):
-		var curr_num : int = (i + row) * grid_height
+		var curr_num : int = (i + (row * grid_height)) % grid_height + (row * grid_height)
 		print(str(curr_num))
 		if curr_num != slot_num && _turret.applied_upgrades.has(curr_num) && _turret.applied_upgrades[curr_num] is ProjectileSpawner && slots[curr_num].get_item_in_slot() != null:
 			slots[curr_num].get_item_in_slot().invalid.visible = !enabled
