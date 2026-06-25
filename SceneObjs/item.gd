@@ -7,6 +7,10 @@ class_name Item extends PanelContainer
 @onready var _hover : TextureRect = $GUI/Hover
 @onready var invalid : TextureRect = $GUI/Invalid
 @onready var _stored : bool = true
+@onready var in_turret : bool = false
+
+# If not in turret, array empty
+@onready var near_slots
 
 # Amount of the item available
 #@onready var amt_label : Label = $GUI/Amount
@@ -60,24 +64,25 @@ func _input(event: InputEvent) -> void:
 
 # Used for moving the item somewhere
 func move(new_parent = fallback_location) -> void:
-	#if _cursor_slot.get_child_count() > 0:
-		#var cursor_item : Item = _cursor_slot.get_child(0)
-		#cursor_item.reparent(get_parent())
-	#print("moving " + name + " from parent " + get_parent().name)
-	#invalid.visible = false
-	reparent(new_parent)
-	#print("to: " + get_parent().name)
+	if new_parent is ItemSlot:
+		reparent(new_parent.find_child("Augment"))
+	else:
+		reparent(new_parent)
 	position = Vector2.ZERO
 	_stored = !_stored
 	_adjust_rect()
-	print(new_parent)
+	# Find out if this item is being put in turret so it can interact with neighbors
+	if new_parent is ItemSlot && new_parent.is_turret_slot:
+		in_turret = true
+		near_slots = new_parent.get_parent().get_children()
+	else:
+		in_turret = false
 
-# Item slots can request an item
-func _request_item_for_slot(slot : Control) -> void:
+# Item slots can request an item (taskbar or turret)
+func _request_item_for_slot(slot : ItemSlot) -> void:
 	if !_stored:
-		print("signal recieved")
 		move(slot)
-		if slot.get_parent().is_turret_slot:
+		if slot.is_turret_slot:
 			get_tree().call_group("turrets", "update_turret_stats")
 
 func _adjust_rect() -> void:
