@@ -94,7 +94,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4871535, 0)
 shape = SubResource("CapsuleShape3D_uu6xs")
 debug_color = Color(3.706068e-06, 0.62085986, 0.5616422, 0.41960785)
 
-[node name="GUI" type="Control" parent="MainPlayer" unique_id=38005122]
+[node name="PlayerGUI" type="Control" parent="MainPlayer" unique_id=38005122]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,7 +103,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Crosshair" type="Control" parent="MainPlayer/GUI" unique_id=292127434]
+[node name="Crosshair" type="Control" parent="MainPlayer/PlayerGUI" unique_id=292127434]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -118,14 +118,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="MainPlayer/GUI/Crosshair" unique_id=1558243833]
+[node name="TextureRect" type="TextureRect" parent="MainPlayer/PlayerGUI/Crosshair" unique_id=1558243833]
 texture_filter = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("7_hhcpw")
 
-[node name="Health" type="Control" parent="MainPlayer/GUI" unique_id=846317371]
+[node name="Health" type="Control" parent="MainPlayer/PlayerGUI" unique_id=846317371]
 layout_mode = 1
 anchor_left = 0.014000002
 anchor_top = 0.024691358
@@ -138,43 +138,43 @@ mouse_filter = 2
 script = ExtResource("8_hri7i")
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainPlayer/GUI/Health" unique_id=1592403817]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainPlayer/PlayerGUI/Health" unique_id=1592403817]
 layout_direction = 2
 layout_mode = 1
 offset_right = 56.0
 offset_bottom = 16.0
 
-[node name="H1" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=2028691687 instance=ExtResource("9_sqvbp")]
+[node name="H1" parent="MainPlayer/PlayerGUI/Health/HBoxContainer" unique_id=2028691687 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
 
-[node name="H2" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1406597796 instance=ExtResource("9_sqvbp")]
+[node name="H2" parent="MainPlayer/PlayerGUI/Health/HBoxContainer" unique_id=1406597796 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
 
-[node name="H3" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1919705351 instance=ExtResource("9_sqvbp")]
+[node name="H3" parent="MainPlayer/PlayerGUI/Health/HBoxContainer" unique_id=1919705351 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
 
-[node name="H4" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1767175386 instance=ExtResource("9_sqvbp")]
+[node name="H4" parent="MainPlayer/PlayerGUI/Health/HBoxContainer" unique_id=1767175386 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
 
-[node name="H5" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1404316637 instance=ExtResource("9_sqvbp")]
+[node name="H5" parent="MainPlayer/PlayerGUI/Health/HBoxContainer" unique_id=1404316637 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
 
-[node name="H6" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1582441088 instance=ExtResource("9_sqvbp")]
+[node name="H6" parent="MainPlayer/PlayerGUI/Health/HBoxContainer" unique_id=1582441088 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
 
-[node name="H7" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=201557856 instance=ExtResource("9_sqvbp")]
+[node name="H7" parent="MainPlayer/PlayerGUI/Health/HBoxContainer" unique_id=201557856 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
 
-[node name="H8" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1831249941 instance=ExtResource("9_sqvbp")]
+[node name="H8" parent="MainPlayer/PlayerGUI/Health/HBoxContainer" unique_id=1831249941 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
 
-[node name="H9" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=422146902 instance=ExtResource("9_sqvbp")]
+[node name="H9" parent="MainPlayer/PlayerGUI/Health/HBoxContainer" unique_id=422146902 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
 
-[node name="H10" parent="MainPlayer/GUI/Health/HBoxContainer" unique_id=1437467539 instance=ExtResource("9_sqvbp")]
+[node name="H10" parent="MainPlayer/PlayerGUI/Health/HBoxContainer" unique_id=1437467539 instance=ExtResource("9_sqvbp")]
 layout_mode = 2
 
-[node name="TaskBar" type="Control" parent="MainPlayer/GUI" unique_id=1395109480]
+[node name="TaskBar" type="Control" parent="MainPlayer/PlayerGUI" unique_id=1395109480]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -188,7 +188,7 @@ grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("7_c6i3y")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainPlayer/GUI/TaskBar" unique_id=639279145]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainPlayer/PlayerGUI/TaskBar" unique_id=639279145]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -6.225
@@ -200,34 +200,34 @@ offset_bottom = 0.0049991608
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="UpgradeSlot" parent="MainPlayer/GUI/TaskBar/HBoxContainer" unique_id=56989139 instance=ExtResource("8_c6i3y")]
+[node name="UpgradeSlot" parent="MainPlayer/PlayerGUI/TaskBar/HBoxContainer" unique_id=56989139 instance=ExtResource("8_c6i3y")]
 layout_mode = 2
 
-[node name="UpgradeSlot2" parent="MainPlayer/GUI/TaskBar/HBoxContainer" unique_id=1389057160 instance=ExtResource("8_c6i3y")]
+[node name="UpgradeSlot2" parent="MainPlayer/PlayerGUI/TaskBar/HBoxContainer" unique_id=1389057160 instance=ExtResource("8_c6i3y")]
 layout_mode = 2
 
-[node name="UpgradeSlot3" parent="MainPlayer/GUI/TaskBar/HBoxContainer" unique_id=972330564 instance=ExtResource("8_c6i3y")]
+[node name="UpgradeSlot3" parent="MainPlayer/PlayerGUI/TaskBar/HBoxContainer" unique_id=972330564 instance=ExtResource("8_c6i3y")]
 layout_mode = 2
 
-[node name="UpgradeSlot4" parent="MainPlayer/GUI/TaskBar/HBoxContainer" unique_id=2003454997 instance=ExtResource("8_c6i3y")]
+[node name="UpgradeSlot4" parent="MainPlayer/PlayerGUI/TaskBar/HBoxContainer" unique_id=2003454997 instance=ExtResource("8_c6i3y")]
 layout_mode = 2
 
-[node name="UpgradeSlot5" parent="MainPlayer/GUI/TaskBar/HBoxContainer" unique_id=14092609 instance=ExtResource("8_c6i3y")]
+[node name="UpgradeSlot5" parent="MainPlayer/PlayerGUI/TaskBar/HBoxContainer" unique_id=14092609 instance=ExtResource("8_c6i3y")]
 layout_mode = 2
 
-[node name="UpgradeSlot6" parent="MainPlayer/GUI/TaskBar/HBoxContainer" unique_id=930793215 instance=ExtResource("8_c6i3y")]
+[node name="UpgradeSlot6" parent="MainPlayer/PlayerGUI/TaskBar/HBoxContainer" unique_id=930793215 instance=ExtResource("8_c6i3y")]
 layout_mode = 2
 
-[node name="UpgradeSlot7" parent="MainPlayer/GUI/TaskBar/HBoxContainer" unique_id=1359309432 instance=ExtResource("8_c6i3y")]
+[node name="UpgradeSlot7" parent="MainPlayer/PlayerGUI/TaskBar/HBoxContainer" unique_id=1359309432 instance=ExtResource("8_c6i3y")]
 layout_mode = 2
 
-[node name="UpgradeSlot8" parent="MainPlayer/GUI/TaskBar/HBoxContainer" unique_id=1708636612 instance=ExtResource("8_c6i3y")]
+[node name="UpgradeSlot8" parent="MainPlayer/PlayerGUI/TaskBar/HBoxContainer" unique_id=1708636612 instance=ExtResource("8_c6i3y")]
 layout_mode = 2
 
-[node name="UpgradeSlot9" parent="MainPlayer/GUI/TaskBar/HBoxContainer" unique_id=590097654 instance=ExtResource("8_c6i3y")]
+[node name="UpgradeSlot9" parent="MainPlayer/PlayerGUI/TaskBar/HBoxContainer" unique_id=590097654 instance=ExtResource("8_c6i3y")]
 layout_mode = 2
 
-[node name="ItemHold" parent="MainPlayer/GUI" unique_id=518983134 instance=ExtResource("8_c6i3y")]
+[node name="ItemHold" parent="MainPlayer/PlayerGUI" unique_id=518983134 instance=ExtResource("8_c6i3y")]
 visible = false
 layout_mode = 0
 anchors_preset = 0
@@ -237,7 +237,7 @@ grow_horizontal = 1
 grow_vertical = 1
 _is_cursor_slot = true
 
-[node name="Background" parent="MainPlayer/GUI/ItemHold" index="2" unique_id=1529539511]
+[node name="Background" parent="MainPlayer/PlayerGUI/ItemHold" index="2" unique_id=1529539511]
 visible = false
 
 [node name="BlankItem" type="TextureRect" parent="MainPlayer" unique_id=477814736]
@@ -324,9 +324,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3963816, -1.0000002, -0.804
 [connection signal="pause_menu" from="MainPlayer" to="Menus" method="_on_main_player_pause_menu"]
 [connection signal="transfer_cam_to_player" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_player"]
 [connection signal="transfer_cam_to_vehicle" from="MainPlayer" to="MainPlayer/CameraPivot/SpringArm3D/Camera3D" method="_on_main_player_transfer_cam_to_vehicle"]
-[connection signal="update_health_GUI" from="MainPlayer" to="MainPlayer/GUI/Health" method="health_gui_update"]
+[connection signal="update_health_GUI" from="MainPlayer" to="MainPlayer/PlayerGUI/Health" method="health_gui_update"]
 [connection signal="area_entered" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_entered"]
 [connection signal="area_exited" from="MainPlayer/CharacterAreaDetect" to="MainPlayer" method="_on_character_area_detect_area_exited"]
 [connection signal="gui_input" from="Menus" to="MainPlayer" method="_on_menus_gui_input"]
 
-[editable path="MainPlayer/GUI/ItemHold"]
+[editable path="MainPlayer/PlayerGUI/ItemHold"]

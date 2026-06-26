@@ -6,14 +6,14 @@ const DEFAULT_ICON_SIZE = 32.0
 @onready var _item_slots = $MenuInv/Inventory/HFlowContainer
 @onready var current_focus_item : TextureRect
 ## The rects that contain the item icon
-@onready var _taskbar_rects = $"../MainPlayer/GUI/TaskBar/HBoxContainer".get_children()
+@onready var _taskbar_rects = $"../MainPlayer/PlayerGUI/TaskBar/HBoxContainer".get_children()
 @onready var _player : CharacterBody3D = $"../MainPlayer"
 @onready var _current_hovered_item_name : String = ""
 @onready var turret_scene = preload("res://SceneObjs/turret_placement.tscn")
 @onready var placement_ray : RayCast3D = $"../MainPlayer/CameraPivot/SpringArm3D/Camera3D/PlacementRay"
 @onready var _currently_idleing : bool = false
 @onready var _current_idle_obj = null
-@onready var _cursor_item = $"../MainPlayer/GUI/ItemHold"
+@onready var _cursor_item = $"../MainPlayer/PlayerGUI/ItemHold"
 
 @onready var debug
 

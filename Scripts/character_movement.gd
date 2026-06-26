@@ -38,7 +38,7 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 @onready var _taskbar_items : Dictionary[String, Control]
 @onready var _taskbar_containers : Array[Node]
 @onready var _current_taskbar_index : int = 0
-@onready var _taskbar_rects = $GUI/TaskBar/HBoxContainer.get_children()
+@onready var _taskbar_rects = $PlayerGUI/TaskBar/HBoxContainer.get_children()
 
 @onready var _inventory : Array
 @onready var _paused : bool
@@ -71,7 +71,7 @@ signal update_health_GUI(deltaH: int, deltaMax: int)
 
 func _ready() -> void:
 	# force health to refresh
-	_taskbar_containers = $GUI/TaskBar/HBoxContainer.get_children()
+	_taskbar_containers = $PlayerGUI/TaskBar/HBoxContainer.get_children()
 	change_health(0)
 	_spawn_with_all_items()
 	_init_taskbar()

@@ -19,7 +19,7 @@ static var COLLOQUIAL_NAME : String = "Gunner Turret"
 @onready var target : Node3D
 
 @onready var _menu : Control
-@onready var ui : Control
+@onready var ui : TurretUpgrades
 
 # Probably change how this works eventually
 @onready var turret_value : float = 1.0
@@ -102,6 +102,7 @@ func _turret_attack() -> void:
 
 func change_turret_mode(mode : String) -> void:
 	_attack_mode = mode
+
 
 # On augment change, update turret with new stats
 func update_turret_stats() -> void:

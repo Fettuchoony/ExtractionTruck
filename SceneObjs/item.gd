@@ -1,12 +1,27 @@
 # This class is now doing a lot of heavy lifting, controls its pickup/placement and spawns
 class_name Item extends PanelContainer
 
+static var HOVER_INFO_WAIT_TIME : float = 1.0
+
+# Control node that follows the cursor, can transfer items
 @onready var _cursor_slot = get_tree().root.get_child(0).find_child("ItemHold").find_child("Augment")
 
+# Probably poorly named, hold the actual item icon control nodes
 @onready var _gui : AspectRatioContainer = $GUI
+
+# Yellow rectangle when hovering over item with no delay
+@onready var _player_gui = get_tree().root.get_child(0).find_child("PlayerGUI")
 @onready var _hover : TextureRect = $GUI/Hover
+@onready var _hover_info : HoverInfo
+@onready var _hovering_timer : float = 0
+
+# Item is disabled for some reason, often compatibility
 @onready var invalid : TextureRect = $GUI/Invalid
+
+# If true, item is in stable spot, if not, it is being held by cursor
 @onready var _stored : bool = true
+
+# So item knows if in turret, set in move function
 @onready var in_turret : bool = false
 
 # If not in turret, array empty
@@ -23,11 +38,13 @@ class_name Item extends PanelContainer
 
 @export var slot_icon : Texture2D
 
+
 # TODO: Getting rid of amount for now, making them stack uniquely
 #@export var amount : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	_adjust_rect()
 	add_to_group("items")
 	fallback_location = get_parent()
@@ -39,15 +56,24 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	_hovering_func()
+	_hovering_func(delta)
 
-func _hovering_func() -> void:
+func _hovering_func(delta : float) -> void:
 	var rect = get_rect()
 	rect.position = global_position
 	if rect.has_point(get_screen_transform() * get_local_mouse_position()):
 		_hover.visible = true
+		_hovering_timer += delta
 	else:
 		_hover.visible = false
+		_hovering_timer = 0.0
+	
+	# Hover info display
+	if _hovering_timer > HOVER_INFO_WAIT_TIME:
+		_hover_info = HoverInfo.new(self)
+		_player_gui.add_child(_hover_info)
+		_hovering_timer = 0.0
+	
 
 # On input pickup or place the item
 func _input(event: InputEvent) -> void:
