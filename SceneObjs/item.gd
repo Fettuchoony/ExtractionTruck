@@ -13,6 +13,7 @@ static var HOVER_INFO_WAIT_TIME : float = 1.0
 @onready var _player_gui = get_tree().root.get_child(0).find_child("PlayerGUI")
 @onready var _hover : TextureRect = $GUI/Hover
 @onready var _hover_info : HoverInfo
+@onready var _hover_info_resource = preload("res://SceneObjs/hover_info.tscn")
 @onready var _hovering_timer : float = 0
 
 # Item is disabled for some reason, often compatibility
@@ -44,7 +45,6 @@ static var HOVER_INFO_WAIT_TIME : float = 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	_adjust_rect()
 	add_to_group("items")
 	fallback_location = get_parent()
@@ -62,15 +62,18 @@ func _hovering_func(delta : float) -> void:
 	var rect = get_rect()
 	rect.position = global_position
 	if rect.has_point(get_screen_transform() * get_local_mouse_position()):
+		
 		_hover.visible = true
 		_hovering_timer += delta
 	else:
+		if _hover_info != null: _hover_info.queue_free()
 		_hover.visible = false
 		_hovering_timer = 0.0
 	
 	# Hover info display
 	if _hovering_timer > HOVER_INFO_WAIT_TIME:
-		_hover_info = HoverInfo.new(self)
+		if _hover_info != null: _hover_info.queue_free()
+		_hover_info = _hover_info_resource.instantiate()
 		_player_gui.add_child(_hover_info)
 		_hovering_timer = 0.0
 	

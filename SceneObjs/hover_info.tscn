@@ -9,16 +9,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_c852u")
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=529749175]
 z_index = 10
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.22600001
-anchor_bottom = 0.52500004
+anchor_right = 0.25
+anchor_bottom = 0.5
 offset_right = -0.35202026
 offset_bottom = -0.2000122
 grow_vertical = 2
@@ -31,6 +31,7 @@ metadata/_edit_use_anchors_ = true
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer" unique_id=1055409067]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="Panel/ScrollContainer/VBoxContainer" unique_id=255222143]
 layout_mode = 2
