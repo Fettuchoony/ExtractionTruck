@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c75fat71jxywt"]
 
-[ext_resource type="PackedScene" uid="uid://c4v07qkjcxnw1" path="res://SceneObjs/item_gui.tscn" id="1_w6lo0"]
+[ext_resource type="PackedScene" uid="uid://c4v07qkjcxnw1" path="res://SceneObjs/UI/Scenes/item_gui.tscn" id="1_w6lo0"]
 [ext_resource type="Texture2D" uid="uid://boa50sslbynsx" path="res://Textures/Extracted/SamplePerkIcon.png" id="2_v2mru"]
 
 [node name="TurretPerk" type="Control" unique_id=1314575360]
