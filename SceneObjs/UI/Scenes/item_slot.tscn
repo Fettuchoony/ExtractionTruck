@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cflvbyc7lnyyb"]
+
+[ext_resource type="Texture2D" uid="uid://bc7pp8j75j6gc" path="res://Textures/Extracted/EquippedSlot.png" id="1_6xi3j"]
+[ext_resource type="Script" uid="uid://bybmr44r82wqn" path="res://SceneObjs/UI/Scripts/item_slot.gd" id="1_y03ij"]
+[ext_resource type="Texture2D" uid="uid://dxi0xm77pf8y" path="res://Textures/Extracted/DeadSlot.png" id="2_y03ij"]
+[ext_resource type="Texture2D" uid="uid://ccgykkk5ueg02" path="res://Textures/Extracted/ItemSlot.png" id="3_1dehp"]
+[ext_resource type="Texture2D" uid="uid://pvv472w5vjbl" path="res://Textures/Extracted/HoveringOutline.png" id="4_j50cl"]
+
+[node name="ItemSlot" type="AspectRatioContainer" unique_id=56989139]
+z_index = 1
+anchors_preset = -1
+anchor_right = 0.055555556
+anchor_bottom = 0.09876543
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_y03ij")
+metadata/_edit_use_anchors_ = true
+
+[node name="Equipped" type="TextureRect" parent="." unique_id=1354884936]
+visible = false
+z_index = 1
+layout_mode = 2
+texture = ExtResource("1_6xi3j")
+
+[node name="DeadSlot" type="TextureRect" parent="." unique_id=153666193]
+visible = false
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_y03ij")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1529539511]
+z_index = -1
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+texture = ExtResource("3_1dehp")
+
+[node name="Hover" type="TextureRect" parent="." unique_id=1066704362]
+visible = false
+z_index = 1
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_j50cl")
+
+[node name="Augment" type="Control" parent="." unique_id=656048136]
+z_index = 2
+layout_mode = 2

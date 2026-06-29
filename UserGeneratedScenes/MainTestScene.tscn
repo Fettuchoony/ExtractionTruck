@@ -1,21 +1,18 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b5lr1r2mmhbdq"]
 
-[ext_resource type="Script" path="res://navigation_region_3d.gd" id="1_eyouo"]
-[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="2_ggolq"]
-[ext_resource type="Resource" path="res://TerrainData/data.hterrain" id="3_hmdmc"]
-[ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="4_5u2or"]
-[ext_resource type="Texture2D" path="res://Textures/Extracted/Grass.png" id="5_aumnj"]
-[ext_resource type="PackedScene" path="res://SceneObjs/RockWall1.tscn" id="6_qygvm"]
-[ext_resource type="PackedScene" path="res://SceneObjs/test_course.tscn" id="7_21g4w"]
-[ext_resource type="PackedScene" path="res://SceneObjs/TestEnemy.tscn" id="8_3f3uy"]
-[ext_resource type="Script" path="res://test_enemy.gd" id="9_fxwcc"]
-[ext_resource type="PackedScene" path="res://SceneObjs/ground_loot.tscn" id="10_ulihd"]
-[ext_resource type="Script" path="res://SceneObjs/ground_loot.gd" id="11_ususp"]
-[ext_resource type="PackedScene" path="res://Textures/Blender/tree.blend" id="12_ax8ai"]
-[ext_resource type="PackedScene" path="res://SceneObjs/test_loading_zone.tscn" id="13_83esh"]
-[ext_resource type="Script" path="res://SceneObjs/loading_zone_master.gd" id="14_o8p8i"]
-[ext_resource type="Script" path="res://VehicleControl.gd" id="15_g7n10"]
-[ext_resource type="Script" path="res://vehicle_script.gd" id="16_y4jdm"]
+[ext_resource type="Script" uid="uid://d4gjljo0cxwsc" path="res://SceneObjs/Entity/navigation_region_3d.gd" id="1_eyouo"]
+[ext_resource type="Script" uid="uid://dm7atgmn4nyu2" path="res://addons/zylann.hterrain/hterrain.gd" id="2_ggolq"]
+[ext_resource type="Resource" uid="uid://ckvx7kmy1o621" path="res://TerrainData/data.hterrain" id="3_hmdmc"]
+[ext_resource type="Script" uid="uid://ceb22ea8d8f0p" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="4_5u2or"]
+[ext_resource type="Texture2D" uid="uid://bok63sp5licm0" path="res://Textures/Extracted/Grass.png" id="5_aumnj"]
+[ext_resource type="PackedScene" uid="uid://c83dnwe7afdko" path="res://SceneObjs/Environmental/RockWall1.tscn" id="6_qygvm"]
+[ext_resource type="PackedScene" uid="uid://d3m5qmeybqvho" path="res://SceneObjs/Environmental/test_course.tscn" id="7_21g4w"]
+[ext_resource type="PackedScene" uid="uid://bp3x8ebd1g2bm" path="res://SceneObjs/Entity/TestEnemy.tscn" id="8_3f3uy"]
+[ext_resource type="PackedScene" uid="uid://dm5nydlnkp6ps" path="res://SceneObjs/Environmental/ground_loot.tscn" id="10_ulihd"]
+[ext_resource type="PackedScene" uid="uid://coh1ixbnqytnp" path="res://Textures/Blender/tree.blend" id="12_ax8ai"]
+[ext_resource type="PackedScene" uid="uid://2yhpf2hyn0t2" path="res://SceneObjs/Environmental/test_loading_zone.tscn" id="13_83esh"]
+[ext_resource type="Script" uid="uid://di4xyko1a38kw" path="res://SceneObjs/Player/VehicleControl.gd" id="15_g7n10"]
+[ext_resource type="Script" uid="uid://cw2gt8gptulw5" path="res://SceneObjs/Player/vehicle_script.gd" id="16_y4jdm"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_eyouo"]
 vertices = PackedVector3Array(36.167953, -0.5888672, 16.751171, 36.167953, -0.5888672, 25.501171, 49.167953, 5.411133, 25.501171, 49.167953, 5.411133, 16.751171, 261.16797, 1.9111328, 249.00117, 261.16797, 1.9111328, 249.50117, 261.91797, 2.1611328, 249.75117, 264.41797, 1.4111328, 249.75117, 265.16797, 0.9111328, 249.00117, 263.16797, 2.9111328, 251.00117, 263.16797, 3.4111328, 251.75117, 263.91797, 3.1611328, 252.00117, 250.41795, -0.08886719, 254.75117, 251.66795, 0.16113281, 254.75117, 251.66795, 0.16113281, 254.00117, 253.66795, 2.4111328, 252.75117, 253.41795, 2.1611328, 252.00117, 252.41795, 1.1611328, 252.00117, 256.66797, 2.4111328, 249.00117, 258.16797, 2.6611328, 249.50117, 258.41797, 2.4111328, 249.00117, 256.66797, 1.9111328, 247.50117, 261.91797, 2.9111328, 250.75117, 250.41795, 0.16113281, 251.50117, 252.16795, 0.6611328, 251.00117, 260.04297, 1.4111328, 248.62617, 259.79297, 1.4111328, 249.00117, 253.66795, 0.16113281, 246.25117, 254.41795, 1.6611328, 249.25117, 255.66795, 1.4111328, 247.25117, 254.66795, 1.1611328, 246.75117, 258.16797, 0.16113281, 241.00117, 265.16797, 0.16113281, 241.00117, 254.66795, 1.1611328, 246.66785, 257.64307, 1.4111328, 245.73605, 263.67303, -0.08886719, 244.26407, 262.14813, 1.1611328, 245.76901, 260.67798, 0.6611328, 242.73717, 263.648, -0.3388672, 242.75914, 263.67316, 0.6611328, 247.27394, 256.15808, 1.1611328, 245.77505, 265.91797, 0.16113281, 249.00117, 271.66797, 0.6611328, 245.75117, 267.91797, 0.16113281, 241.00117, 269.36795, 0.16113281, 247.05118, 270.16797, 0.16113281, 243.85118, 266.64294, 0.6611328, 242.72618, 274.16797, 2.1611328, 252.75117, 274.16797, 2.1611328, 253.00117, 275.16797, 1.1611328, 252.50117, 275.16797, 1.1611328, 252.25117, 272.66797, 1.9111328, 251.25117, 274.91797, 0.9111328, 251.25117, 274.41797, 0.4111328, 248.25117, 272.91797, 0.9111328, 247.50117, 269.91797, 2.6611328, 251.25117, 270.16797, 3.1611328, 252.00117, 270.91797, 2.9111328, 252.25117, 271.29297, 2.6611328, 251.25117, 277.66797, 0.16113281, 252.75117, 277.66797, 0.16113281, 251.50117, 266.16797, 0.16113281, 250.75117, 271.14294, 1.1611328, 247.22618, 271.148, 1.4111328, 248.75914, 268.17798, 0.4111328, 248.73717, 254.16795, 2.4111328, 252.00117, 254.41795, 2.4111328, 253.00117, 272.91797, -0.08886719, 266.25116, 268.41797, 1.4111328, 262.00116, 263.66797, 2.6611328, 259.50116, 254.16795, 2.4111328, 254.75117, 250.41795, -0.08886719, 261.75116, 253.16795, 0.16113281, 266.25116, 271.11795, 1.1611328, 264.55118, 260.10547, 3.6611328, 257.7199, 257.73047, 2.4111328, 256.5324, 255.35545, 1.9111328, 255.34492, 252.29295, 0.4111328, 258.25116, 257.64813, 1.1611328, 260.769, 260.64822, 2.1611328, 262.22888, 254.65831, 1.4111328, 263.74478, 256.153, 1.9111328, 259.2421, 256.1631, 0.9111328, 260.75803, 263.68817, 1.6611328, 260.76294, 257.648, 1.9111328, 257.75912, 254.67796, 1.9111328, 257.73715, 259.1632, 1.4111328, 262.26788, 263.66827, 1.4111328, 262.25085, 260.64835, 1.6611328, 263.73874, 260.65808, 2.6611328, 259.27505, 259.17303, 2.6611328, 259.26407, 256.1432, 0.9111328, 262.2459, 262.15314, 2.4111328, 260.75195, 257.68805, 1.9111328, 259.25308, 266.16797, 2.4111328, 259.25116, 265.41797, 2.6611328, 259.25116, 265.41797, 2.1611328, 260.00116, 268.16797, 1.6611328, 261.00116, 267.66797, 1.6611328, 259.50116, 266.66797, 2.4111328, 258.50116, 251.91795, 0.16113281, 255.50117, 265.16797, 4.411133, 256.75116, 266.66797, 3.6611328, 256.50116, 266.66797, 3.6611328, 255.75117, 265.16797, 4.411133, 254.25117, 269.66797, 2.9111328, 260.00116, 269.41797, 2.6611328, 259.50116, 274.66797, 0.4111328, 261.50116, 273.91797, 0.4111328, 262.00116, 263.66797, 3.4111328, 258.50116, 265.16797, 3.1611328, 259.00116, 271.16797, 1.4111328, 262.00116, 259.41797, 3.6611328, 252.25117, 259.41797, 3.4111328, 251.00117, 258.16797, 2.6611328, 252.43867, 262.91797, 4.411133, 253.50117, 260.58463, 4.411133, 252.66785, 263.29297, 4.161133, 256.00116, 260.68805, 4.411133, 256.25308, 262.66797, 3.9111328, 252.25117, 260.50128, 4.411133, 252.25117, 269.91797, 3.1611328, 259.25116, 273.66797, 2.6611328, 260.00116, 271.00128, 3.1611328, 260.00116, 273.41797, 2.9111328, 253.25117, 273.41797, 2.9111328, 253.50117, 275.16797, 2.4111328, 257.25116, 277.66797, 0.4111328, 256.50116, 275.91797, 2.1611328, 254.50117, 273.66797, 2.9111328, 254.50117, 267.16797, 3.4111328, 256.75116, 267.66797, 3.1611328, 255.75117, 268.41797, 3.1611328, 257.50116, 269.91797, 3.1611328, 258.50116, 267.16797, 3.1611328, 257.50116, 271.16797, 3.1611328, 253.25117, 268.41797, 3.1611328, 253.25117, 272.66803, 3.1611328, 257.7311, 267.16797, 2.6611328, 253.25117, 277.66797, 0.4111328, 253.50117, 217.16795, 8.661133, 311.50116, 236.41795, 8.661133, 311.50116, 236.41795, 8.411133, 301.00116, 217.16795, 8.411133, 300.75116, 232.41795, -2.8388672, 275.00116, 213.16795, -2.8388672, 275.00116, 199.66795, -9.838867, 315.25116, 199.66795, -9.838867, 317.00116, 208.91795, -4.338867, 316.50116, 214.66795, -0.8388672, 314.75116, 226.91795, 0.16113281, 316.50116, 226.91795, 0.16113281, 315.00116, 217.22565, 0.16113281, 316.50116, 217.39018, 0.16113281, 314.8067, 227.16795, 2.4111328, 319.50116, 225.16795, 3.9111328, 319.75116, 225.41795, 3.9111328, 321.50116, 253.66795, -5.838867, 321.50116, 237.47351, -0.08886719, 320.27893, 231.58463, 0.16113281, 319.8345, 226.9048, 2.4111328, 321.50116, 229.87848, 0.9111328, 321.50116, 232.85216, 0.16113281, 321.50116, 237.3127, -0.08886719, 321.50116, 253.66795, -5.588867, 314.75116, 237.32072, 0.16113281, 314.90393, 251.67833, -5.338867, 317.76675, 229.15315, 0.6611328, 317.75195, 215.16795, 7.911133, 321.50116, 215.41795, 7.911133, 319.75116, 199.66795, -1.3388672, 320.25116, 199.66795, -1.3388672, 322.00116, 217.16795, 8.661133, 321.75116, 221.66795, 6.161133, 321.50116, 216.8108, 8.661133, 319.75116, 217.16795, 8.661133, 324.25116, 219.41795, 8.661133, 324.25116, 219.66795, 8.661133, 324.75116, 216.66795, -1.3388672, 359.25116, 218.66795, 8.661133, 336.25116, 217.00128, 8.661133, 335.91782, 235.91795, -1.3388672, 359.25116, 236.41795, 8.661133, 324.75116, 236.25128, 8.661133, 336.25116, 135.66795, 0.6611328, 420.75116, 135.66795, 0.6611328, 421.50116, 136.16795, 0.6611328, 421.25116)
@@ -94,41 +91,32 @@ shape = SubResource("BoxShape3D_5vvyt")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/WorldBuilds/Visible/StaticBody3D/CollisionShape3D" unique_id=86751094]
 mesh = SubResource("BoxMesh_c6i3y")
 
-[node name="RockWallTest" type="StaticBody3D" parent="NavigationRegion3D/WorldBuilds/Visible" unique_id=1195989795 instance=ExtResource("6_qygvm")]
+[node name="RockWallTest" parent="NavigationRegion3D/WorldBuilds/Visible" unique_id=1195989795 instance=ExtResource("6_qygvm")]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 263.06326, -0.45231372, 256.63913)
 
-[node name="TestCourse" type="StaticBody3D" parent="NavigationRegion3D/WorldBuilds/Visible" unique_id=1649162978 instance=ExtResource("7_21g4w")]
+[node name="TestCourse" parent="NavigationRegion3D/WorldBuilds/Visible" unique_id=1649162978 instance=ExtResource("7_21g4w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 226.82957, 3.3314915, 319.42697)
 
 [node name="Invisible" type="Node3D" parent="NavigationRegion3D/WorldBuilds" unique_id=1071074120]
 
 [node name="Entities" type="Node3D" parent="NavigationRegion3D" unique_id=1597244405]
 
-[node name="TestEnemy" type="RigidBody3D" parent="NavigationRegion3D/Entities" unique_id=871990744 instance=ExtResource("8_3f3uy")]
+[node name="TestEnemy" parent="NavigationRegion3D/Entities" unique_id=871990744 instance=ExtResource("8_3f3uy")]
 transform = Transform3D(0.7020834, 0, -0.7120947, 0, 1, 0, 0.7120947, 0, 0.7020834, 133.51578, -0.5100006, 422.22003)
-collision_layer = 4
-axis_lock_angular_x = true
-axis_lock_angular_z = true
 linear_velocity = Vector3(0.0005231653, 0, -0.0004197156)
 angular_velocity = Vector3(0, -0.10367975, 0)
-script = ExtResource("9_fxwcc")
-chargeup_time = 1.0
 
-[node name="GroundLoot" type="RigidBody3D" parent="." unique_id=296167991 instance=ExtResource("10_ulihd")]
+[node name="GroundLoot" parent="." unique_id=296167991 instance=ExtResource("10_ulihd")]
 transform = Transform3D(0.999998, 0.0020269905, -6.633093e-05, -0.0020269903, 0.999998, 4.227549e-06, 6.633937e-05, -4.0930886e-06, 1, 273.43396, 0.48848414, 283.83792)
-collision_layer = 8
 sleeping = true
 linear_velocity = Vector3(0.04890796, -0.04869752, -0.00010761741)
 angular_velocity = Vector3(-0.00014190334, 9.9449506e-05, -0.097605415)
-script = ExtResource("11_ususp")
-hold_strength = 4.0
 
-[node name="tree" type="Node3D" parent="." unique_id=257856624 instance=ExtResource("12_ax8ai")]
+[node name="tree" parent="." unique_id=257856624 instance=ExtResource("12_ax8ai")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 274.62207, 1.0000005, 293.4862)
 
-[node name="TestLoadingZone" type="StaticBody3D" parent="." unique_id=1947763932 groups=["loading_masters"] instance=ExtResource("13_83esh")]
+[node name="TestLoadingZone" parent="." unique_id=1947763932 instance=ExtResource("13_83esh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 282.37967, 2.7165494, 276.17114)
-script = ExtResource("14_o8p8i")
 scene_target = 1
 
 [node name="VehicleBody3D" type="VehicleBody3D" parent="." unique_id=1640975882 groups=["carry_on_load"]]

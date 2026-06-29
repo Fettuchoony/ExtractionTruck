@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://b7bcv1ex1ghsn"]
 
-[ext_resource type="Script" uid="uid://bul7wxp0ralxr" path="res://SceneObjs/bomb_func.gd" id="1_kh6qh"]
 [ext_resource type="Texture2D" uid="uid://0mcekx3gvsjc" path="res://Textures/Extracted/BombAnim/BombActive1.png" id="2_g2p0v"]
 [ext_resource type="Texture2D" uid="uid://dggyxw65gvgif" path="res://Textures/Extracted/BombAnim/BombActive2.png" id="3_cn1ep"]
 [ext_resource type="Texture2D" uid="uid://2ho6iqy7jmwc" path="res://Textures/Extracted/BombAnim/BombActive3.png" id="4_6qagq"]
@@ -25,6 +24,61 @@
 [ext_resource type="Texture2D" uid="uid://bj6fraliaqk0q" path="res://Textures/Extracted/BombAnim/BombActive22.png" id="23_c2weo"]
 [ext_resource type="Texture2D" uid="uid://bd787wsb7j4ya" path="res://Textures/Extracted/BombAnim/BombActive23.png" id="24_1apnb"]
 [ext_resource type="Texture2D" uid="uid://bq5j1ifonkp51" path="res://Textures/Extracted/BombAnim/BombActive24.png" id="25_pxqp3"]
+
+[sub_resource type="GDScript" id="GDScript_x6m2c"]
+script/source = "#xtends RigidBody3D
+#
+## This is to make the explosion a child of the global scene and be able to delete the bomb
+#
+#@onready var main : Node3D = $\"..\"
+#@onready var age: float = 0
+#@onready var wall_delete_hitbox : Area3D = $WallDeleteBox
+#@onready var damage_hitbox : Area3D = $DamageBox
+#@onready var explosion_fog  = preload(\"res://SceneObjs/explosion_bomb.tscn\")
+#@export var lifetime : float = 3
+#@export var knockback_strength : float = 1
+#
+#
+## Called when the node enters the scene tree for the first time.
+#func _ready() -> void:
+	#add_constant_force(Vector3(0, 10, 10))
+#
+#
+## Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _physics_process(delta: float) -> void:
+	#print(global_position)
+	#age += delta
+	## Blow up
+	#if age > lifetime:
+		#explode()
+#
+#func explode() -> void:
+	## Check for bombable walls (layer 11)
+	#var wall_collisions : Array[Node3D] = wall_delete_hitbox.get_overlapping_bodies()
+	#for col in wall_collisions:
+		#col.queue_free()
+	## Check for entitys to damage (layer 10)
+	#var dmg_collisions : Array[Node3D] = damage_hitbox.get_overlapping_bodies()
+	#for col in dmg_collisions:
+		## Damage
+		## TODO: emit damage signal to entity
+		#
+		#
+		## Knockback
+		## Scale knockback relevant to how close the bomb is
+		#var distance : float = col.position.distance_to(position)
+		#var knockback_scalar : float = knockback_strength / (distance + 0.01)
+		#var knockback_dir : Vector3 = position.direction_to(col.position)
+		#if knockback_dir.y > 0.1:
+			#knockback_dir.y = 0.1
+		## Give it some upward velocity
+		#col.velocity += knockback_scalar * knockback_dir
+	##var explosion = explosion_fog.instantiate()
+	##explosion.position = position
+	##main.add_child(explosion)
+	## Delete the bomb
+	#queue_free()
+"
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g2p0v"]
 
@@ -114,7 +168,7 @@ animations = [{
 }]
 
 [node name="BombItem" type="Node3D" unique_id=1337811674]
-script = ExtResource("1_kh6qh")
+script = SubResource("GDScript_x6m2c")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1408158233]
 physics_material_override = SubResource("PhysicsMaterial_g2p0v")
