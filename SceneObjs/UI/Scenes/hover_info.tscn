@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b0a7rpgtsi4ls" path="res://SceneObjs/UI/Scripts/hover_info.gd" id="1_bh7f8"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_bh7f8"]
+
 [node name="HoverInfo" type="Control" unique_id=1659669647]
 layout_mode = 3
 anchors_preset = 15
@@ -35,6 +37,7 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 text = "Name goes here"
+label_settings = SubResource("LabelSettings_bh7f8")
 autowrap_mode = 2
 
 [node name="ItemInfo" type="Label" parent="Panel/ScrollContainer/LabelContainer" unique_id=139743328]

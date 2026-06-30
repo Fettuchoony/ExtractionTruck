@@ -1,4 +1,4 @@
-class_name SpecialModifier extends ProjectileModifier
+class_name SpecialModifier extends Item
 
 # Special effects
 @export var horizontal_scatter : bool = false
