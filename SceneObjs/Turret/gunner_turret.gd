@@ -134,6 +134,8 @@ func update_turret_stats() -> void:
 	if _current_projectiles.size() > 1:
 		for projectile in _current_projectiles:
 			projectile.invalid.visible = true
+	elif _current_projectiles.size() == 1:
+		_current_projectiles[0].invalid.visible = false
 	
 	i = 0
 	# Meta modifier loop, performed after because it mods the mods

@@ -87,8 +87,8 @@ func _input(event: InputEvent) -> void:
 		rect.position = global_position
 		# When clicked
 		if rect.has_point(get_screen_transform() * get_local_mouse_position()):
+			invalid.visible = false
 			if _cursor_slot.get_child_count() > 0:
-				invalid.visible = false
 				_cursor_slot.get_child(0).move()
 			move(_cursor_slot)
 
@@ -110,10 +110,10 @@ func move(new_parent = fallback_location) -> void:
 		in_turret = false
 
 # Item slots can request an item (taskbar or turret)
-func _request_item_for_slot(slot : ItemSlot) -> void:
+func _request_item_for_slot(slot : Control) -> void:
 	if !_stored:
 		move(slot)
-		if slot.is_turret_slot:
+		if slot is ItemSlot && slot.is_turret_slot:
 			get_tree().call_group("turrets", "update_turret_stats")
 
 func _adjust_rect() -> void:

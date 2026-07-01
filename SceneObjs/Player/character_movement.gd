@@ -256,7 +256,8 @@ func use_item() -> void:
 	if !_paused && Input.is_action_just_pressed("Click") && _taskbar_rects[_current_taskbar_index].find_child("Augment").get_child_count() > 0 && !_displaying_turret_gui:
 		var curr_item = _taskbar_rects[_current_taskbar_index].find_child("Augment").get_child(0)
 		# trigger the current item
-		curr_item.trigger(_item_spawn_location.global_position)
+		if !(curr_item is ProjectileModifier) && !(curr_item is SpecialModifier):
+			curr_item.trigger(_item_spawn_location.global_position)
 	
 	
 # TODO: add more params for signals from enemies for debuffs and stuff
